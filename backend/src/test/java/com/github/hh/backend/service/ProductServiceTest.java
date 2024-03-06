@@ -34,4 +34,19 @@ class ProductServiceTest {
         verify(mockProductRepo, times(1)).findAll();
         verifyNoMoreInteractions(mockProductRepo);
     }
+
+    @Test
+    void updateProduct_shouldReturnUpdatedProduct() {
+        // Given
+        Product product = new Product("1", "Product", 5,"Description");
+        when(mockProductRepo.save(product)).thenReturn(product);
+
+        // When
+        ProductService productService = new ProductService(mockProductRepo);
+
+        // Then
+        assertEquals(product, productService.updateProduct(product));
+        verify(mockProductRepo, times(1)).save(product);
+        verifyNoMoreInteractions(mockProductRepo);
+    }
 }
