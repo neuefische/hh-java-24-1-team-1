@@ -121,5 +121,4 @@ class ProductControllerTest {
         verify(mockProductService, times(1)).getProductById("1");
         verifyNoMoreInteractions(mockProductService);
     }
-
 }
