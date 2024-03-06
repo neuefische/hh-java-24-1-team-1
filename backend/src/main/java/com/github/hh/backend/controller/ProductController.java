@@ -24,6 +24,9 @@ public class ProductController {
     @ResponseStatus(HttpStatus.CREATED)
     public Product addProduct(@RequestBody ProductDTO productDTO){
         return productService.addProduct(productDTO);
+    @GetMapping
+    public List<Product> getAllProducts() {
+        return productService.getAllProducts();
     }
 
     @GetMapping("/products/{id}")
