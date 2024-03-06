@@ -19,7 +19,11 @@ export default function AddProductCard():JSX.Element{
 
     function handleSubmit(event:FormEvent<HTMLFormElement>):void {
         event.preventDefault();
-        axios.post('api/products', formData)
+        axios.post('../api/products', {
+            "name":formData.name,
+            "amount": formData.amount,
+            "description": formData.description
+        })
             .then(response => {
                 console.log("New product added with id " + response.data.id + ".");
             })
@@ -39,23 +43,30 @@ export default function AddProductCard():JSX.Element{
     }
 
     return (
-        <>
             <form className={"PostBar"} onSubmit={handleSubmit}>
                 <h2>Neues Produkt anlegen:</h2>
                 <div>
                     <label htmlFor={"name"}>Produktname:</label>
-                    <input id={"name"} type={"text"} name={"name"} value={formData.name} onChange={handleChangeInput}/>
+                    <input id={"name"} name={"name"}
+                           type={"text"}
+                           value={formData.name}
+                           onChange={handleChangeInput}/>
                 </div>
                 <div>
                     <label htmlFor={"description"}>Produktbeschreibung:</label>
-                    <input id={"description"} type={"text"} name={"description"} value={formData.description} onChange={handleChangeInput}/>
+                    <input id={"description"} name={"description"}
+                           type={"text"}
+                           value={formData.description}
+                           onChange={handleChangeInput}/>
                 </div>
                 <div>
                     <label htmlFor={"amount"}>Anzahl auf Lager:</label>
-                    <input id={"amount"} type={"number"} name={"amount"} value={formData.amount} onChange={handleChangeInput}/>
+                    <input id={"amount"} name={"amount"}
+                           type={"number"}
+                           value={formData.amount}
+                           onChange={handleChangeInput}/>
                 </div>
+                <button type={"submit"}>Bestätigen</button>
             </form>
-            <button type={"submit"}>Bestätigen</button>
-        </>
     )
 }
