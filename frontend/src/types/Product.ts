@@ -1,5 +1,6 @@
 export type Product = {
     id:string,
     name:string,
-    amount:number
+    amount:number,
+    description:string
 }
