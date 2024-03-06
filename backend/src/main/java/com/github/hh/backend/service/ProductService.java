@@ -13,6 +13,12 @@ import java.util.List;
 public class ProductService {
     private final ProductRepo productRepo;
 
+
+
+    public Product getProductById(String id) {
+        return productRepo.findById(id).orElseThrow();
+    }
+
     public Product updateProduct(Product product) {
         return productRepo.save(product);
     }
@@ -21,5 +27,4 @@ public class ProductService {
         List<Product> products = productRepo.findAll();
         return productRepo.save(new Product(String.valueOf(products.size() + 1), productDTO.name(), productDTO.amount(), productDTO.description()));
     }
-
 }
