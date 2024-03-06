@@ -21,7 +21,7 @@ class ProductControllerTest {
     @Autowired
     private MockMvc mvc;
 
-    /*
+
     @Test
     void updateProduct_shouldReturnUpdatedProduct() throws Exception {
         // Given
@@ -52,6 +52,6 @@ class ProductControllerTest {
                 ));
     }
 
-     */
+
 
 }

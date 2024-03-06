@@ -15,8 +15,8 @@ public class ProductController {
     private final ProductService productService;
 
     @PutMapping("/update")
-    public void updateProduct(@RequestBody Product product) {
-        productService.updateProduct(product);
+    public Product updateProduct(@RequestBody Product product) {
+        return productService.updateProduct(product);
     }
 
     @PostMapping
