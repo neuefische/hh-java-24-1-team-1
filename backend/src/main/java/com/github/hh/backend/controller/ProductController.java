@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/products")
 @RequiredArgsConstructor
@@ -24,6 +26,8 @@ public class ProductController {
     @ResponseStatus(HttpStatus.CREATED)
     public Product addProduct(@RequestBody ProductDTO productDTO){
         return productService.addProduct(productDTO);
+    }
+
     @GetMapping
     public List<Product> getAllProducts() {
         return productService.findAllProducts();
