@@ -39,30 +39,32 @@ export default function AddProductCard():JSX.Element{
     }
 
     return (
-            <form className={"PostBar"} onSubmit={handleSubmit}>
-                <h2>Neues Produkt anlegen:</h2>
-                <div>
-                    <label htmlFor={"name"}>Produktname:</label>
-                    <input id={"name"} name={"name"}
-                           type={"text"}
-                           value={formData.name}
-                           onChange={handleChangeInput}/>
-                </div>
-                <div>
-                    <label htmlFor={"description"}>Produktbeschreibung:</label>
-                    <input id={"description"} name={"description"}
-                           type={"text"}
-                           value={formData.description}
-                           onChange={handleChangeInput}/>
-                </div>
-                <div>
-                    <label htmlFor={"amount"}>Anzahl auf Lager:</label>
-                    <input id={"amount"} name={"amount"}
-                           type={"number"}
-                           value={formData.amount}
-                           onChange={handleChangeInput}/>
-                </div>
-                <button type={"submit"}>Bestätigen</button>
-            </form>
+        <form className={"PostBar"} onSubmit={handleSubmit}>
+            <h2>Neues Produkt anlegen:</h2>
+            <div>
+                <label htmlFor={"name"}>Produktname:</label>
+                <input id={"name"} name={"name"}
+                       type={"text"}
+                       value={formData.name}
+                       onChange={handleChangeInput}/>
+            </div>
+            <div>
+                <label htmlFor={"description"}>Produktbeschreibung:</label>
+                <input id={"description"} name={"description"}
+                       type={"text"}
+                       value={formData.description}
+                       onChange={handleChangeInput}/>
+            </div>
+            <div>
+                <label htmlFor={"amount"}>Anzahl auf Lager:</label>
+                <input id={"amount"} name={"amount"}
+                       type={"number"}
+                       value={formData.amount}
+                       onChange={handleChangeInput}/>
+            </div>
+            <button type={"submit"}>Bestätigen</button>
+        </form>
     )
+
+
 }
