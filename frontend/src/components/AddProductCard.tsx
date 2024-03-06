@@ -2,29 +2,26 @@ import './AddProductGallery.css'
 import {ChangeEvent, FormEvent, useState} from "react";
 import axios from "axios";
 
-type AddProductCardProps = {
-    triggerChange: () => void;
-}
-
 type ProductDTO = {
     name:string,
     amount:number,
     description:string
 }
-const initialFormData = {
+
+const initialFormData:ProductDTO = {
     name: '',
     description: '',
     amount: 0
 }
 
-export default function AddProductCard(props:Readonly<AddProductCardProps>):JSX.Element{
+export default function AddProductCard():JSX.Element{
     const [formData, setFormData] = useState<ProductDTO>(initialFormData);
+
     function handleSubmit(event:FormEvent<HTMLFormElement>):void {
         event.preventDefault();
         axios.post('api/products', formData)
             .then(response => {
                 console.log("New product added with id " + response.data.id + ".");
-                props.triggerChange();
             })
             .catch(error => {
                 console.error("Error creating product: ", error.message);
