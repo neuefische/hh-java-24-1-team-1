@@ -19,11 +19,7 @@ export default function AddProductCard():JSX.Element{
 
     function handleSubmit(event:FormEvent<HTMLFormElement>):void {
         event.preventDefault();
-        axios.post('../api/products', {
-            "name":formData.name,
-            "amount": formData.amount,
-            "description": formData.description
-        })
+        axios.post('../api/products', formData)
             .then(response => {
                 console.log("New product added with id " + response.data.id + ".");
             })
