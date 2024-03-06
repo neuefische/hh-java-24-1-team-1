@@ -8,12 +8,13 @@ function ProductUpdate() {
     const [product, setProduct] = useState({
         id: id,
         name: '',
+        description: '',
         amount: 0
     });
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/api/products/${id}`
-        ).then(response => {
+        axios.get(`/api/products/products/${id}`)
+            .then(response => {
             setProduct(response.data);
         })
             .catch(error => {
@@ -24,10 +25,10 @@ function ProductUpdate() {
     const navigate = useNavigate();
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        axios.put(`http://localhost:8000/api/products/update`, product)
+        axios.put(`/api/products/update`, product)
             .then(response => {
                 console.log(response)
-                navigate('/')
+                navigate(`/products/${id}`)
             })
             .catch(error => {
                 console.log(error)
@@ -40,13 +41,20 @@ function ProductUpdate() {
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>Name</label>
-                    <input type="text" value={product.name} onChange={(e) => setProduct({...product, name: e.target.value})}/>
+                    <input type="text" value={product.name} name={"name"}
+                           onChange={(e) => setProduct({...product, name: e.target.value})}/>
+                </div>
+                <div>
+                    <label>Description</label>
+                    <input type="text" value={product.description} name={"description"}
+                           onChange={(e) => setProduct({...product, description: e.target.value})}/>
                 </div>
                 <div>
                     <label>Amount</label>
-                    <input type="number" value={product.amount} onChange={(e) => setProduct({...product, amount: parseInt(e.target.value)})}/>
+                    <input type="number" value={product.amount} name={"amount"}
+                           onChange={(e) => setProduct({...product, amount: parseInt(e.target.value)})}/>
                 </div>
-                <button type="button" >Update</button>
+                <button type="submit">Update</button>
             </form>
 
         </div>
