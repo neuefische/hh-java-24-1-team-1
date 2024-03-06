@@ -1,6 +1,7 @@
 package com.github.hh.backend.service;
 
 import com.github.hh.backend.model.Product;
+import com.github.hh.backend.model.Product;
 import com.github.hh.backend.model.ProductDTO;
 import com.github.hh.backend.repository.ProductRepo;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductRepo productRepo;
+
+    public Product updateProduct(Product product) {
+        return productRepo.save(product);
+    }
 
     public Product addProduct(ProductDTO productDTO) {
         List<Product> products = productRepo.findAll();
