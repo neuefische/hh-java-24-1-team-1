@@ -1,4 +1,4 @@
-import './AddProductGallery.css'
+import './AddProductCard.css'
 import {ChangeEvent, FormEvent, useState} from "react";
 import axios from "axios";
 
