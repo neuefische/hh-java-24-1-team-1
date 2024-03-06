@@ -36,7 +36,8 @@ class ProductControllerTest {
         // When and Then
         mvc.perform(MockMvcRequestBuilders.put("/api/products/update")
                 .contentType(MediaType.APPLICATION_JSON)
-                        .content("""
+                        .content(
+                                """
                                 {
                                   "id" : "1",
                                   "name" : "Updated Product",
@@ -46,12 +47,13 @@ class ProductControllerTest {
                                 """
                         ))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json("""
+                .andExpect(MockMvcResultMatchers.content().json(
+                        """
                         {
                           "id" : "1",
                           "name" : "Updated Product",
                           "amount" : 5,
-                          "description" : "Updated Description"
+                            "description" : "Updated Description"
                         }
                         """
                 ));
@@ -96,5 +98,24 @@ class ProductControllerTest {
         verifyNoMoreInteractions(mockProductService);
     }
 
+    @Test
+    void getProductById_returnTestProduct_whenCalledByCorrectId() throws Exception {
+        Product product = new Product("1", "Test-Product", 10,"example description");
+        productRepo.save(product);
 
+        // When and Then
+        mvc.perform(MockMvcRequestBuilders.get("/api/products/1"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(
+                        """
+                        {
+                          "id" : "1",
+                          "name" : "Test-Product",
+                          "amount" : 10,
+                          "description" : "example description"
+                        }
+                        """
+                ));
+
+    }
 }
