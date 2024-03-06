@@ -1,11 +1,9 @@
 package com.github.hh.backend.controller;
 
 import com.github.hh.backend.model.Product;
-import com.github.hh.backend.model.Product;
 import com.github.hh.backend.model.ProductDTO;
 import com.github.hh.backend.service.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,5 +20,10 @@ public class ProductController {
     @PostMapping
     public Product addProduct(ProductDTO productDTO){
         return productService.addProduct(productDTO);
+    }
+
+    @GetMapping("/products/{id}")
+    public Product getProductById(@PathVariable String id) {
+        return productService.getProductById(id);
     }
 }
