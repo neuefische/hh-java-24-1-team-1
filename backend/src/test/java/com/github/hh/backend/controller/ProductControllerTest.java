@@ -24,7 +24,7 @@ class ProductControllerTest {
     @Test
     void updateProduct_shouldReturnUpdatedProduct() throws Exception {
         // Given
-        Product product = new Product("1", "Product", 10);
+        Product product = new Product("1", "Product", 10,"Description");
         productRepo.save(product);
 
         // When and Then
@@ -35,7 +35,8 @@ class ProductControllerTest {
                                 {
                                   "id" : "1",
                                   "name" : "Updated Product",
-                                  "amount" : 5
+                                  "amount" : 5,
+                                  "description" : "Updated Description"
                                 }
                                 """
                         ))
@@ -45,7 +46,8 @@ class ProductControllerTest {
                         {
                           "id" : "1",
                           "name" : "Updated Product",
-                          "amount" : 5
+                          "amount" : 5,
+                            "description" : "Updated Description"
                         }
                         """
                 ));
