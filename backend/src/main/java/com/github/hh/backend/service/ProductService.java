@@ -17,4 +17,8 @@ public class ProductService {
         List<Product> products = productRepo.findAll();
         return productRepo.save(new Product(String.valueOf(products.size() + 1), productDTO.name(), productDTO.amount(), productDTO.description()));
     }
+
+    public void getProductById(String id) {
+        return productRepo.find(id);
+    }
 }
