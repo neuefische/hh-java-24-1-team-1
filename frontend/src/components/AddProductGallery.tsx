@@ -1,4 +1,4 @@
-import 'AddProductGallery.css'
+import './AddProductGallery.css'
 import AddProductCard from "./AddProductCard.tsx";
 import {FormEvent, useState} from "react";
 import ProductCard from "./ProductCard.tsx";
@@ -22,7 +22,7 @@ export default function AddProductGallery():JSX.Element{
     }
 
     return (
-        <main>
+        <main className={"addProductGallery"}>
             <AddProductCard handleSubmit={handleSubmit}/>
             {
                 submittedProducts ?
