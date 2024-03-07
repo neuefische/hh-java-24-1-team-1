@@ -39,10 +39,10 @@ class ProductServiceTest {
     void updateProduct_shouldReturnUpdatedProduct() {
         // Given
         ProductDTO productDTO = new ProductDTO("Product", 10,"Description");
-
-        // When
         ProductService productService = new ProductService(mockProductRepo);
         Product expected = productService.addProduct(productDTO);
+
+        // When
         Product actual = productService.updateProduct(expected.withAmount(5).withName("Updated Name").withDescription("Updated Description"));
 
         expected = expected.withAmount(5).withName("Updated Name").withDescription("Updated Description");
@@ -53,15 +53,14 @@ class ProductServiceTest {
     @Test
     void getProductById_shouldReturnProduct() {
         // Given
-        Product product = new Product("1", "Product", 5,"Description");
-        when(mockProductRepo.findById("1")).thenReturn(java.util.Optional.of(product));
+        ProductDTO productDTO = new ProductDTO("Product", 10,"Description");
+        ProductService productService = new ProductService(mockProductRepo);
+        Product expected = productService.addProduct(productDTO);
 
         // When
-        ProductService productService = new ProductService(mockProductRepo);
+        Product actual = productService.getProductById(expected.id());
 
         // Then
-        assertEquals(product, productService.getProductById("1"));
-        verify(mockProductRepo, times(1)).findById("1");
-        verifyNoMoreInteractions(mockProductRepo);
+        assertEquals(expected, actual);
     }
 }
