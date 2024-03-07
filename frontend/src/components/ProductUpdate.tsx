@@ -13,7 +13,7 @@ function ProductUpdate() {
     });
 
     useEffect(() => {
-        axios.get(`/api/products/products/${id}`)
+        axios.get(`/api/products/${id}`)
             .then(response => {
             setProduct(response.data);
         })
@@ -40,17 +40,17 @@ function ProductUpdate() {
             <h2>Product Update</h2>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>Name</label>
+                    <label htmlFor={"name"}>Name</label>
                     <input type="text" value={product.name} name={"name"}
                            onChange={(e) => setProduct({...product, name: e.target.value})}/>
                 </div>
                 <div>
-                    <label>Description</label>
+                    <label htmlFor={"description"}>Description</label>
                     <input type="text" value={product.description} name={"description"}
                            onChange={(e) => setProduct({...product, description: e.target.value})}/>
                 </div>
                 <div>
-                    <label>Amount</label>
+                    <label htmlFor={"amount"}>Amount</label>
                     <input type="number" value={product.amount} name={"amount"}
                            onChange={(e) => setProduct({...product, amount: parseInt(e.target.value)})}/>
                 </div>
