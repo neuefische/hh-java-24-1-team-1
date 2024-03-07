@@ -30,4 +30,8 @@ public class ProductService {
     public Product addProduct(ProductDTO productDTO) {
         return productRepo.save(new Product(null, productDTO.name(), productDTO.amount(), productDTO.description()));
     }
+
+    public void deleteProductById(String id) {
+        productRepo.deleteById(id);
+    }
 }
