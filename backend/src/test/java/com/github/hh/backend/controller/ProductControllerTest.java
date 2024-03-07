@@ -28,7 +28,6 @@ class ProductControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-
     @Test
     void updateProduct_shouldReturnUpdatedProduct() throws Exception {
         // Given
@@ -92,5 +91,4 @@ class ProductControllerTest {
 
         assertEquals(expectedProduct, actualProduct);
     }
-
 }
