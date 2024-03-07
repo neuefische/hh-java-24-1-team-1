@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/products")
 @RequiredArgsConstructor
@@ -36,5 +34,10 @@ public class ProductController {
     @GetMapping("/{id}")
     public Product getProductById(@PathVariable String id) {
         return productService.getProductById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteProductById(@PathVariable String id){
+        productService.deleteProductById(id);
     }
 }
