@@ -7,8 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -22,16 +20,16 @@ class ProductServiceTest {
     void addProduct_whenNewProductDTOGiven_thenReturnProductIncludingNewID(){
         // Given
         ProductDTO productDTO = new ProductDTO("Product", 10,"Description");
-        Product expected = new Product("1", "Product", 10,"Description");
-        when(mockProductRepo.save(expected)).thenReturn(expected);
-        when(mockProductRepo.findAll()).thenReturn(new ArrayList<>());
+        Product expectedOutput = new Product("1", "Product", 10,"Description");
+        Product expectedInput = new Product(null, "Product", 10,"Description");
+        when(mockProductRepo.save(expectedInput)).thenReturn(expectedOutput);
+
         // When
         ProductService productService = new ProductService(mockProductRepo);
 
         // Then
-        assertEquals(expected, productService.addProduct(productDTO));
-        verify(mockProductRepo, times(1)).save(expected);
-        verify(mockProductRepo, times(1)).findAll();
+        assertEquals(expectedOutput, productService.addProduct(productDTO));
+        verify(mockProductRepo, times(1)).save(expectedInput);
         verifyNoMoreInteractions(mockProductRepo);
     }
 
