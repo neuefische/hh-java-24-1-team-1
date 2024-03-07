@@ -18,6 +18,7 @@ export default function AddProductCard(props: Readonly<AddProductCardPorps>):JSX
     function handleSubmit(event:FormEvent<HTMLFormElement>):void{
         event.preventDefault();
         props.handleSubmit(event, formData);
+        setFormData(initialFormData);
     }
 
     function handleChangeInput(event: ChangeEvent<HTMLInputElement>):void {
@@ -30,7 +31,7 @@ export default function AddProductCard(props: Readonly<AddProductCardPorps>):JSX
     }
 
     return (
-        <form className={"PostBar"} onSubmit={handleSubmit}>
+        <form className={"addProductCard"} onSubmit={handleSubmit}>
             <h2>Neues Produkt anlegen:</h2>
             <div>
                 <label htmlFor={"name"}>Produktname:</label>
