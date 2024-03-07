@@ -71,9 +71,7 @@ class ProductServiceTest {
 
         // When
         // Then
-        assertThrows(NoSuchProductException.class, () -> {
-            productService.deleteProductById(expected.id());
-        });
+        assertThrows(NoSuchProductException.class, () -> productService.deleteProductById(expected.id()));
     }
 
     @Test
@@ -87,8 +85,6 @@ class ProductServiceTest {
         productService.deleteProductById(expected.id());
 
         // Then
-        assertThrows(NoSuchProductException.class, () -> {
-            productService.getProductById(expected.id());
-        });
+        assertThrows(NoSuchProductException.class, () -> productService.getProductById(expected.id()));
     }
 }
