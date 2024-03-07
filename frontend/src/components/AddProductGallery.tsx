@@ -24,11 +24,7 @@ export default function AddProductGallery():JSX.Element{
     return (
         <main className={"addProductGallery"}>
             <AddProductCard handleSubmit={handleSubmit}/>
-            {
-                submittedProducts ?
-                    submittedProducts.map((product:Product)=> <ProductCard key={product.id} product={product}/>) :
-                    <></>
-            }
+            { submittedProducts.length >0 && submittedProducts.map((product:Product)=> <ProductCard key={product.id} product={product}/>) }
         </main>
     )
 }
