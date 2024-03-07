@@ -47,4 +47,19 @@ class ProductServiceTest {
         verify(mockProductRepo, times(1)).save(product);
         verifyNoMoreInteractions(mockProductRepo);
     }
+
+    @Test
+    void getProductById_shouldReturnProduct() {
+        // Given
+        Product product = new Product("1", "Product", 5,"Description");
+        when(mockProductRepo.findById("1")).thenReturn(java.util.Optional.of(product));
+
+        // When
+        ProductService productService = new ProductService(mockProductRepo);
+
+        // Then
+        assertEquals(product, productService.getProductById("1"));
+        verify(mockProductRepo, times(1)).findById("1");
+        verifyNoMoreInteractions(mockProductRepo);
+    }
 }
