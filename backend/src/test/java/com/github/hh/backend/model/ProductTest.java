@@ -27,7 +27,6 @@ class ProductTest {
         // When
         Product product = new Product("id","Peter", 13, "description");
 
-
         // Then
         assertEquals(expected, product.name());
     }
@@ -39,7 +38,6 @@ class ProductTest {
 
         // When
         Product product = new Product("id","Peter", 13, "description");
-
 
         // Then
         assertEquals(expected, product.amount());
@@ -53,7 +51,6 @@ class ProductTest {
         // When
         Product product = new Product("id","Peter", 13, "description");
 
-
         // Then
         assertEquals(expected, product.description());
     }
@@ -65,7 +62,6 @@ class ProductTest {
 
         // When
         Product product = new Product("id","Peter", 13, "description");
-
 
         // Then
         assertEquals(expected, product.withId(expected).id());
@@ -79,7 +75,6 @@ class ProductTest {
         // When
         Product product = new Product("id","Peter", 13, "description");
 
-
         // Then
         assertEquals(expected, product.withName(expected).name());
     }
@@ -92,7 +87,6 @@ class ProductTest {
         // When
         Product product = new Product("id","Peter", 13, "description");
 
-
         // Then
         assertEquals(expected, product.withAmount(expected).amount());
     }
@@ -104,7 +98,6 @@ class ProductTest {
 
         // When
         Product product = new Product("id","Peter", 13, "description");
-
 
         // Then
         assertEquals(expected, product.withDescription(expected).description());
