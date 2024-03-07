@@ -16,7 +16,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -33,32 +32,25 @@ class ProductControllerTest {
     @Test
     void updateProduct_shouldReturnUpdatedProduct() throws Exception {
         // Given
-        Product product = new Product("1", "Updated Product", 5,"Updated Description");
+        ProductDTO productDTO = new ProductDTO("Product", 10,"Description");
+        String productDtoJson = objectMapper.writeValueAsString(productDTO);
+
+        MvcResult setup = mvc.perform(MockMvcRequestBuilders.post("/api/products").contentType(MediaType.APPLICATION_JSON).content(productDtoJson)).andReturn();
+        Product expectedProduct = objectMapper.readValue(setup.getResponse().getContentAsString(), Product.class);
+        expectedProduct = expectedProduct.withName("Updated Product").withAmount(5).withDescription("Updated Description");
+        String productJson = objectMapper.writeValueAsString(expectedProduct);
 
         // When and Then
-        mvc.perform(MockMvcRequestBuilders.put("/api/products/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                        .content(
-                                """
-                                {
-                                  "id" : "1",
-                                  "name" : "Updated Product",
-                                  "amount" : 5,
-                                  "description" : "Updated Description"
-                                }
-                                """
-                        ))
+        MvcResult result = mvc.perform(MockMvcRequestBuilders.put("/api/products/update")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(productJson)
+                )
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json(
-                        """
-                        {
-                          "id" : "1",
-                          "name" : "Updated Product",
-                          "amount" : 5,
-                            "description" : "Updated Description"
-                        }
-                        """
-                ));
+                .andReturn();
+
+        Product updatedProduct = objectMapper.readValue(result.getResponse().getContentAsString(), Product.class);
+
+        assertEquals(expectedProduct.withName("Updated Product").withAmount(5).withDescription("Updated Description"), updatedProduct);
     }
 
     @Test
@@ -96,7 +88,7 @@ class ProductControllerTest {
         MvcResult result = mvc.perform(MockMvcRequestBuilders.get("/api/products/" + expectedProduct.id()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
-        Product actualProduct = objectMapper.readValue(setup.getResponse().getContentAsString(), Product.class);
+        Product actualProduct = objectMapper.readValue(result.getResponse().getContentAsString(), Product.class);
 
         assertEquals(expectedProduct, actualProduct);
     }
