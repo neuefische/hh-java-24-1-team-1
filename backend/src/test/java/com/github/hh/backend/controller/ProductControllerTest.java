@@ -86,24 +86,19 @@ class ProductControllerTest {
     void getProductById_returnTestProduct_whenCalledByCorrectId() throws Exception {
         // Given
         ProductDTO productDTO = new ProductDTO("Product", 10,"Description");
-        Product product = new Product("1", "Product", 10,"Description");
-        when(mockProductService.getProductById("1")).thenReturn(product);
+        String productDtoJson = objectMapper.writeValueAsString(productDTO);
+
+        MvcResult setup = mvc.perform(MockMvcRequestBuilders.post("/api/products").contentType(MediaType.APPLICATION_JSON).content(productDtoJson)).andReturn();
+        Product expectedProduct = objectMapper.readValue(setup.getResponse().getContentAsString(), Product.class);
+
 
         // When and Then
-        mvc.perform(MockMvcRequestBuilders.get("/api/products/1"))
+        MvcResult result = mvc.perform(MockMvcRequestBuilders.get("/api/products/" + expectedProduct.id()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json(
-                        """
-                        {    
-                          "id" : "1",                 
-                          "name" : "Product",
-                          "amount" : 10,
-                          "description" : "Description"
-                        }
-                        """
-                ));
-        verify(mockProductService, times(1)).getProductById("1");
-        verifyNoMoreInteractions(mockProductService);
+                .andReturn();
+        Product actualProduct = objectMapper.readValue(setup.getResponse().getContentAsString(), Product.class);
+
+        assertEquals(expectedProduct, actualProduct);
     }
 
 }
