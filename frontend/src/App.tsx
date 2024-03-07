@@ -4,6 +4,7 @@ import AddProductCard from "./components/AddProductCard.tsx";
 import ProductDetail from "./components/ProductDetail";
 import {ProductList} from "./components/ProductList.tsx";
 import Header from "./components/Header.tsx";
+import AddProductGallery from "./components/AddProductGallery.tsx";
 
 export default function App() {
 
@@ -13,7 +14,7 @@ export default function App() {
             <main>
                 <Routes>
                     <Route path={"/"} element={<ProductList />} />
-                    <Route path={"/products/add"} element={<AddProductCard />}/>
+                    <Route path={"/products/add"} element={<AddProductGallery />}/>
                     <Route path={"/products/:id/edit"} element={<ProductUpdate />}/>
                     <Route path={"/products/:id"} element={<ProductDetail/>}/>
                 </Routes>
