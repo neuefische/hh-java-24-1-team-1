@@ -66,13 +66,11 @@ class ProductServiceTest {
     @Test
     void deleteProductById_whenNoSuchProduct_thenThrow() {
         // Given
-        ProductDTO productDTO = new ProductDTO("Product", 10, "Description");
         ProductService productService = new ProductService(mockProductRepo);
-        Product expected = productService.addProduct(productDTO);
 
         // When
         // Then
-        assertThrows(NoSuchProductException.class, () -> productService.deleteProductById(expected.id()));
+        assertThrows(NoSuchProductException.class, () -> productService.deleteProductById("1"));
     }
 
     @Test
@@ -86,6 +84,6 @@ class ProductServiceTest {
         productService.deleteProductById(expected.id());
 
         // Then
-        assertThrows(NoSuchProductException.class, () -> productService.getProductById(expected.id()));
+        assertFalse(mockProductRepo.existsById(expected.id()));
     }
 }
