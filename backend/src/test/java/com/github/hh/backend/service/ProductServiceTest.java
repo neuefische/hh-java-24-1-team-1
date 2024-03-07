@@ -1,5 +1,6 @@
 package com.github.hh.backend.service;
 
+import com.github.hh.backend.exception.NoSuchProductException;
 import com.github.hh.backend.model.Product;
 import com.github.hh.backend.model.ProductDTO;
 import com.github.hh.backend.repository.ProductRepo;
