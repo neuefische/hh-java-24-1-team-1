@@ -100,22 +100,26 @@ class ProductControllerTest {
 
     @Test
     void getProductById_returnTestProduct_whenCalledByCorrectId() throws Exception {
-        Product product = new Product("1", "Test-Product", 10,"example description");
-        productRepo.save(product);
+        // Given
+        ProductDTO productDTO = new ProductDTO("Product", 10,"Description");
+        Product product = new Product("1", "Product", 10,"Description");
+        when(mockProductService.getProductById("1")).thenReturn(product);
 
         // When and Then
         mvc.perform(MockMvcRequestBuilders.get("/api/products/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(
                         """
-                        {
-                          "id" : "1",
-                          "name" : "Test-Product",
+                        {    
+                          "id" : "1",                 
+                          "name" : "Product",
                           "amount" : 10,
-                          "description" : "example description"
+                          "description" : "Description"
                         }
                         """
                 ));
-
+        verify(mockProductService, times(1)).getProductById("1");
+        verifyNoMoreInteractions(mockProductService);
     }
+
 }
