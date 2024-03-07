@@ -1,6 +1,5 @@
 import {Route, Routes} from "react-router-dom";
 import ProductUpdate from "./components/ProductUpdate.tsx";
-import AddProductCard from "./components/AddProductCard.tsx";
 import ProductDetail from "./components/ProductDetail";
 import {ProductList} from "./components/ProductList.tsx";
 import Header from "./components/Header.tsx";
