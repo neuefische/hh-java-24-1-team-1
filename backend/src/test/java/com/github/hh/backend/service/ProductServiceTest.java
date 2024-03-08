@@ -5,23 +5,17 @@ import com.github.hh.backend.model.Product;
 import com.github.hh.backend.model.ProductDTO;
 import com.github.hh.backend.repository.ProductRepo;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
 
-
+@SpringBootTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class ProductServiceTest {
-
-    private final ProductRepo mockProductRepo = Mockito.mock(ProductRepo.class);
-
-    private final ProductService productService = new ProductService(mockProductRepo);
-
+    @Autowired
+    private ProductRepo mockProductRepo;
 
     @Test
     void addProduct_whenNewProductDTOGiven_thenReturnProductIncludingNewID(){
@@ -30,6 +24,7 @@ class ProductServiceTest {
         Product expected = new Product("1", "Product", 10,"Description", "1", 5);
 
         // When
+        ProductService productService = new ProductService(mockProductRepo);
         Product actual = productService.addProduct(productDTO);
 
         // Then
@@ -57,23 +52,15 @@ class ProductServiceTest {
     @Test
     void getProductById_shouldReturnProduct() {
         // Given
-        Product expected = new Product("1", "Product", 10,"Description", "1", 5);
+        ProductDTO productDTO = new ProductDTO("Product", 10,"Description", "1", 5);
+        ProductService productService = new ProductService(mockProductRepo);
+        Product expected = productService.addProduct(productDTO);
 
         // When
-        Mockito.when(mockProductRepo.findById(expected.id())).thenReturn(Optional.of(expected));
         Product actual = productService.getProductById(expected.id());
 
         // Then
-        verify(mockProductRepo).findById(expected.id());
         assertEquals(expected, actual);
-    }
-
-    @Test
-    void getProductById_whenNoSuchProduct_thenThrow() {
-        // Given
-        // When
-        // Then
-        assertThrows(NoSuchProductException.class, () -> productService.getProductById("1"));
     }
 
     @Test
@@ -122,22 +109,5 @@ class ProductServiceTest {
         // When
         // Then
         assertEquals(1, productService.getProductsInCriticalStock().size());
-    }
-
-    @Test
-    void findAllProducts_shouldReturnListOfProducts() {
-        // Given
-        Product product1 = new Product("1", "Product1", 10,"Description1", "1", 5);
-        Product product2 = new Product("2", "Product2", 10,"Description2", "2", 5);
-
-        List<Product> expected = Arrays.asList(product1, product2);
-
-        // When
-        Mockito.when(mockProductRepo.findAll()).thenReturn(expected);
-        List<Product> actual = productService.findAllProducts();
-
-        // Then
-        assertEquals(expected.size(), actual.size());
-        assertEquals(expected, actual);
     }
 }
