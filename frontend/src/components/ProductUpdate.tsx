@@ -26,7 +26,7 @@ function ProductUpdate() {
     }, [id]);
 
     const navigate = useNavigate();
-    const handleSubmit = (e: React.FormEvent) => {
+    function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
         axios.put(`/api/products/update`, product)
             .then(response => {
