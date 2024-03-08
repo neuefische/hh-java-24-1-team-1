@@ -1,5 +1,6 @@
 package com.github.hh.backend.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.hh.backend.model.ErrorMessage;
 import com.github.hh.backend.model.Product;
@@ -15,6 +16,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -132,5 +135,43 @@ class ProductControllerTest {
         assertEquals("uri=/api/products/" + expectedProduct.id(), errorMessage.apiPath());
         assertEquals(HttpStatus.BAD_REQUEST, errorMessage.errorCode());
         assertEquals("Product with ID " + expectedProduct.id() + " does not exist", errorMessage.errorMsg());
+    }
+
+    @Test
+    void getProductInCriticalStock_shouldReturnProductsInCriticalStock() throws Exception {
+        // Given
+        ProductDTO productDTO = new ProductDTO("Product", 10,"Description", "1", 15);
+        String productDtoJson = objectMapper.writeValueAsString(productDTO);
+
+        mvc.perform(MockMvcRequestBuilders.post("/api/products").contentType(MediaType.APPLICATION_JSON).content(productDtoJson)).andReturn();
+
+        // When
+        MvcResult result = mvc.perform(MockMvcRequestBuilders.get("/api/products/critical"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn();
+
+        List<Product> products = objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<>(){});
+
+        // Then
+        assertEquals(1, products.size());
+    }
+
+    @Test
+    void getProductInCriticalStock_shouldReturnEmptyList() throws Exception {
+        // Given
+        ProductDTO productDTO = new ProductDTO("Product", 10,"Description", "1", 5);
+        String productDtoJson = objectMapper.writeValueAsString(productDTO);
+
+        mvc.perform(MockMvcRequestBuilders.post("/api/products").contentType(MediaType.APPLICATION_JSON).content(productDtoJson)).andReturn();
+
+        // When
+        MvcResult result = mvc.perform(MockMvcRequestBuilders.get("/api/products/critical"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn();
+
+        List<Product> products = objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<>(){});
+
+        // Then
+        assertEquals(0, products.size());
     }
 }

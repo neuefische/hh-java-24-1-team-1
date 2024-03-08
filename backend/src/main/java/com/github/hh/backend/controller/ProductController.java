@@ -40,4 +40,9 @@ public class ProductController {
     public void deleteProductById(@PathVariable String id){
         productService.deleteProductById(id);
     }
+
+    @GetMapping("/critical")
+    public List<Product> getProductsInCriticalStock() {
+        return productService.getProductsInCriticalStock();
+    }
 }

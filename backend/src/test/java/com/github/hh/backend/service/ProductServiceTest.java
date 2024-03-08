@@ -86,4 +86,28 @@ class ProductServiceTest {
         // Then
         assertFalse(mockProductRepo.existsById(expected.id()));
     }
+
+    @Test
+    void getProductsInCriticalStock_shouldReturnEmptyList() {
+        // Given
+        ProductDTO productDTO = new ProductDTO("Product", 10,"Description", "1", 5);
+        ProductService productService = new ProductService(mockProductRepo);
+        productService.addProduct(productDTO);
+
+        // When
+        // Then
+        assertEquals(0, productService.getProductsInCriticalStock().size());
+    }
+
+    @Test
+    void getProductsInCriticalStock_shouldReturnListWithOneProduct() {
+        // Given
+        ProductDTO productDTO = new ProductDTO("Product", 10,"Description", "1", 15);
+        ProductService productService = new ProductService(mockProductRepo);
+        productService.addProduct(productDTO);
+
+        // When
+        // Then
+        assertEquals(1, productService.getProductsInCriticalStock().size());
+    }
 }
