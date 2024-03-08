@@ -20,16 +20,32 @@ export default function ProductDetail(props:Readonly<ProductDetailProps>){
     }
 
     return (
-        <main>
-            <h2>Product Detail</h2>
-            <p>{product.name}</p>
-            <p>{product.id}</p>
-            <p>{product.amount}</p>
-            <p>{product.description}</p>
-            <p>{product.productNumber}</p>
-            <p>{product.minimumStockLevel}</p>
-            <button type="button" onClick={() => navigate(`/products/${id}/edit`)}>Update</button>
-            <button className={"deleteButton"} onClick={handleDeleteProduct} type={"button"}>Löschen</button>
+        <main className={"productDetail"}>
+            <h2>Produktdetails</h2>
+            <div>
+                <span>Produktname:</span>
+                <span>{product.name}</span>
+            </div>
+            <div>
+                <span>Artikelnummer:</span>
+                <span>{product.productNumber}</span>
+            </div>
+            <div>
+                <span>Anzahl auf Lager:</span>
+                <span>{product.amount}</span>
+            </div>
+            <div>
+                <span>Mindestbestand:</span>
+                <span>{product.minimumStockLevel}</span>
+            </div>
+            <div>
+                <span>Produktbeschreibung:</span>
+                <span>{product.description}</span>
+            </div>
+            <div>
+                <button type="button" onClick={() => navigate(`/products/${id}/edit`)}>Update</button>
+                <button className={"deleteButton"} onClick={handleDeleteProduct} type={"button"}>Löschen</button>
+            </div>
         </main>
     )
 }

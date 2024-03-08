@@ -17,7 +17,7 @@ function ProductUpdate(props:Readonly<ProductUpdateProps>) {
     }
 
     return (
-        <main>
+        <main className={"productUpdate"}>
             <h2>Product Update</h2>
             <form onSubmit={handleSubmit}>
                 <div>

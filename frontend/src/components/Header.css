@@ -1,10 +1,31 @@
-.head {
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 5px;
-    margin: 20px 10px;
+header {
+    justify-content: space-around;
     display: flex;
-    justify-content: space-evenly;
+    margin: 1px;
     align-items: center;
-    background: #f8f8f8;
+}
+
+header .link {
+    padding:0;
+    margin: 1px;
+    border: 2px solid black;
+
+    flex: 1;
+    height: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: normal;
+
+    font-weight: bold;
+    text-decoration: none;
+    color:black;
+
+    transition: 0.2s;
+}
+
+header .link:hover {
+    color: white;
+    background-color: black;
 }

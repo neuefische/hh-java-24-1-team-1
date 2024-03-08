@@ -20,7 +20,7 @@ export default function ProductCard({ product }: Readonly<ProductCardProps>): Re
             <h2>{product.name}</h2>
             <p>Menge: {product.amount}</p>
             {showDescription && <p>Beschreibung: {product.description}</p>}
-            <button onClick={toggleDescription}>{showDescription ? 'Weniger' : 'Details'}</button>
+            <button onClick={toggleDescription}>{showDescription ? 'Weniger' : 'Mehr'}</button>
             <button onClick={() => navigate("/products/" + product.id)}>Zu den Details</button>
         </div>
     );
