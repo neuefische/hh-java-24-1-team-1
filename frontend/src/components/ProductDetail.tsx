@@ -1,7 +1,7 @@
 import './ProductDetail.css'
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {NavigateFunction, useParams, Link, useNavigate} from "react-router-dom";
+import {Link, NavigateFunction, useNavigate, useParams} from "react-router-dom";
 
 export default function ProductDetail(){
 
@@ -10,7 +10,9 @@ export default function ProductDetail(){
         id: id,
         name: '',
         description: '',
-        amount: 0
+        amount: 0,
+        productNumber: '',
+        minimumStockLevel: 0
     });
 
     const navigate:NavigateFunction = useNavigate();
@@ -40,10 +42,12 @@ export default function ProductDetail(){
             <p>{product.id}</p>
             <p>{product.amount}</p>
             <p>{product.description}</p>
+            <p>{product.productNumber}</p>
+            <p>{product.minimumStockLevel}</p>
             {
-            <Link to={`/products/${id}/edit`}>
-                <button type="button">Update</button>
-            </Link>
+                <Link to={`/products/${id}/edit`}>
+                    <button type="button">Update</button>
+                </Link>
             }
             <button className={"deleteButton"} onClick={deleteProduct} type={"button"}>Löschen</button>
         </div>

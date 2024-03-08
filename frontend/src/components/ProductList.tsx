@@ -34,6 +34,7 @@ export function ProductList(): React.ReactElement {
                         <h2>{product.name}</h2>
                         <p>Menge: {product.amount}</p>
                         <p>Beschreibung: {product.description}</p>
+                        <p>Artikelnummer: {product.productNumber}</p>
                     </div>
                 </Link>
             ))}
