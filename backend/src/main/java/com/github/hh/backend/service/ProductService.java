@@ -14,8 +14,6 @@ import java.util.List;
 public class ProductService {
     private final ProductRepo productRepo;
 
-
-
     public Product getProductById(String id) {
         return productRepo.findById(id).orElseThrow();
     }
@@ -37,5 +35,11 @@ public class ProductService {
             throw new NoSuchProductException("Product with ID " + id + " does not exist");
         }
         productRepo.deleteById(id);
+    }
+
+    public List<Product> getProductsInCriticalStock() {
+            return productRepo.findAll().stream()
+                    .filter(product -> product.amount() < product.minimumStockLevel())
+                    .toList();
     }
 }
