@@ -3,6 +3,7 @@ import axios from 'axios';
 import {Product} from '../types/Product.ts';
 import {Link} from "react-router-dom";
 import SearchBar from "./SearchBar.tsx";
+import ProductCard from "./ProductCard.tsx";
 
 export function ProductList(): React.ReactElement {
     const [products, setProducts] = useState<Product[]>([]);
@@ -31,10 +32,10 @@ export function ProductList(): React.ReactElement {
             {filteredProducts.map(product => (
                 <Link to={"products/" + product.id} key={product.id}>
                     <div>
-                        <h2>{product.name}</h2>
-                        <p>Menge: {product.amount}</p>
-                        <p>Beschreibung: {product.description}</p>
-                        <p>Artikelnummer: {product.productNumber}</p>
+                        <SearchBar handleSearchText={setSearchText}/>
+                        {filteredProducts.map(product => (
+                            <ProductCard key={product.productNumber} product={product}/>
+                        ))}
                     </div>
                 </Link>
             ))}
