@@ -16,7 +16,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -32,7 +33,7 @@ class ProductControllerTest {
     @Test
     void updateProduct_shouldReturnUpdatedProduct() throws Exception {
         // Given
-        ProductDTO productDTO = new ProductDTO("Product", 10,"Description");
+        ProductDTO productDTO = new ProductDTO("Product", 10,"Description", "1", 5);
         String productDtoJson = objectMapper.writeValueAsString(productDTO);
 
         MvcResult setup = mvc.perform(MockMvcRequestBuilders.post("/api/products").contentType(MediaType.APPLICATION_JSON).content(productDtoJson)).andReturn();
@@ -56,7 +57,7 @@ class ProductControllerTest {
     @Test
     void addProduct_whenNewProductDTOGiven_thenReturnProductIncludingNewID() throws Exception {
         // Given
-        ProductDTO productDTO = new ProductDTO("Product", 10,"Description");
+        ProductDTO productDTO = new ProductDTO("Product", 10,"Description", "1", 5);
         String productDtoJson = objectMapper.writeValueAsString(productDTO);
 
         // When and Then
@@ -77,7 +78,7 @@ class ProductControllerTest {
     @Test
     void getProductById_returnTestProduct_whenCalledByCorrectId() throws Exception {
         // Given
-        ProductDTO productDTO = new ProductDTO("Product", 10,"Description");
+        ProductDTO productDTO = new ProductDTO("Product", 10,"Description", "1", 5);
         String productDtoJson = objectMapper.writeValueAsString(productDTO);
 
         MvcResult setup = mvc.perform(MockMvcRequestBuilders.post("/api/products").contentType(MediaType.APPLICATION_JSON).content(productDtoJson)).andReturn();
@@ -111,7 +112,7 @@ class ProductControllerTest {
     @Test
     void deleteProductById_whenSuchProduct_thenDelete() throws Exception {
         // Given
-        ProductDTO productDTO = new ProductDTO("Product", 10,"Description");
+        ProductDTO productDTO = new ProductDTO("Product", 10,"Description", "1", 5);
         String productDtoJson = objectMapper.writeValueAsString(productDTO);
 
         MvcResult setup = mvc.perform(MockMvcRequestBuilders.post("/api/products").contentType(MediaType.APPLICATION_JSON).content(productDtoJson)).andReturn();

@@ -9,7 +9,9 @@ type AddProductCardPorps = {
 const initialFormData:ProductDTO = {
     name: '',
     description: '',
-    amount: 0
+    amount: 0,
+    productNumber: '',
+    minimumStockLevel: 0
 }
 
 export default function AddProductCard(props: Readonly<AddProductCardPorps>):JSX.Element{
@@ -52,6 +54,20 @@ export default function AddProductCard(props: Readonly<AddProductCardPorps>):JSX
                 <input id={"amount"} name={"amount"}
                        type={"number"}
                        value={formData.amount}
+                       onChange={handleChangeInput}/>
+            </div>
+            <div>
+                <label htmlFor={"productNumber"}>Artikelnummer:</label>
+                <input id={"productNumber"} name={"productNumber"}
+                       type={"text"}
+                       value={formData.productNumber}
+                       onChange={handleChangeInput}/>
+            </div>
+            <div>
+                <label htmlFor={"minimumStockLevel"}>Mindestbestand:</label>
+                <input id={"minimumStockLevel"} name={"minimumStockLevel"}
+                       type={"number"}
+                       value={formData.minimumStockLevel}
                        onChange={handleChangeInput}/>
             </div>
             <button type={"submit"}>Bestätigen</button>

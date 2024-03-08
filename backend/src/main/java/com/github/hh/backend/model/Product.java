@@ -7,6 +7,8 @@ public record Product (
         String id,
         String name,
         int amount,
-        String description
+        String description,
+        String productNumber,
+        int minimumStockLevel
 ){
 }
