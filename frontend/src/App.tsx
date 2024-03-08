@@ -34,6 +34,7 @@ export default function App() {
         axios.post('/api/products', newProduct)
             .then((response) => {
                 console.log("New product added with id " + response.data.id + ".");
+                getAllProducts();
             })
             .catch(error => {
                 console.error("Error creating product: ", error.message);
@@ -46,12 +47,10 @@ export default function App() {
             .then((response) => {
                 console.log(response)
                 getAllProducts();
-                return response.data;
             })
             .catch(error => {
                 console.log(error)
             });
-        return getProductById(updatedProduct.id);
     }
 
     function deleteProductById(id:string):void{

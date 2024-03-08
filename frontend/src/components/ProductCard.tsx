@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Product} from '../types/Product.ts';
+import {NavigateFunction, useNavigate} from "react-router-dom";
 
 type ProductCardProps = {
     product: Product;
@@ -7,6 +8,8 @@ type ProductCardProps = {
 
 export default function ProductCard({ product }: Readonly<ProductCardProps>): React.ReactElement {
     const [showDescription, setShowDescription] = useState(false);
+
+    const navigate:NavigateFunction = useNavigate();
 
     const toggleDescription = () => {
         setShowDescription(!showDescription);
@@ -18,7 +21,7 @@ export default function ProductCard({ product }: Readonly<ProductCardProps>): Re
             <p>Menge: {product.amount}</p>
             {showDescription && <p>Beschreibung: {product.description}</p>}
             <button onClick={toggleDescription}>{showDescription ? 'Weniger' : 'Details'}</button>
-            <button onClick={toggleDescription}>Zu den Details</button>
+            <button onClick={() => navigate("/products/" + product.id)}>Zu den Details</button>
         </div>
     );
 }
