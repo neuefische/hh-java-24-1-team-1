@@ -1,4 +1,5 @@
-import {useParams} from "react-router-dom";
+import './ProductUpdate.css'
+import {useNavigate, useParams} from "react-router-dom";
 import {useState} from "react";
 import {RestfulUtility} from "../types/RestfulUtility.ts";
 import {Product} from "../types/Product.ts";
@@ -11,9 +12,12 @@ function ProductUpdate(props:Readonly<ProductUpdateProps>) {
     const { id = '' } = useParams<string>();
     const [product, setProduct] = useState<Product>(props.restfulUtility.getProductById(id));
 
+    const navigate = useNavigate();
+
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
         props.restfulUtility.putProduct(product)
+        navigate("/");
     }
 
     return (
@@ -45,7 +49,9 @@ function ProductUpdate(props:Readonly<ProductUpdateProps>) {
                     <input type="number" value={product.minimumStockLevel} name={"minimumStockLevel"}
                            onChange={(e) => setProduct({...product, minimumStockLevel: parseInt(e.target.value)})}/>
                 </div>
-                <button type="submit">Update</button>
+                <div>
+                    <button type="submit">Update</button>
+                </div>
             </form>
         </main>
     );
