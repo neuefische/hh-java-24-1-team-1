@@ -9,7 +9,9 @@ function ProductUpdate() {
         id: id,
         name: '',
         description: '',
-        amount: 0
+        amount: 0,
+        productNumber: '',
+        minimumStockLevel: 0
     });
 
     useEffect(() => {
@@ -53,6 +55,16 @@ function ProductUpdate() {
                     <label htmlFor={"amount"}>Amount</label>
                     <input type="number" value={product.amount} name={"amount"}
                            onChange={(e) => setProduct({...product, amount: parseInt(e.target.value)})}/>
+                </div>
+                <div>
+                    <label htmlFor={"productNumber"}>Product number</label>
+                    <input type="text" value={product.productNumber} name={"productNumber"}
+                           onChange={(e) => setProduct({...product, productNumber: e.target.value})}/>
+                </div>
+                <div>
+                    <label htmlFor={"minimumStockLevel"}>Minimum stock level</label>
+                    <input type="number" value={product.minimumStockLevel} name={"minimumStockLevel"}
+                           onChange={(e) => setProduct({...product, minimumStockLevel: parseInt(e.target.value)})}/>
                 </div>
                 <button type="submit">Update</button>
             </form>

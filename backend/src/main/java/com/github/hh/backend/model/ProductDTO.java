@@ -3,6 +3,8 @@ package com.github.hh.backend.model;
 public record ProductDTO(
         String name,
         int amount,
-        String description
+        String description,
+        String productNumber,
+        int minimumStockLevel
 ) {
 }

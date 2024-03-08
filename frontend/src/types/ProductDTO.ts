@@ -1,5 +1,7 @@
 export type ProductDTO = {
     name:string,
     amount:number,
-    description:string
+    description:string,
+    productNumber:string,
+    minimumStockLevel:number
 }

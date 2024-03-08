@@ -20,8 +20,8 @@ class ProductServiceTest {
     @Test
     void addProduct_whenNewProductDTOGiven_thenReturnProductIncludingNewID(){
         // Given
-        ProductDTO productDTO = new ProductDTO("Product", 10,"Description");
-        Product expected = new Product("1", "Product", 10,"Description");
+        ProductDTO productDTO = new ProductDTO("Product", 10,"Description", "1", 5);
+        Product expected = new Product("1", "Product", 10,"Description", "1", 5);
 
         // When
         ProductService productService = new ProductService(mockProductRepo);
@@ -37,7 +37,7 @@ class ProductServiceTest {
     @Test
     void updateProduct_shouldReturnUpdatedProduct() {
         // Given
-        ProductDTO productDTO = new ProductDTO("Product", 10,"Description");
+        ProductDTO productDTO = new ProductDTO("Product", 10,"Description", "1", 5);
         ProductService productService = new ProductService(mockProductRepo);
         Product expected = productService.addProduct(productDTO);
 
@@ -52,7 +52,7 @@ class ProductServiceTest {
     @Test
     void getProductById_shouldReturnProduct() {
         // Given
-        ProductDTO productDTO = new ProductDTO("Product", 10,"Description");
+        ProductDTO productDTO = new ProductDTO("Product", 10,"Description", "1", 5);
         ProductService productService = new ProductService(mockProductRepo);
         Product expected = productService.addProduct(productDTO);
 
@@ -76,7 +76,7 @@ class ProductServiceTest {
     @Test
     void deleteProductById_whenSuchProduct_thenDelete(){
         // Given
-        ProductDTO productDTO = new ProductDTO("Product", 10, "Description");
+        ProductDTO productDTO = new ProductDTO("Product", 10,"Description", "1", 5);
         ProductService productService = new ProductService(mockProductRepo);
         Product expected = productService.addProduct(productDTO);
 

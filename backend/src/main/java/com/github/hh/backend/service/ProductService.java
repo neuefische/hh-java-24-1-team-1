@@ -29,7 +29,7 @@ public class ProductService {
     }
 
     public Product addProduct(ProductDTO productDTO) {
-        return productRepo.save(new Product(null, productDTO.name(), productDTO.amount(), productDTO.description()));
+        return productRepo.save(new Product(null, productDTO.name(), productDTO.amount(), productDTO.description(), productDTO.productNumber(), productDTO.minimumStockLevel()));
     }
 
     public void deleteProductById(String id) {
