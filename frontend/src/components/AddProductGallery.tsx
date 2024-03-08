@@ -3,25 +3,28 @@ import AddProductCard from "./AddProductCard.tsx";
 import {FormEvent, useState} from "react";
 import ProductCard from "./ProductCard.tsx";
 import {Product} from "../types/Product.ts";
+import axios from "axios";
 import {ProductDTO} from "../types/ProductDTO.ts";
-import {RestfulUtility} from "../types/RestfulUtility.ts";
 
-type AddProductGalleryProps = {
-    restfulUtility:RestfulUtility,
-}
-
-export default function AddProductGallery(props:Readonly<AddProductGalleryProps>):JSX.Element{
+export default function AddProductGallery():JSX.Element{
     const [submittedProducts, setSubmittedProducts] = useState<Product[]>([]);
 
     function handleSubmit(event:FormEvent<HTMLFormElement>, newProduct:ProductDTO):void {
         event.preventDefault();
-        setSubmittedProducts(submittedProducts.concat(props.restfulUtility.postProduct(newProduct)))
+        axios.post('../api/products', newProduct)
+            .then(response => {
+                setSubmittedProducts(submittedProducts.concat(response.data));
+                console.log("New product added with id " + response.data.id + ".");
+            })
+            .catch(error => {
+                console.error("Error creating product: ", error.message);
+            })
     }
 
     return (
         <main className={"addProductGallery"}>
             <AddProductCard handleSubmit={handleSubmit}/>
-            { submittedProducts.length > 0 && submittedProducts.map((product:Product)=> <ProductCard key={product.id} product={product}/>) }
+            { submittedProducts.length >0 && submittedProducts.map((product:Product)=> <ProductCard key={product.productNumber} product={product}/>) }
         </main>
     )
 }
