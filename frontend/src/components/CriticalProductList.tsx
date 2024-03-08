@@ -3,15 +3,15 @@ import {Product} from "../types/Product.ts";
 import SearchBar from "./SearchBar.tsx";
 import ProductCard from "./ProductCard.tsx";
 
-type CriticalProductList = {
+type CriticalProductListProps = {
     products: Product[];
 }
 
-function CriticalProductList(props:Readonly<CriticalProductList>):JSX.Element {
+function CriticalProductList(props:Readonly<CriticalProductListProps>):JSX.Element {
     const [searchResults, setSearchResults] = useState<Product[]>();
 
     return (
-        <main>
+        <main className={"criticalProductList"}>
             <SearchBar handleSearch={setSearchResults} products={props.products}/>
             {
                 searchResults ?
