@@ -15,12 +15,11 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -36,7 +35,7 @@ class ProductControllerTest {
     @Test
     void updateProduct_shouldReturnUpdatedProduct() throws Exception {
         // Given
-        ProductDTO productDTO = new ProductDTO("Product", 10,"Description", "1", 5);
+        ProductDTO productDTO = new ProductDTO("Product", 10, "Description", "1", 5);
         String productDtoJson = objectMapper.writeValueAsString(productDTO);
 
         MvcResult setup = mvc.perform(MockMvcRequestBuilders.post("/api/products").contentType(MediaType.APPLICATION_JSON).content(productDtoJson)).andReturn();
@@ -49,7 +48,7 @@ class ProductControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(productJson)
                 )
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(status().isOk())
                 .andReturn();
 
         Product updatedProduct = objectMapper.readValue(result.getResponse().getContentAsString(), Product.class);
@@ -60,7 +59,7 @@ class ProductControllerTest {
     @Test
     void addProduct_whenNewProductDTOGiven_thenReturnProductIncludingNewID() throws Exception {
         // Given
-        ProductDTO productDTO = new ProductDTO("Product", 10,"Description", "1", 5);
+        ProductDTO productDTO = new ProductDTO("Product", 10, "Description", "1", 5);
         String productDtoJson = objectMapper.writeValueAsString(productDTO);
 
         // When and Then
@@ -68,7 +67,7 @@ class ProductControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(productDtoJson)
                 )
-                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(status().isCreated())
                 .andReturn();
 
         Product saveProduct = objectMapper.readValue(result.getResponse().getContentAsString(), Product.class);
@@ -81,7 +80,7 @@ class ProductControllerTest {
     @Test
     void getProductById_returnTestProduct_whenCalledByCorrectId() throws Exception {
         // Given
-        ProductDTO productDTO = new ProductDTO("Product", 10,"Description", "1", 5);
+        ProductDTO productDTO = new ProductDTO("Product", 10, "Description", "1", 5);
         String productDtoJson = objectMapper.writeValueAsString(productDTO);
 
         MvcResult setup = mvc.perform(MockMvcRequestBuilders.post("/api/products").contentType(MediaType.APPLICATION_JSON).content(productDtoJson)).andReturn();
@@ -90,7 +89,7 @@ class ProductControllerTest {
 
         // When and Then
         MvcResult result = mvc.perform(MockMvcRequestBuilders.get("/api/products/" + expectedProduct.id()))
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(status().isOk())
                 .andReturn();
         Product actualProduct = objectMapper.readValue(result.getResponse().getContentAsString(), Product.class);
 
@@ -102,9 +101,9 @@ class ProductControllerTest {
         // Given
         // When
         MvcResult result = mvc.perform(MockMvcRequestBuilders.delete("/api/products/10"))
-                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(status().isBadRequest())
                 .andReturn();
-        ErrorMessage errorMessage = objectMapper.readValue(result.getResponse().getContentAsString(),ErrorMessage.class);
+        ErrorMessage errorMessage = objectMapper.readValue(result.getResponse().getContentAsString(), ErrorMessage.class);
 
         // Then
         assertEquals("uri=/api/products/10", errorMessage.apiPath());
@@ -115,7 +114,7 @@ class ProductControllerTest {
     @Test
     void deleteProductById_whenSuchProduct_thenDelete() throws Exception {
         // Given
-        ProductDTO productDTO = new ProductDTO("Product", 10,"Description", "1", 5);
+        ProductDTO productDTO = new ProductDTO("Product", 10, "Description", "1", 5);
         String productDtoJson = objectMapper.writeValueAsString(productDTO);
 
         MvcResult setup = mvc.perform(MockMvcRequestBuilders.post("/api/products").contentType(MediaType.APPLICATION_JSON).content(productDtoJson)).andReturn();
@@ -124,13 +123,13 @@ class ProductControllerTest {
         // When & Then
 
         mvc.perform(MockMvcRequestBuilders.delete("/api/products/" + expectedProduct.id()))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(status().isOk());
 
         MvcResult result = mvc.perform(MockMvcRequestBuilders.delete("/api/products/" + expectedProduct.id()))
-                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(status().isBadRequest())
                 .andReturn();
 
-        ErrorMessage errorMessage = objectMapper.readValue(result.getResponse().getContentAsString(),ErrorMessage.class);
+        ErrorMessage errorMessage = objectMapper.readValue(result.getResponse().getContentAsString(), ErrorMessage.class);
 
         assertEquals("uri=/api/products/" + expectedProduct.id(), errorMessage.apiPath());
         assertEquals(HttpStatus.BAD_REQUEST, errorMessage.errorCode());
@@ -140,17 +139,18 @@ class ProductControllerTest {
     @Test
     void getProductInCriticalStock_shouldReturnProductsInCriticalStock() throws Exception {
         // Given
-        ProductDTO productDTO = new ProductDTO("Product", 10,"Description", "1", 15);
+        ProductDTO productDTO = new ProductDTO("Product", 10, "Description", "1", 15);
         String productDtoJson = objectMapper.writeValueAsString(productDTO);
 
         mvc.perform(MockMvcRequestBuilders.post("/api/products").contentType(MediaType.APPLICATION_JSON).content(productDtoJson)).andReturn();
 
         // When
         MvcResult result = mvc.perform(MockMvcRequestBuilders.get("/api/products/critical"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(status().isOk())
                 .andReturn();
 
-        List<Product> products = objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<>(){});
+        List<Product> products = objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<>() {
+        });
 
         // Then
         assertEquals(1, products.size());
@@ -159,19 +159,42 @@ class ProductControllerTest {
     @Test
     void getProductInCriticalStock_shouldReturnEmptyList() throws Exception {
         // Given
-        ProductDTO productDTO = new ProductDTO("Product", 10,"Description", "1", 5);
+        ProductDTO productDTO = new ProductDTO("Product", 10, "Description", "1", 5);
         String productDtoJson = objectMapper.writeValueAsString(productDTO);
 
         mvc.perform(MockMvcRequestBuilders.post("/api/products").contentType(MediaType.APPLICATION_JSON).content(productDtoJson)).andReturn();
 
         // When
         MvcResult result = mvc.perform(MockMvcRequestBuilders.get("/api/products/critical"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(status().isOk())
                 .andReturn();
 
-        List<Product> products = objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<>(){});
+        List<Product> products = objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<>() {
+        });
 
         // Then
         assertEquals(0, products.size());
+    }
+
+    @Test
+    void getAllProducts_shouldReturnListOfProducts() throws Exception {
+        // Given
+        ProductDTO productDTO1 = new ProductDTO("Product A", 10, "Description A", "12345", 5);
+        ProductDTO productDTO2 = new ProductDTO("Product B", 15, "Description B", "67890", 8);
+        mvc.perform(MockMvcRequestBuilders.post("/api/products").contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(productDTO1))).andExpect(status().isCreated());
+        mvc.perform(MockMvcRequestBuilders.post("/api/products").contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(productDTO2))).andExpect(status().isCreated());
+
+        // When
+        MvcResult result = mvc.perform(MockMvcRequestBuilders.get("/api/products"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        // Then
+        List<Product> productList = objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<List<Product>>() {
+        });
+        assertNotNull(productList);
+        assertEquals(2, productList.size());
+        assertTrue(productList.stream().anyMatch(p -> p.name().equals("Product A")));
+        assertTrue(productList.stream().anyMatch(p -> p.name().equals("Product B")));
     }
 }
