@@ -1,32 +1,23 @@
 import React, {useState} from 'react';
 import {Product} from '../types/Product.ts';
-import {Link} from "react-router-dom";
-import './ProductCard.css';
 
 type ProductCardProps = {
     product: Product;
 };
 
 export default function ProductCard({ product }: Readonly<ProductCardProps>): React.ReactElement {
-    const [showMore, setShowMore] = useState(false);
+    const [showDescription, setShowDescription] = useState(false);
 
     const toggleDescription = () => {
-        setShowMore(!showMore);
+        setShowDescription(!showDescription);
     };
 
     return (
-
-        <div className={"card"}>
-            <h2>Produkt: {product.name}</h2>
-            <p>Artikelnummer: {product.productNumber}</p>
+        <div style={{ border: '1px solid #ddd', padding: '10px', borderRadius: '5px', margin: '10px 0' }}>
+            <h2>{product.name}</h2>
             <p>Menge: {product.amount}</p>
-            {showMore &&
-                <>
-                    <p>Beschreibung: {product.description}</p>
-                    <p><Link to={"/products/" + product.id}>Details</Link></p>
-                </>
-            }
-            <button onClick={toggleDescription}>{showMore ? 'Weniger' : 'Mehr'}</button>
+            {showDescription && <p>Beschreibung: {product.description}</p>}
+            <button onClick={toggleDescription}>{showDescription ? 'Weniger' : 'Details'}</button>
         </div>
     );
 }
