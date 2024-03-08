@@ -1,0 +1,16 @@
+.productDtoCard {
+    border: 2px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px;
+    transition: 0.2s;
+}
+
+.productDtoCard:hover {
+    background-color: #ddd;
+}
+
+.productDtoCard h2 {
+    margin: 0;
+    padding: 0;
+}

@@ -70,7 +70,9 @@ export default function AddProductCard(props: Readonly<AddProductCardProps>):JSX
                        value={formData.minimumStockLevel}
                        onChange={handleChangeInput}/>
             </div>
-            <button type={"submit"}>Bestätigen</button>
+            <div>
+                <button type={"submit"}>Bestätigen</button>
+            </div>
         </form>
     )
 

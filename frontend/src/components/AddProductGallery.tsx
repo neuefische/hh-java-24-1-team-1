@@ -21,7 +21,11 @@ export default function AddProductGallery(props:Readonly<AddProductGalleryProps>
     return (
         <main className={"addProductGallery"}>
             <AddProductCard handleSubmit={handleSubmit}/>
-            { submittedProducts.length >0 && submittedProducts.map((productDto:ProductDTO)=> <ProductDtoCard key={productDto.productNumber} productDto={productDto}/>) }
+            <div className={"lowerDiv"}>
+                {
+                    submittedProducts.length > 0 && submittedProducts.map((productDto: ProductDTO) => <ProductDtoCard key={productDto.productNumber} productDto={productDto}/>)
+                }
+            </div>
         </main>
     )
 }
