@@ -79,7 +79,7 @@ export default function App() {
             <Header />
             <main>
                 <Routes>
-                    <Route path={"/"} element={<ProductList products={products} restfulUtility={restfulUtility}/>} />
+                    <Route path={"/"} element={<ProductList products={products} />} />
                     <Route path={"/products/add"} element={<AddProductGallery restfulUtility={restfulUtility}/>}/>
                     <Route path={"/products/:id/edit"} element={<ProductUpdate restfulUtility={restfulUtility}/>}/>
                     <Route path={"/products/:id"} element={<ProductDetail restfulUtility={restfulUtility}/>}/>
