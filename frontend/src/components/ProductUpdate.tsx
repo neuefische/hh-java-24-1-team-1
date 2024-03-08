@@ -13,7 +13,7 @@ function ProductUpdate(props:Readonly<ProductUpdateProps>) {
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
-        setProduct(props.restfulUtility.putProduct(product))
+        props.restfulUtility.putProduct(product)
     }
 
     return (
