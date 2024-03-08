@@ -4,7 +4,7 @@ import ProductDetail from "./components/ProductDetail";
 import {ProductList} from "./components/ProductList.tsx";
 import Header from "./components/Header.tsx";
 import AddProductGallery from "./components/AddProductGallery.tsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {ProductDTO} from "./types/ProductDTO.ts";
 import axios from "axios";
 import {RestfulUtility} from "./types/RestfulUtility.ts"
@@ -23,32 +23,25 @@ export default function App() {
     }
 
     function getProductById(id:string):Product {
-        axios.get(`/api/products/${id}`)
-            .then((response) => {
-                return response.data;
-            })
-            .catch(error => {
-                console.error("Error: ", error.message);
-            });
-        return {amount: 0, description: "", id: "", name: ""};
+        const productWithId:Product[] = products.filter((product:Product) => product.id === id)
 
+        if(productWithId.length === 0) console.error('Kein Produkt mit der ID ' + id + ' gefunden.');
+        else return productWithId[0];
+        return {id:id, name:'', amount:0, description:''};
     }
 
-    function postProduct(newProduct:ProductDTO):Product {
-        axios.post('../api/products', newProduct)
+    function postProduct(newProduct:ProductDTO) {
+        axios.post('/api/products', newProduct)
             .then((response) => {
                 console.log("New product added with id " + response.data.id + ".");
-                getAllProducts()
-                return response.data;
             })
             .catch(error => {
                 console.error("Error creating product: ", error.message);
             })
-        return {amount: 0, description: "", id: "", name: ""};
     }
 
 
-    function putProduct(updatedProduct:Product):Product {
+    function putProduct(updatedProduct:Product) {
         axios.put(`/api/products/update`, updatedProduct)
             .then((response) => {
                 console.log(response)
@@ -58,7 +51,7 @@ export default function App() {
             .catch(error => {
                 console.log(error)
             });
-        return {amount: 0, description: "", id: "", name: ""};
+        return getProductById(updatedProduct.id);
     }
 
     function deleteProductById(id:string):void{
@@ -77,6 +70,9 @@ export default function App() {
         deleteProductById: deleteProductById
     }
 
+    useEffect(
+        getAllProducts, []
+    )
 
     return (
         <>
