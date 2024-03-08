@@ -1,11 +1,23 @@
-import {Product} from "../types/Product.ts";
-
+import React, {useState} from 'react';
+import {Product} from '../types/Product.ts';
 
 type ProductCardProps = {
-    product:Product
-}
-export default function ProductCard(props:Readonly<ProductCardProps>):JSX.Element{
+    product: Product;
+};
+
+export default function ProductCard({ product }: Readonly<ProductCardProps>): React.ReactElement {
+    const [showDescription, setShowDescription] = useState(false);
+
+    const toggleDescription = () => {
+        setShowDescription(!showDescription);
+    };
+
     return (
-        <h2> I am a ProductCard of the product {props.product.name} :) </h2>
-    )
+        <div style={{ border: '1px solid #ddd', padding: '10px', borderRadius: '5px', margin: '10px 0' }}>
+            <h2>{product.name}</h2>
+            <p>Menge: {product.amount}</p>
+            {showDescription && <p>Beschreibung: {product.description}</p>}
+            <button onClick={toggleDescription}>{showDescription ? 'Weniger' : 'Details'}</button>
+        </div>
+    );
 }
