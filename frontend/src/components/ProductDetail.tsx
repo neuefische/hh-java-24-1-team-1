@@ -38,12 +38,11 @@ export default function ProductDetail(){
     return (
         <div>
             <h2>Product Detail</h2>
-            <p>{product.name}</p>
-            <p>{product.id}</p>
-            <p>{product.amount}</p>
-            <p>{product.description}</p>
-            <p>{product.productNumber}</p>
-            <p>{product.minimumStockLevel}</p>
+            <p>Artikel: {product.name}</p>
+            <p>Menge: {product.amount}</p>
+            <p>Beschreibung: {product.description}</p>
+            <p>Artikelnummer: {product.productNumber}</p>
+            <p>Mindestbestand: {product.minimumStockLevel}</p>
             {
                 <Link to={`/products/${id}/edit`}>
                     <button type="button">Update</button>
