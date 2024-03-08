@@ -12,6 +12,9 @@ import {Product} from "./types/Product.ts";
 
 export default function App() {
     const [products, setProducts] = useState<Product[]>([]);
+
+    useEffect(getAllProducts, [])
+
     function getAllProducts():void {
         axios.get('/api/products')
             .then(response => {
@@ -69,9 +72,6 @@ export default function App() {
         deleteProductById: deleteProductById
     }
 
-    useEffect(
-        getAllProducts, []
-    )
 
     return (
         <>

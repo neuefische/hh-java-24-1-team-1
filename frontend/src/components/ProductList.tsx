@@ -10,20 +10,21 @@ type ProductListProps = {
 }
 
 export function ProductList(props:Readonly<ProductListProps>): React.ReactElement {
-    const [products] = useState<Product[]>(props.products);
     const [searchText, setSearchText] = useState<string>("");
 
-
-    const filteredProducts = products.filter(product =>
-        product.name.toLowerCase().includes(searchText.toLowerCase())
-        || product.description.toLowerCase().includes(searchText.toLowerCase())
-    );
     return (
         <main>
             <SearchBar handleSearchText={setSearchText}/>
-            {filteredProducts.map(product => (
-                    <ProductCard key={product.productNumber} product={product}/>
-            ))}
+            {
+                props.products.filter(product =>
+                    product.name.toLowerCase().includes(searchText.toLowerCase())
+                    || product.description.toLowerCase().includes(searchText.toLowerCase())
+                )
+                    .map((product:Product) => (
+                        <ProductCard key={product.id} product={product}/>
+                        )
+                    )
+            }
         </main>
     );
 }
