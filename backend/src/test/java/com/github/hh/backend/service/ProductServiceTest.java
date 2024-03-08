@@ -5,9 +5,14 @@ import com.github.hh.backend.model.Product;
 import com.github.hh.backend.model.ProductDTO;
 import com.github.hh.backend.repository.ProductRepo;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.annotation.DirtiesContext;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,6 +21,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProductServiceTest {
     @Autowired
     private ProductRepo mockProductRepo;
+
+    @MockBean
+    private ProductRepo productRepo;
 
     @Test
     void addProduct_whenNewProductDTOGiven_thenReturnProductIncludingNewID(){
@@ -109,5 +117,23 @@ class ProductServiceTest {
         // When
         // Then
         assertEquals(1, productService.getProductsInCriticalStock().size());
+    }
+
+    @Test
+    void findAllProducts_shouldReturnListOfProducts() {
+        // Given
+        ProductService productService = new ProductService(mockProductRepo);
+        Product product1 = new Product("1", "Product A", 10, "Description A", "12345", 5);
+        Product product2 = new Product("2", "Product B", 20, "Description B", "67890", 10);
+        List<Product> mockProducts = Arrays.asList(product1, product2);
+        Mockito.when(productRepo.findAll()).thenReturn(mockProducts);
+
+        // When
+        List<Product> products = productService.findAllProducts();
+
+        // Then
+        assertEquals(2, products.size());
+        assertEquals("Product A", products.get(0).name());
+        assertEquals("Product B", products.get(1).name());
     }
 }
