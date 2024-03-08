@@ -3,6 +3,7 @@ import axios from 'axios';
 import {Product} from '../types/Product.ts';
 import SearchBar from "./SearchBar.tsx";
 import ProductCard from "./ProductCard.tsx";
+import './ProductList.css';
 
 export function ProductList(): React.ReactElement {
     const [products, setProducts] = useState<Product[]>([]);
@@ -26,11 +27,13 @@ export function ProductList(): React.ReactElement {
     );
 
     return (
-        <div style={{margin: '10px'}}>
+        <div style={{margin: '20px'}}>
             <SearchBar handleSearchText={setSearchText}/>
-            {filteredProducts.map(product => (
-                <ProductCard key={product.productNumber} product={product}/>
-            ))}
+            <div className={"list"}>
+                {filteredProducts.map(product => (
+                    <ProductCard key={product.productNumber} product={product}/>
+                ))}
+            </div>
         </div>
     );
 }
