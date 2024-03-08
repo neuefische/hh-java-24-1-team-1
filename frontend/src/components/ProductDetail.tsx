@@ -36,7 +36,7 @@ export default function ProductDetail(){
     }
 
     return (
-        <div>
+        <div className={"details"}>
             <h2>Product Detail</h2>
             <p>Artikel: {product.name}</p>
             <p>Menge: {product.amount}</p>

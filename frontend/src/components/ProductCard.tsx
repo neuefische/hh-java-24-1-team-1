@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Product} from '../types/Product.ts';
 import {Link} from "react-router-dom";
+import './ProductCard.css';
 
 type ProductCardProps = {
     product: Product;
@@ -14,7 +15,8 @@ export default function ProductCard({ product }: Readonly<ProductCardProps>): Re
     };
 
     return (
-        <div style={{ border: '1px solid #ddd', padding: '10px', borderRadius: '5px', margin: '10px' }}>
+
+        <div className={"card"}>
             <h2>Produkt: {product.name}</h2>
             <p>Artikelnummer: {product.productNumber}</p>
             <p>Menge: {product.amount}</p>
