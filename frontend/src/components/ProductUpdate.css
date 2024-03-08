@@ -1,4 +1,4 @@
-.addProductCard {
+.productUpdate {
     background-color: #f8f8f8;
     padding: 20px;
     border-radius: 8px;
@@ -7,29 +7,29 @@
     margin: 20px auto;
 }
 
-.addProductCard h2 {
+.productUpdate h2 {
     margin-bottom: 20px;
 }
 
-.addProductCard div {
+.productUpdate div {
     margin-bottom: 10px;
 }
 
-.addProductCard label {
+.productUpdate label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
 }
 
-.addProductCard input {
+.productUpdate input {
     width: 100%;
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
 }
 
-.addProductCard button {
-    background-color: #4CAF50;
+.productUpdate button {
+    background-color: #007bff;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -38,6 +38,6 @@
     width: 100%;
 }
 
-.addProductCard button:hover {
-    background-color: #45a049;
+.productUpdate button:hover {
+    background-color: #0056b3;
 }

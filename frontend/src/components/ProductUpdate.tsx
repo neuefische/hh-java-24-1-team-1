@@ -1,6 +1,7 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import './ProductUpdate.css';
 
 
 function ProductUpdate() {
@@ -38,7 +39,7 @@ function ProductUpdate() {
     };
 
     return (
-        <div>
+        <div className={"productUpdate"}>
             <h2>Product Update</h2>
             <form onSubmit={handleSubmit}>
                 <div>
