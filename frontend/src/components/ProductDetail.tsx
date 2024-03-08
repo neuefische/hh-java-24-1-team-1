@@ -1,10 +1,14 @@
 import './ProductDetail.css'
 import {useEffect, useState} from "react";
+import {NavigateFunction, useParams, Link, useNavigate} from "react-router-dom";
+import {RestfulUtility} from "../types/RestfulUtility.ts";
 import axios from "axios";
-import {Link, NavigateFunction, useNavigate, useParams} from "react-router-dom";
 
-export default function ProductDetail(){
+type ProductDetailProps = {
+    restfulUtility:RestfulUtility,
+}
 
+export default function ProductDetail(props:Readonly<ProductDetailProps>){
     const { id = '' } = useParams<string>();
     const [product, setProduct] = useState({
         id: id,
@@ -17,21 +21,11 @@ export default function ProductDetail(){
 
     const navigate:NavigateFunction = useNavigate();
 
-    useEffect(() => {
-        axios.get(`/api/products/${id}`)
-            .then(response => {
-                setProduct(response.data);
-            })
-            .catch(error => {
-                console.log(error)
-            });
-    }, [id]);
+    useEffect(() => setProduct(props.restfulUtility.getProductById(id)), []);
 
-    function deleteProduct():void{
-        axios.delete(`/api/products/${id}`)
-            .catch(error => {
-                console.log(error)
-            });
+    function handleDeleteProduct(event: MouseEvent):void {
+        event.preventDefault();
+        props.restfulUtility.deleteProductById(id);
         navigate("/");
     }
 
@@ -48,7 +42,7 @@ export default function ProductDetail(){
                     <button type="button">Update</button>
                 </Link>
             }
-            <button className={"deleteButton"} onClick={deleteProduct} type={"button"}>Löschen</button>
+            <button className={"deleteButton"} onClick={handleDeleteProduct} type={"button"}>Löschen</button>
         </div>
     )
 }
