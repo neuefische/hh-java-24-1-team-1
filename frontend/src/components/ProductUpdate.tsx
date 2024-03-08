@@ -1,27 +1,45 @@
-import './ProductUpdate.css'
 import {useNavigate, useParams} from "react-router-dom";
-import {useState} from "react";
-import {RestfulUtility} from "../types/RestfulUtility.ts";
-import {Product} from "../types/Product.ts";
+import {useEffect, useState} from "react";
+import axios from "axios";
+import './ProductUpdate.css';
 
-type ProductUpdateProps = {
-    restfulUtility:RestfulUtility,
-}
 
-function ProductUpdate(props:Readonly<ProductUpdateProps>) {
+function ProductUpdate() {
     const { id = '' } = useParams<string>();
-    const [product, setProduct] = useState<Product>(props.restfulUtility.getProductById(id));
+    const [product, setProduct] = useState({
+        id: id,
+        name: '',
+        description: '',
+        amount: 0,
+        productNumber: '',
+        minimumStockLevel: 0
+    });
+
+    useEffect(() => {
+        axios.get(`/api/products/${id}`)
+            .then(response => {
+            setProduct(response.data);
+        })
+            .catch(error => {
+                console.log(error)
+            });
+    }, [id]);
 
     const navigate = useNavigate();
-
-    function handleSubmit(e: React.FormEvent) {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        props.restfulUtility.putProduct(product)
-        navigate("/");
-    }
+        axios.put(`/api/products/update`, product)
+            .then(response => {
+                console.log(response)
+                navigate(`/products/${id}`)
+            })
+            .catch(error => {
+                console.log(error)
+            });
+    };
 
     return (
-        <main className={"productUpdate"}>
+        <div className={"productUpdate"}>
             <h2>Product Update</h2>
             <form onSubmit={handleSubmit}>
                 <div>
@@ -49,11 +67,10 @@ function ProductUpdate(props:Readonly<ProductUpdateProps>) {
                     <input type="number" value={product.minimumStockLevel} name={"minimumStockLevel"}
                            onChange={(e) => setProduct({...product, minimumStockLevel: parseInt(e.target.value)})}/>
                 </div>
-                <div>
-                    <button type="submit">Update</button>
-                </div>
+                <button type="submit">Update</button>
             </form>
-        </main>
+
+        </div>
     );
 }
 
