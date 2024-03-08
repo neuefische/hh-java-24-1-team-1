@@ -20,7 +20,10 @@ export function ProductList(): React.ReactElement {
 
     useEffect(fetchProducts, []);
 
-    const filteredProducts = products.filter(product => product.name.toLowerCase().includes(searchText.toLowerCase()));
+    const filteredProducts = products.filter(product =>
+        product.name.toLowerCase().includes(searchText.toLowerCase())
+        || product.description.toLowerCase().includes(searchText.toLowerCase())
+    );
 
     return (
         <div>
