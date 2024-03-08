@@ -15,7 +15,7 @@ export default function ProductCard({ product }: Readonly<ProductCardProps>): Re
 
     return (
         <div style={{ border: '1px solid #ddd', padding: '10px', borderRadius: '5px', margin: '10px' }}>
-            <h2>{product.name}</h2>
+            <h2>Produkt: {product.name}</h2>
             <p>Artikelnummer: {product.productNumber}</p>
             <p>Menge: {product.amount}</p>
             {showMore &&
