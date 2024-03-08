@@ -1,29 +1,24 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {Product} from '../types/Product.ts';
+import {Link} from "react-router-dom";
 import SearchBar from "./SearchBar.tsx";
-import ProductCard from "./ProductCard.tsx";
-import './ProductList.css';
-import {useLocation} from 'react-router-dom';
 
 export function ProductList(): React.ReactElement {
     const [products, setProducts] = useState<Product[]>([]);
     const [searchText, setSearchText] = useState<string>("");
-    const { pathname } = useLocation();
-    const apiUrl = pathname === '/critical' ? '/api/products/critical' : '/api/products';
 
-    useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                const response = await axios.get(apiUrl);
+    function fetchProducts() {
+        axios.get('/api/products')
+            .then(response => {
                 setProducts(response.data);
-            } catch (error) {
+            })
+            .catch(error => {
                 console.error('Es gab ein Problem beim Abrufen der Produkte:', error);
-            }
-        };
+            });
+    }
 
-        fetchProducts();
-    }, [apiUrl]);
+    useEffect(fetchProducts, []);
 
     const filteredProducts = products.filter(product =>
         product.name.toLowerCase().includes(searchText.toLowerCase())
@@ -31,13 +26,18 @@ export function ProductList(): React.ReactElement {
     );
 
     return (
-        <div style={{margin: '20px'}}>
+        <main>
             <SearchBar handleSearchText={setSearchText}/>
-            <div className={"list"}>
-                {filteredProducts.map(product => (
-                    <ProductCard key={product.productNumber} product={product}/>
-                ))}
-            </div>
-        </div>
+            {filteredProducts.map(product => (
+                <Link to={"products/" + product.id} key={product.id}>
+                    <div>
+                        <h2>{product.name}</h2>
+                        <p>Menge: {product.amount}</p>
+                        <p>Beschreibung: {product.description}</p>
+                        <p>Artikelnummer: {product.productNumber}</p>
+                    </div>
+                </Link>
+            ))}
+        </main>
     );
 }
