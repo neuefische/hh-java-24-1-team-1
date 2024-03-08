@@ -1,30 +1,36 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
 import {Product} from '../types/Product.ts';
 import SearchBar from "./SearchBar.tsx";
-import {RestfulUtility} from "../types/RestfulUtility.ts";
 import ProductCard from "./ProductCard.tsx";
 
-type ProductListProps = {
-    restfulUtility:RestfulUtility,
-    products:Product[]
-}
-
-export function ProductList(props:Readonly<ProductListProps>): React.ReactElement {
+export function ProductList(): React.ReactElement {
+    const [products, setProducts] = useState<Product[]>([]);
     const [searchText, setSearchText] = useState<string>("");
 
+    function fetchProducts() {
+        axios.get('/api/products')
+            .then(response => {
+                setProducts(response.data);
+            })
+            .catch(error => {
+                console.error('Es gab ein Problem beim Abrufen der Produkte:', error);
+            });
+    }
+
+    useEffect(fetchProducts, []);
+
+    const filteredProducts = products.filter(product =>
+        product.name.toLowerCase().includes(searchText.toLowerCase())
+        || product.description.toLowerCase().includes(searchText.toLowerCase())
+    );
+
     return (
-        <main>
+        <div>
             <SearchBar handleSearchText={setSearchText}/>
-            {
-                props.products.filter(product =>
-                    product.name.toLowerCase().includes(searchText.toLowerCase())
-                    || product.description.toLowerCase().includes(searchText.toLowerCase())
-                )
-                    .map((product:Product) => (
-                        <ProductCard key={product.id} product={product}/>
-                        )
-                    )
-            }
-        </main>
+            {filteredProducts.map(product => (
+                <ProductCard key={product.productNumber} product={product}/>
+            ))}
+        </div>
     );
 }
