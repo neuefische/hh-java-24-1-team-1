@@ -1,6 +1,6 @@
 import './ProductDetail.css'
 import {useState} from "react";
-import {NavigateFunction, useParams, Link, useNavigate} from "react-router-dom";
+import {NavigateFunction, useParams, useNavigate} from "react-router-dom";
 import {RestfulUtility} from "../types/RestfulUtility.ts";
 import {Product} from "../types/Product.ts";
 
@@ -28,11 +28,7 @@ export default function ProductDetail(props:Readonly<ProductDetailProps>){
             <p>{product.description}</p>
             <p>{product.productNumber}</p>
             <p>{product.minimumStockLevel}</p>
-            {
-                <Link to={`/products/${id}/edit`}>
-                    <button type="button">Update</button>
-                </Link>
-            }
+            <button type="button" onClick={() => navigate(`/products/${id}/edit`)}>Update</button>
             <button className={"deleteButton"} onClick={handleDeleteProduct} type={"button"}>Löschen</button>
         </main>
     )
