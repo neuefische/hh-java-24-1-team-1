@@ -1,40 +1,23 @@
-import {useNavigate, useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
-import axios from "axios";
-import './ProductUpdate.css';
+import {useParams} from "react-router-dom";
+import {useState} from "react";
+import {RestfulUtility} from "../types/RestfulUtility.ts";
+import {Product} from "../types/Product.ts";
 
+type ProductUpdateProps = {
+    restfulUtility:RestfulUtility,
+}
 
-function ProductUpdate() {
+function ProductUpdate(props:Readonly<ProductUpdateProps>) {
     const { id = '' } = useParams<string>();
-    const [product, setProduct] = useState({
-        id: id,
-        name: '',
-        description: '',
-        amount: 0,
-        productNumber: '',
-        minimumStockLevel: 0
-    });
+    const [product, setProduct] = useState<Product>(props.restfulUtility.getProductById(id));
 
-    useEffect(() => {
-        axios.get(`/api/products/${id}`)
-            .then(response => {
-            setProduct(response.data);
-        })
-            .catch(error => {
-                console.log(error)
-            });
-    }, [id]);
-
-    const navigate = useNavigate();
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
-
-        navigate(`/products/${id}`)
-
-    };
+        setProduct(props.restfulUtility.putProduct(product))
+    }
 
     return (
-        <div className={"productUpdate"}>
+        <main>
             <h2>Product Update</h2>
             <form onSubmit={handleSubmit}>
                 <div>
@@ -64,8 +47,7 @@ function ProductUpdate() {
                 </div>
                 <button type="submit">Update</button>
             </form>
-
-        </div>
+        </main>
     );
 }
 
