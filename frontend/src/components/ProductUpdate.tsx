@@ -28,14 +28,9 @@ function ProductUpdate() {
     const navigate = useNavigate();
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
-        axios.put(`/api/products/update`, product)
-            .then(response => {
-                console.log(response)
-                navigate(`/products/${id}`)
-            })
-            .catch(error => {
-                console.log(error)
-            });
+
+        navigate(`/products/${id}`)
+
     };
 
     return (
