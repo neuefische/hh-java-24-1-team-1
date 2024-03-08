@@ -26,7 +26,7 @@ export function ProductList(): React.ReactElement {
     );
 
     return (
-        <div>
+        <div style={{margin: '10px'}}>
             <SearchBar handleSearchText={setSearchText}/>
             {filteredProducts.map(product => (
                 <ProductCard key={product.productNumber} product={product}/>
