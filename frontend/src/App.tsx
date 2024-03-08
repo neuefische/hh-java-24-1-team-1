@@ -27,7 +27,7 @@ export default function App() {
 
         if(productWithId.length === 0) console.error('Kein Produkt mit der ID ' + id + ' gefunden.');
         else return productWithId[0];
-        return {id:id, name:'', amount:0, description:''};
+        return {id:id, name:'', amount:0, description:'', productNumber:'', minimumStockLevel:0};
     }
 
     function postProduct(newProduct:ProductDTO) {
