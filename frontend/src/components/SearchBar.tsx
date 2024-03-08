@@ -1,19 +1,29 @@
 import './SearchBar.css';
-import {ChangeEvent} from "react";
+import {ChangeEvent, FormEvent} from "react";
+import {Product} from "../types/Product.ts";
 
 type SearchBarProps = {
-    handleSearchText: (searchText: string) => void,
+    handleSearch: (products:Product[]) => void;
+    products: Product[];
 }
 
-export default function SearchBar(props: Readonly<SearchBarProps>){
+export default function SearchBar(props: Readonly<SearchBarProps>):JSX.Element{
 
-    function handleSearchText(event: ChangeEvent<HTMLInputElement>){
-        props.handleSearchText(event.target.value)
+    function handleSubmit(event: FormEvent<HTMLFormElement>):void{
+        event.preventDefault();
+    }
+    function handleSearchText(event: ChangeEvent<HTMLInputElement>):void{
+        props.handleSearch(
+            props.products.filter(
+                (product:Product) =>
+                    product.name.toLowerCase().includes(event.target.value.toLowerCase())
+                    || product.description.toLowerCase().includes(event.target.value.toLowerCase()))
+        )
     }
 
     return(
-        <div className={"searchBar"}>
-            <input  onChange={handleSearchText}/>
-        </div>
+        <form onSubmit={handleSubmit} className={"searchBar"}>
+            <input onChange={handleSearchText}/>
+        </form>
     );
 }
