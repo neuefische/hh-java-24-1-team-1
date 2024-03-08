@@ -1,11 +1,9 @@
 import './AddProductCard.css'
 import {ChangeEvent, FormEvent, useState} from "react";
-import axios from "axios";
+import {ProductDTO} from "../types/ProductDTO.ts";
 
-type ProductDTO = {
-    name:string,
-    amount:number,
-    description:string
+type AddProductCardPorps = {
+    handleSubmit: (event:FormEvent<HTMLFormElement>, newProduct:ProductDTO) => void
 }
 
 const initialFormData:ProductDTO = {
@@ -14,18 +12,12 @@ const initialFormData:ProductDTO = {
     amount: 0
 }
 
-export default function AddProductCard():JSX.Element{
+export default function AddProductCard(props: Readonly<AddProductCardPorps>):JSX.Element{
     const [formData, setFormData] = useState<ProductDTO>(initialFormData);
 
-    function handleSubmit(event:FormEvent<HTMLFormElement>):void {
+    function handleSubmit(event:FormEvent<HTMLFormElement>):void{
         event.preventDefault();
-        axios.post('../api/products', formData)
-            .then(response => {
-                console.log("New product added with id " + response.data.id + ".");
-            })
-            .catch(error => {
-                console.error("Error creating product: ", error.message);
-            })
+        props.handleSubmit(event, formData);
         setFormData(initialFormData);
     }
 
@@ -39,7 +31,7 @@ export default function AddProductCard():JSX.Element{
     }
 
     return (
-        <form className={"PostBar"} onSubmit={handleSubmit}>
+        <form className={"addProductCard"} onSubmit={handleSubmit}>
             <h2>Neues Produkt anlegen:</h2>
             <div>
                 <label htmlFor={"name"}>Produktname:</label>

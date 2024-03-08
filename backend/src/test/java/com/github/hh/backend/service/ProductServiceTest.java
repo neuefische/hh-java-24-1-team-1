@@ -1,5 +1,6 @@
 package com.github.hh.backend.service;
 
+import com.github.hh.backend.exception.NoSuchProductException;
 import com.github.hh.backend.model.Product;
 import com.github.hh.backend.model.ProductDTO;
 import com.github.hh.backend.repository.ProductRepo;
@@ -8,8 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
@@ -61,5 +61,29 @@ class ProductServiceTest {
 
         // Then
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void deleteProductById_whenNoSuchProduct_thenThrow() {
+        // Given
+        ProductService productService = new ProductService(mockProductRepo);
+
+        // When
+        // Then
+        assertThrows(NoSuchProductException.class, () -> productService.deleteProductById("1"));
+    }
+
+    @Test
+    void deleteProductById_whenSuchProduct_thenDelete(){
+        // Given
+        ProductDTO productDTO = new ProductDTO("Product", 10, "Description");
+        ProductService productService = new ProductService(mockProductRepo);
+        Product expected = productService.addProduct(productDTO);
+
+        // When
+        productService.deleteProductById(expected.id());
+
+        // Then
+        assertFalse(mockProductRepo.existsById(expected.id()));
     }
 }

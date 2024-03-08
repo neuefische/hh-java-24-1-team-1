@@ -1,6 +1,7 @@
+import './ProductDetail.css'
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {useParams, Link} from "react-router-dom";
+import {NavigateFunction, useParams, Link, useNavigate} from "react-router-dom";
 
 export default function ProductDetail(){
 
@@ -12,6 +13,8 @@ export default function ProductDetail(){
         amount: 0
     });
 
+    const navigate:NavigateFunction = useNavigate();
+
     useEffect(() => {
         axios.get(`/api/products/${id}`)
             .then(response => {
@@ -22,7 +25,15 @@ export default function ProductDetail(){
             });
     }, [id]);
 
-    return <>
+    function deleteProduct():void{
+        axios.delete(`/api/products/${id}`)
+            .catch(error => {
+                console.log(error)
+            });
+        navigate("/");
+    }
+
+    return (
         <div>
             <h2>Product Detail</h2>
             <p>{product.name}</p>
@@ -34,6 +45,7 @@ export default function ProductDetail(){
                 <button type="button">Update</button>
             </Link>
             }
+            <button className={"deleteButton"} onClick={deleteProduct} type={"button"}>Löschen</button>
         </div>
-    </>
+    )
 }

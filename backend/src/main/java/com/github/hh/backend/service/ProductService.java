@@ -1,5 +1,6 @@
 package com.github.hh.backend.service;
 
+import com.github.hh.backend.exception.NoSuchProductException;
 import com.github.hh.backend.model.Product;
 import com.github.hh.backend.model.ProductDTO;
 import com.github.hh.backend.repository.ProductRepo;
@@ -29,5 +30,12 @@ public class ProductService {
 
     public Product addProduct(ProductDTO productDTO) {
         return productRepo.save(new Product(null, productDTO.name(), productDTO.amount(), productDTO.description()));
+    }
+
+    public void deleteProductById(String id) {
+        if (!productRepo.existsById(id)) {
+            throw new NoSuchProductException("Product with ID " + id + " does not exist");
+        }
+        productRepo.deleteById(id);
     }
 }
