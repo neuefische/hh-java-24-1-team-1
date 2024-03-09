@@ -6,9 +6,9 @@ export default function Header(){
 
     return (
         <header className={"head"}>
-            <Link to={"/"}>Home</Link>
+            <a href={"/"}>Home</a>
             <Link to={"/products/add"}>Produkt Hinzufügen</Link>
-            <Link to={"/critical"}>Kritische Produkte</Link>
+            <a href={"/critical"}>Kritische Produkte</a>
         </header>
     )
 }
