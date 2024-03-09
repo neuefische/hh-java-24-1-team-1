@@ -9,17 +9,17 @@ function CriticalProductList() {
     const [products, setProducts] = useState<Product[]>([]);
     const [searchText, setSearchText] = useState<string>("");
 
-    function fetchProducts() {
+    function fetchData() {
         axios.get('/api/products/critical')
             .then(response => {
                 setProducts(response.data);
             })
             .catch(error => {
-                console.error('Es gab ein Problem beim Abrufen der Produkte:', error);
+                console.error('Error fetching products:', error);
             });
     }
 
-    useEffect(fetchProducts, []);
+    useEffect(fetchData, []);
 
     const filteredProducts = products.filter(product =>
         product.name.toLowerCase().includes(searchText.toLowerCase())
