@@ -6,24 +6,19 @@ import com.github.hh.backend.model.ProductDTO;
 import com.github.hh.backend.repository.ProductRepo;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-class ProductServiceTest {
-    @Autowired
-    private ProductRepo mockProductRepo;
 
-    @MockBean
-    private ProductRepo productRepo;
+class ProductServiceTest {
+
+    private final ProductRepo mockProductRepo = Mockito.mock(ProductRepo.class);
+
+    private final ProductService productService = new ProductService(mockProductRepo);
+
 
     @Test
     void addProduct_whenNewProductDTOGiven_thenReturnProductIncludingNewID(){
@@ -32,7 +27,6 @@ class ProductServiceTest {
         Product expected = new Product("1", "Product", 10,"Description", "1", 5);
 
         // When
-        ProductService productService = new ProductService(mockProductRepo);
         Product actual = productService.addProduct(productDTO);
 
         // Then
@@ -122,18 +116,17 @@ class ProductServiceTest {
     @Test
     void findAllProducts_shouldReturnListOfProducts() {
         // Given
-        ProductService productService = new ProductService(mockProductRepo);
-        Product product1 = new Product("1", "Product A", 10, "Description A", "12345", 5);
-        Product product2 = new Product("2", "Product B", 20, "Description B", "67890", 10);
-        List<Product> mockProducts = Arrays.asList(product1, product2);
-        Mockito.when(productRepo.findAll()).thenReturn(mockProducts);
+        Product product1 = new Product("1", "Product1", 10,"Description1", "1", 5);
+        Product product2 = new Product("2", "Product2", 10,"Description2", "2", 5);
+
+        List<Product> expected = Arrays.asList(product1, product2);
 
         // When
-        List<Product> products = productService.findAllProducts();
+        Mockito.when(mockProductRepo.findAll()).thenReturn(expected);
+        List<Product> actual = productService.findAllProducts();
 
         // Then
-        assertEquals(2, products.size());
-        assertEquals("Product A", products.get(0).name());
-        assertEquals("Product B", products.get(1).name());
+        assertEquals(expected.size(), actual.size());
+        assertEquals(expected, actual);
     }
 }
