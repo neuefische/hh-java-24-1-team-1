@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {ProductDTO} from '../types/ProductDTO.ts';
+import {ProductDTO} from '../../types/ProductDTO.ts';
 import './ProductDtoCard.css';
 
 type ProductCardProps = {
