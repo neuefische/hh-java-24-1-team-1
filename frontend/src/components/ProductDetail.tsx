@@ -1,21 +1,21 @@
 import './ProductDetail.css'
 import {useState} from "react";
 import {NavigateFunction, useNavigate, useParams} from "react-router-dom";
-import {RestfulUtility} from "../types/RestfulUtility.ts";
 import {Product} from "../types/Product.ts";
 
 type ProductDetailProps = {
-    restfulUtility:RestfulUtility,
+    getProductById:(id:string)=>Product,
+    deleteProduct:(id:string)=>void
 }
 
-export default function ProductDetail(props:Readonly<ProductDetailProps>){
+export default function ProductDetail(props:Readonly<ProductDetailProps>):JSX.Element{
     const { id = '' } = useParams<string>();
-    const [product] = useState<Product>(props.restfulUtility.getProductById(id));
+    const [product] = useState<Product>(props.getProductById(id));
 
     const navigate:NavigateFunction = useNavigate();
 
     function handleDeleteProduct():void {
-        props.restfulUtility.deleteProductById(id);
+        props.deleteProduct(id);
         navigate("/");
     }
 
