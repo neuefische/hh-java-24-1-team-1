@@ -69,6 +69,16 @@ class ProductServiceTest {
     }
 
     @Test
+    void getProductById_whenNoSuchProduct_thenThrow() {
+        // Given
+        ProductService productService = new ProductService(mockProductRepo);
+
+        // When
+        // Then
+        assertThrows(NoSuchProductException.class, () -> productService.getProductById("1"));
+    }
+
+    @Test
     void deleteProductById_whenNoSuchProduct_thenThrow() {
         // Given
         ProductService productService = new ProductService(mockProductRepo);
