@@ -1,7 +1,7 @@
 import {useState} from "react";
-import {Product} from "../types/Product.ts";
-import SearchBar from "./SearchBar.tsx";
-import ProductCard from "./ProductCard.tsx";
+import {Product} from "../../types/Product.ts";
+import SearchBar from "../utility/SearchBar.tsx";
+import ProductCard from "../parts/ProductCard.tsx";
 
 type CriticalProductListProps = {
     products: Product[];
