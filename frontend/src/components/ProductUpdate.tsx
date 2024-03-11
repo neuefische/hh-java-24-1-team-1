@@ -1,45 +1,27 @@
+import './ProductUpdate.css'
 import {useNavigate, useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
-import axios from "axios";
-import './ProductUpdate.css';
+import {useState} from "react";
+import {RestfulUtility} from "../types/RestfulUtility.ts";
+import {Product} from "../types/Product.ts";
 
+type ProductUpdateProps = {
+    restfulUtility:RestfulUtility,
+}
 
-function ProductUpdate() {
+function ProductUpdate(props:Readonly<ProductUpdateProps>) {
     const { id = '' } = useParams<string>();
-    const [product, setProduct] = useState({
-        id: id,
-        name: '',
-        description: '',
-        amount: 0,
-        productNumber: '',
-        minimumStockLevel: 0
-    });
-
-    useEffect(() => {
-        axios.get(`/api/products/${id}`)
-            .then(response => {
-            setProduct(response.data);
-        })
-            .catch(error => {
-                console.log(error)
-            });
-    }, [id]);
+    const [product, setProduct] = useState<Product>(props.restfulUtility.getProductById(id));
 
     const navigate = useNavigate();
-    const handleSubmit = (e: React.FormEvent) => {
+
+    function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
-        axios.put(`/api/products/update`, product)
-            .then(response => {
-                console.log(response)
-                navigate(`/products/${id}`)
-            })
-            .catch(error => {
-                console.log(error)
-            });
-    };
+        props.restfulUtility.putProduct(product)
+        navigate("/");
+    }
 
     return (
-        <div className={"productUpdate"}>
+        <main className={"productUpdate"}>
             <h2>Product Update</h2>
             <form onSubmit={handleSubmit}>
                 <div>
@@ -67,10 +49,11 @@ function ProductUpdate() {
                     <input type="number" value={product.minimumStockLevel} name={"minimumStockLevel"}
                            onChange={(e) => setProduct({...product, minimumStockLevel: parseInt(e.target.value)})}/>
                 </div>
-                <button type="submit">Update</button>
+                <div>
+                    <button type="submit">Update</button>
+                </div>
             </form>
-
-        </div>
+        </main>
     );
 }
 

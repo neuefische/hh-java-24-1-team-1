@@ -16,7 +16,7 @@ export default function ProductCard({ product }: Readonly<ProductCardProps>): Re
 
     return (
 
-        <div className={"card"}>
+        <div className={"productCard"}>
             <h2>Produkt: {product.name}</h2>
             <p>Artikelnummer: {product.productNumber}</p>
             <p>Menge: {product.amount}</p>
