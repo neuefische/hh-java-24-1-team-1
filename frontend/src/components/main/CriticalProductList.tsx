@@ -5,6 +5,8 @@ import ProductCard from "../parts/ProductCard.tsx";
 
 type CriticalProductListProps = {
     products: Product[];
+    handleSearchText: (searchText:string) => void;
+    handleFilterChange: (filter:string) => void;
 }
 
 function CriticalProductList(props:Readonly<CriticalProductListProps>):JSX.Element {
@@ -12,7 +14,7 @@ function CriticalProductList(props:Readonly<CriticalProductListProps>):JSX.Eleme
 
     return (
         <main className={"criticalProductList"}>
-            <SearchBar setResult={setSearchResults} products={props.products}/>
+            <SearchBar handleFilterChange={props.handleFilterChange} handleSearchText={props.handleSearchText} setResult={setSearchResults} products={props.products}/>
             {
                 searchResults ?
                     searchResults

@@ -4,7 +4,9 @@ import SearchBar from "../utility/SearchBar.tsx";
 import ProductCard from "../parts/ProductCard.tsx";
 
 type ProductListProps = {
-    products:Product[]
+    products:Product[];
+    handleSearchText: (searchText:string) => void;
+    handleFilterChange: (filter:string) => void;
 }
 
 export function ProductList(props:Readonly<ProductListProps>): React.ReactElement {
@@ -12,7 +14,7 @@ export function ProductList(props:Readonly<ProductListProps>): React.ReactElemen
 
     return (
         <main>
-            <SearchBar setResult={setSearchResults} products={props.products}/>
+            <SearchBar handleFilterChange={props.handleFilterChange} handleSearchText={props.handleSearchText} setResult={setSearchResults} products={props.products}/>
             {
                 searchResults ?
                     searchResults.map((product:Product) => (<ProductCard key={product.id} product={product}/>)):
