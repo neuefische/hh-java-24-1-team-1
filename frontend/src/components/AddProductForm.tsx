@@ -1,4 +1,4 @@
-import './AddProductCard.css'
+import './AddProductForm.css'
 import {ChangeEvent, FormEvent, useState} from "react";
 import {ProductDTO} from "../types/ProductDTO.ts";
 
@@ -14,7 +14,7 @@ const initialFormData:ProductDTO = {
     minimumStockLevel: 0
 }
 
-export default function AddProductCard(props: Readonly<AddProductCardProps>):JSX.Element{
+export default function AddProductForm(props: Readonly<AddProductCardProps>):JSX.Element{
     const [formData, setFormData] = useState<ProductDTO>(initialFormData);
 
     function handleSubmit(event:FormEvent<HTMLFormElement>):void{

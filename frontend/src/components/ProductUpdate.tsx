@@ -1,22 +1,22 @@
 import './ProductUpdate.css'
 import {useNavigate, useParams} from "react-router-dom";
-import {useState} from "react";
-import {RestfulUtility} from "../types/RestfulUtility.ts";
+import {FormEvent, useState} from "react";
 import {Product} from "../types/Product.ts";
 
 type ProductUpdateProps = {
-    restfulUtility:RestfulUtility,
+    updateProduct: (product:Product) => void,
+    getProductById:(id:string) => Product
 }
 
 function ProductUpdate(props:Readonly<ProductUpdateProps>) {
     const { id = '' } = useParams<string>();
-    const [product, setProduct] = useState<Product>(props.restfulUtility.getProductById(id));
+    const [product, setProduct] = useState<Product>(props.getProductById(id));
 
     const navigate = useNavigate();
 
-    function handleSubmit(e: React.FormEvent) {
+    function handleSubmit(e: FormEvent):void {
         e.preventDefault();
-        props.restfulUtility.putProduct(product)
+        props.updateProduct(product)
         navigate("/");
     }
 
