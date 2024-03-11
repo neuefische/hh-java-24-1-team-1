@@ -8,7 +8,7 @@ type ProductDetailProps = {
     deleteProduct:(id:string)=>void
 }
 
-export default function ProductDetail(props:Readonly<ProductDetailProps>):JSX.Element{
+export default function ProductDetail(props:Readonly<ProductDetailProps>){
     const { id = '' } = useParams<string>();
     const [product, setProduct] = useState<Product>({
         id: "",
@@ -26,7 +26,7 @@ export default function ProductDetail(props:Readonly<ProductDetailProps>):JSX.El
         navigate("/");
     }
 
-    useEffect(() => setProduct(props.getProductById(id)), []);
+    useEffect(() => setProduct(props.getProductById(id)), [id, props]);
 
     return (
         <main className={"productDetail"}>
