@@ -12,7 +12,7 @@ function CriticalProductList(props:Readonly<CriticalProductListProps>):JSX.Eleme
 
     return (
         <main className={"criticalProductList"}>
-            <SearchBar handleSearch={setSearchResults} products={props.products}/>
+            <SearchBar setResult={setSearchResults} products={props.products}/>
             {
                 searchResults ?
                     searchResults
