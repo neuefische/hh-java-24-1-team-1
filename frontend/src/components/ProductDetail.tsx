@@ -1,5 +1,5 @@
 import './ProductDetail.css'
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {NavigateFunction, useNavigate, useParams} from "react-router-dom";
 import {Product} from "../types/Product.ts";
 
@@ -10,7 +10,14 @@ type ProductDetailProps = {
 
 export default function ProductDetail(props:Readonly<ProductDetailProps>):JSX.Element{
     const { id = '' } = useParams<string>();
-    const [product] = useState<Product>(props.getProductById(id));
+    const [product, setProduct] = useState<Product>({
+        id: "",
+        name: "",
+        description: "",
+        amount: 0,
+        productNumber: "",
+        minimumStockLevel: 0
+    });
 
     const navigate:NavigateFunction = useNavigate();
 
@@ -18,6 +25,8 @@ export default function ProductDetail(props:Readonly<ProductDetailProps>):JSX.El
         props.deleteProduct(id);
         navigate("/");
     }
+
+    useEffect(() => setProduct(props.getProductById(id)), []);
 
     return (
         <main className={"productDetail"}>
