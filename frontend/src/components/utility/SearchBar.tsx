@@ -47,7 +47,7 @@ export default function SearchBar(props: Readonly<SearchBarProps>):JSX.Element{
             )
         )
         setIsLoading(false);
-    }, [searchText, selectedFilter, props.products]);
+    }, [searchText, selectedFilter, props.products, props]);
 
     if (isLoading) {
         return <div>Loading...</div>;
