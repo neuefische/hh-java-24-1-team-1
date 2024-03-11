@@ -1,44 +1,28 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {Product} from "../types/Product.ts";
-import axios from "axios";
 import SearchBar from "./SearchBar.tsx";
-import {Link} from "react-router-dom";
+import ProductCard from "./ProductCard.tsx";
 
+type CriticalProductListProps = {
+    products: Product[];
+}
 
-function CriticalProductList() {
-    const [products, setProducts] = useState<Product[]>([]);
-    const [searchText, setSearchText] = useState<string>("");
-
-    function fetchData() {
-        axios.get('/api/products/critical')
-            .then(response => {
-                setProducts(response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching products:', error);
-            });
-    }
-
-    useEffect(fetchData, []);
-
-    const filteredProducts = products.filter(product =>
-        product.name.toLowerCase().includes(searchText.toLowerCase())
-        || product.description.toLowerCase().includes(searchText.toLowerCase())
-    );
+function CriticalProductList(props:Readonly<CriticalProductListProps>):JSX.Element {
+    const [searchResults, setSearchResults] = useState<Product[]>();
 
     return (
-        <div>
-            <SearchBar handleSearchText={setSearchText}/>
-            {filteredProducts.map(product => (
-                <Link to={"products/" + product.id} key={product.id}>
-                    <div>
-                        <h2>{product.name}</h2>
-                        <p>Menge: {product.amount}</p>
-                        <p>Mindestbestand: {product.minimumStockLevel}</p>
-                    </div>
-                </Link>
-            ))}
-        </div>
+        <main className={"criticalProductList"}>
+            <SearchBar setResult={setSearchResults} products={props.products}/>
+            {
+                searchResults ?
+                    searchResults
+                        .filter((product:Product) => product.minimumStockLevel > product.amount)
+                        .map((product: Product) => (<ProductCard key={product.id} product={product}/>)) :
+                    props.products
+                        .filter((product:Product) => product.minimumStockLevel > product.amount)
+                        .map((product: Product) => (<ProductCard key={product.id} product={product}/>))
+            }
+        </main>
     );
 }
 
