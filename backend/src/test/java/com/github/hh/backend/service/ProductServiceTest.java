@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
 
 
 class ProductServiceTest {
@@ -63,6 +64,7 @@ class ProductServiceTest {
         Product actual = productService.getProductById(expected.id());
 
         // Then
+        verify(mockProductRepo).findById(expected.id());
         assertEquals(expected, actual);
     }
 
