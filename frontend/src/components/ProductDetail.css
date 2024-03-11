@@ -1,8 +1,4 @@
-.deleteButton {
-    color: red;
-}
-
-.details {
+.productDetail {
     border: 1px solid #ddd;
     padding: 10px;
     border-radius: 5px;
@@ -11,4 +7,8 @@
     justify-content: space-evenly;
     align-items: center;
     background: #f8f8f8;
+}
+
+.productDetail .deleteButton {
+    color: red;
 }

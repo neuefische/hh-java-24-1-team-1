@@ -5,10 +5,10 @@ import './Header.css';
 export default function Header(){
 
     return (
-        <header className={"head"}>
-            <Link to={"/"}>Home</Link>
-            <Link to={"/products/add"}>Produkt Hinzufügen</Link>
-            <Link to={"/critical"}>Kritische Produkte</Link>
+        <header className={"header"}>
+            <Link className={"link"} to={"/"}>Home</Link>
+            <Link className={"link"} to={"/products/add"}>Produkt Hinzufügen</Link>
+            <Link className={"link"} to={"/critical"}>Kritische Produkte</Link>
         </header>
     )
 }

@@ -1,54 +1,51 @@
 import './ProductDetail.css'
-import {useEffect, useState} from "react";
-import axios from "axios";
-import {Link, NavigateFunction, useNavigate, useParams} from "react-router-dom";
+import {useState} from "react";
+import {NavigateFunction, useNavigate, useParams} from "react-router-dom";
+import {RestfulUtility} from "../types/RestfulUtility.ts";
+import {Product} from "../types/Product.ts";
 
-export default function ProductDetail(){
+type ProductDetailProps = {
+    restfulUtility:RestfulUtility,
+}
 
+export default function ProductDetail(props:Readonly<ProductDetailProps>){
     const { id = '' } = useParams<string>();
-    const [product, setProduct] = useState({
-        id: id,
-        name: '',
-        description: '',
-        amount: 0,
-        productNumber: '',
-        minimumStockLevel: 0
-    });
+    const [product] = useState<Product>(props.restfulUtility.getProductById(id));
 
     const navigate:NavigateFunction = useNavigate();
 
-    useEffect(() => {
-        axios.get(`/api/products/${id}`)
-            .then(response => {
-                setProduct(response.data);
-            })
-            .catch(error => {
-                console.log(error)
-            });
-    }, [id]);
-
-    function deleteProduct():void{
-        axios.delete(`/api/products/${id}`)
-            .catch(error => {
-                console.log(error)
-            });
+    function handleDeleteProduct():void {
+        props.restfulUtility.deleteProductById(id);
         navigate("/");
     }
 
     return (
-        <div className={"details"}>
-            <h2>Product Detail</h2>
-            <p>Artikel: {product.name}</p>
-            <p>Menge: {product.amount}</p>
-            <p>Beschreibung: {product.description}</p>
-            <p>Artikelnummer: {product.productNumber}</p>
-            <p>Mindestbestand: {product.minimumStockLevel}</p>
-            {
-                <Link to={`/products/${id}/edit`}>
-                    <button type="button">Update</button>
-                </Link>
-            }
-            <button className={"deleteButton"} onClick={deleteProduct} type={"button"}>Löschen</button>
-        </div>
+        <main className={"productDetail"}>
+            <h2>Produktdetails</h2>
+            <div>
+                <span>Produktname:</span>
+                <span>{product.name}</span>
+            </div>
+            <div>
+                <span>Artikelnummer:</span>
+                <span>{product.productNumber}</span>
+            </div>
+            <div>
+                <span>Anzahl auf Lager:</span>
+                <span>{product.amount}</span>
+            </div>
+            <div>
+                <span>Mindestbestand:</span>
+                <span>{product.minimumStockLevel}</span>
+            </div>
+            <div>
+                <span>Produktbeschreibung:</span>
+                <span>{product.description}</span>
+            </div>
+            <div>
+                <button type="button" onClick={() => navigate(`/products/${id}/edit`)}>Update</button>
+                <button className={"deleteButton"} onClick={handleDeleteProduct} type={"button"}>Löschen</button>
+            </div>
+        </main>
     )
 }
