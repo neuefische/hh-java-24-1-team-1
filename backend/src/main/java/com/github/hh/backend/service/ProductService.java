@@ -15,6 +15,9 @@ public class ProductService {
     private final ProductRepo productRepo;
 
     public Product getProductById(String id) {
+        if (!productRepo.existsById(id)) {
+            throw new NoSuchProductException("Product with ID " + id + " does not exist");
+        }
         return productRepo.findById(id).orElseThrow();
     }
 
