@@ -1,8 +1,8 @@
 import './AddProductGallery.css'
-import AddProductForm from "./AddProductForm.tsx";
+import AddProductForm from "../parts/AddProductForm.tsx";
 import {FormEvent, useState} from "react";
-import {ProductDTO} from "../types/ProductDTO.ts";
-import ProductDtoCard from "./ProductDtoCard.tsx";
+import {ProductDTO} from "../../types/ProductDTO.ts";
+import ProductDtoCard from "../parts/ProductDtoCard.tsx";
 
 type AddProductGalleryProps = {
     saveProduct:(productDto:ProductDTO) => void;

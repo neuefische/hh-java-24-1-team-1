@@ -1,6 +1,6 @@
 import './AddProductForm.css'
 import {ChangeEvent, FormEvent, useState} from "react";
-import {ProductDTO} from "../types/ProductDTO.ts";
+import {ProductDTO} from "../../types/ProductDTO.ts";
 
 type AddProductCardProps = {
     handleSubmit: (event:FormEvent<HTMLFormElement>, newProduct:ProductDTO) => void

@@ -1,6 +1,6 @@
 import './SearchBar.css';
 import {ChangeEvent, FormEvent} from "react";
-import {Product} from "../types/Product.ts";
+import {Product} from "../../types/Product.ts";
 
 type SearchBarProps = {
     setResult: (products:Product[]) => void;
