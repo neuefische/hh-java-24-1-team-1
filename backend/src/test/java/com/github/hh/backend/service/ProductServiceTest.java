@@ -8,7 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -54,11 +56,10 @@ class ProductServiceTest {
     @Test
     void getProductById_shouldReturnProduct() {
         // Given
-        ProductDTO productDTO = new ProductDTO("Product", 10,"Description", "1", 5);
-        ProductService productService = new ProductService(mockProductRepo);
-        Product expected = productService.addProduct(productDTO);
+        Product expected = new Product("1", "Product", 10,"Description", "1", 5);
 
         // When
+        Mockito.when(mockProductRepo.findById(expected.id())).thenReturn(Optional.of(expected));
         Product actual = productService.getProductById(expected.id());
 
         // Then
