@@ -22,8 +22,10 @@ export default function ProductDetail(props:Readonly<ProductDetailProps>){
     const navigate:NavigateFunction = useNavigate();
 
     function handleDeleteProduct():void {
-        props.deleteProduct(id);
-        navigate("/");
+        if (window.confirm("Möchten Sie dieses Produkt wirklich löschen?")) {
+            props.deleteProduct(id);
+            navigate("/");
+        }
     }
 
     useEffect(() => setProduct(props.getProductById(id)), [id, props]);
