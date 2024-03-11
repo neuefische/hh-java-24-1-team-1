@@ -1,5 +1,5 @@
 import './SearchBar.css';
-import {ChangeEvent, FormEvent, useState} from "react";
+import {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {Product} from "../../types/Product.ts";
 
 type SearchBarProps = {
@@ -8,7 +8,9 @@ type SearchBarProps = {
 }
 
 export default function SearchBar(props: Readonly<SearchBarProps>):JSX.Element{
-    const [selectedFilter, setSelectedFilter] = useState<string>("name");
+    const [selectedFilter, setSelectedFilter] = useState<string>("all");
+    const [searchText, setSearchText] = useState<string>("");
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     function handleSubmit(event: FormEvent<HTMLFormElement>):void{
         event.preventDefault();
@@ -16,6 +18,15 @@ export default function SearchBar(props: Readonly<SearchBarProps>):JSX.Element{
 
     function handleSearchText(event: ChangeEvent<HTMLInputElement>):void{
         const searchText = event.target.value.toLowerCase();
+        setSearchText(searchText);
+    }
+
+    function handleFilterChange(event: ChangeEvent<HTMLSelectElement>):void{
+        setSelectedFilter(event.target.value);
+    }
+
+    useEffect(() => {
+        setIsLoading(true);
         props.setResult(
             props.products.filter(
                 (product:Product) => {
@@ -32,18 +43,20 @@ export default function SearchBar(props: Readonly<SearchBarProps>):JSX.Element{
                             product.productNumber.toLowerCase().includes(searchText);
                     }
                     return false;
-                })
+                }
+            )
         )
-    }
+        setIsLoading(false);
+    }, [searchText, selectedFilter, props.products]);
 
-    function handleFilterChange(event: ChangeEvent<HTMLSelectElement>):void{
-        setSelectedFilter(event.target.value);
+    if (isLoading) {
+        return <div>Loading...</div>;
     }
 
     return (
         <form onSubmit={handleSubmit} className={"searchBar"}>
             <input onChange={handleSearchText}/>
-            <select onChange={handleFilterChange}>
+            <select defaultValue={"all"} onChange={handleFilterChange}>
                 <option value="all">Alle</option>
                 <option value="name">Name</option>
                 <option value="description">Beschreibung</option>
