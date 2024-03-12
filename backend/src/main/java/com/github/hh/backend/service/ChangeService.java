@@ -1,13 +1,16 @@
 package com.github.hh.backend.service;
 
 import com.github.hh.backend.model.Change;
+import com.github.hh.backend.model.ChangeDTO;
 import com.github.hh.backend.model.ChangeStatus;
 import com.github.hh.backend.model.ChangeType;
 import com.github.hh.backend.repository.ChangeRepo;
+import com.mongodb.client.MongoIterable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -27,5 +30,9 @@ public class ChangeService {
     public void updateChangeProductId(String changeId, String id) {
         Change change = changeRepo.findById(changeId).orElseThrow();
         changeRepo.save(change.withProductId(id));
+    }
+
+    public List<Change> getChangeLog() {
+        return changeRepo.findAll();
     }
 }
