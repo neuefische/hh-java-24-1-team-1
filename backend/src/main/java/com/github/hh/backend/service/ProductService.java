@@ -23,6 +23,10 @@ public class ProductService {
     }
 
     public Product updateProduct(Product product) {
+        if (!productRepo.existsById(product.id())) {
+            throw new NoSuchProductException("Product with ID " + product.id() + " does not exist");
+        }
+
         return productRepo.save(product);
     }
 
