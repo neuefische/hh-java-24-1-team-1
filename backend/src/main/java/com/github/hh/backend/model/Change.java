@@ -3,14 +3,16 @@ package com.github.hh.backend.model;
 import lombok.With;
 import org.springframework.data.annotation.Id;
 
+import java.time.Instant;
+
 @With
-public record Product (
+public record Change(
         @Id
         String id,
-        String name,
-        int amount,
+        String productId,
+        String type,
         String description,
-        String productNumber,
-        int minimumStockLevel
-){
+        Instant date
+) {
+
 }
