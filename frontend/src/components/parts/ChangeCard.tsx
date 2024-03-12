@@ -7,11 +7,11 @@ type ChangeCardProps = {
 export default function ChangeCard(props:Readonly<ChangeCardProps>) {
     return (
       <div className={"changeCard"}>
-          <p>{props.change.date}</p>
-          <p>{props.change.productId}</p>
-          <p>{props.change.description}</p>
-          <p>{props.change.type}</p>
-          <p>{props.change.status}</p>
+          <span>{props.change.date}</span>
+          <span>{props.change.productId}</span>
+          <span>{props.change.description}</span>
+          <span>{props.change.type}</span>
+          <span>{props.change.status}</span>
       </div>
     );
 }
