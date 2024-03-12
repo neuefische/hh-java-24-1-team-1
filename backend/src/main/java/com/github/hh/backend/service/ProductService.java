@@ -29,7 +29,11 @@ public class ProductService {
     }
 
     public Product addProduct(ProductDTO productDTO) {
-        return productRepo.save(new Product(null, productDTO.name(), productDTO.amount(), productDTO.description(), productDTO.productNumber(), productDTO.minimumStockLevel()));
+        String changeId = changeService.createChange(null, "Product added", ChangeType.ADD, ChangeStatus.ERROR);
+        Product newProduct =  productRepo.save(new Product(null, productDTO.name(), productDTO.amount(), productDTO.description(), productDTO.productNumber(), productDTO.minimumStockLevel()));
+        changeService.updateChangeStatus(changeId, ChangeStatus.CREATED);
+        changeService.updateChangeProductId(changeId, newProduct.id());
+        return newProduct;
     }
 
     public Product updateProduct(Product product) {
