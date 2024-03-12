@@ -23,4 +23,9 @@ public class ChangeService {
         Change change = changeRepo.findById(id).orElseThrow();
         changeRepo.save(change.withStatus(status));
     }
+
+    public void updateChangeProductId(String changeId, String id) {
+        Change change = changeRepo.findById(changeId).orElseThrow();
+        changeRepo.save(change.withProductId(id));
+    }
 }
