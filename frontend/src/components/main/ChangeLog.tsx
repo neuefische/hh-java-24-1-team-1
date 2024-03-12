@@ -1,26 +1,16 @@
 import './ChangeLog.css';
-import React, {useState} from 'react';
-import {Product} from '../../types/Product.ts';
-import SearchBar from "../utility/SearchBar.tsx";
-import ProductCard from "../parts/ProductCard.tsx";
+import React from 'react';
+import {Change} from "../../types/Change.ts";
+import ChangeCard from "../parts/ChangeCard.tsx";
 
-type ProductListProps = {
-    products:Product[];
-    handleSearchText: (searchText:string) => void;
-    handleFilterChange: (filter:string) => void;
+type ChangeLogProps = {
+    changes:Change[];
 }
 
-export function ProductList(props:Readonly<ProductListProps>): React.ReactElement {
-    const [searchResults, setSearchResults] = useState<Product[]>();
-
+export function ChangeLog(props:Readonly<ChangeLogProps>): React.ReactElement {
     return (
-        <main>
-            <SearchBar handleFilterChange={props.handleFilterChange} handleSearchText={props.handleSearchText} setResult={setSearchResults} products={props.products}/>
-            {
-                searchResults ?
-                    searchResults.map((product:Product) => (<ProductCard key={product.id} product={product}/>)):
-                    props.products.map((product:Product) => (<ProductCard key={product.id} product={product}/>))
-            }
+        <main className={"changeLog"}>
+            {props.changes.map((change:Change) => (<ChangeCard key={change.date} change={change}/>))}
         </main>
     );
 }
