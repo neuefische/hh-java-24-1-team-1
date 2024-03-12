@@ -17,16 +17,15 @@ public class ProductService {
 
     public Product getProductById(String id) {
         if (!productRepo.existsById(id)) {
-            throw new NoSuchProductException("Product with ID " + id + " does not exist");
+            throw new NoSuchProductException(id);
         }
         return productRepo.findById(id).orElseThrow();
     }
 
     public Product updateProduct(Product product) {
         if (!productRepo.existsById(product.id())) {
-            throw new NoSuchProductException("Product with ID " + product.id() + " does not exist");
+            throw new NoSuchProductException(product.id());
         }
-
         return productRepo.save(product);
     }
 
@@ -40,7 +39,7 @@ public class ProductService {
 
     public void deleteProductById(String id) {
         if (!productRepo.existsById(id)) {
-            throw new NoSuchProductException("Product with ID " + id + " does not exist");
+            throw new NoSuchProductException(id);
         }
         productRepo.deleteById(id);
     }
