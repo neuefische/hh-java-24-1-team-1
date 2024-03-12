@@ -10,7 +10,8 @@ public record Change(
         @Id
         String id,
         String productId,
-        String type,
+        ChangeStatus status,
+        ChangeType type,
         String description,
         Instant date
 ) {
