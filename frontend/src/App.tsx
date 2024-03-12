@@ -35,7 +35,7 @@ export default function App() {
 
     return (
         <>
-            <Header />
+            <Header homeHook={() => setSearchText("")} criticalHook={() => setSearchText("")}/>
             <main>
                 <Routes>
                     <Route path={"/"} element={<ProductList handleFilterChange={setSelectedFilter} handleSearchText={setSearchText} products={filteredProducts} />} />
