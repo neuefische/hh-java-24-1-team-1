@@ -1,5 +1,6 @@
 package com.github.hh.backend.controller;
 
+import com.github.hh.backend.model.ChangeDTO;
 import com.github.hh.backend.model.Product;
 import com.github.hh.backend.model.ProductDTO;
 import com.github.hh.backend.service.ProductService;
@@ -44,5 +45,10 @@ public class ProductController {
     @GetMapping("/critical")
     public List<Product> getProductsInCriticalStock() {
         return productService.getProductsInCriticalStock();
+    }
+
+    @GetMapping("/changelog")
+    public List<ChangeDTO> getChangeLog() {
+        return productService.getChangeLog();
     }
 }

@@ -1,10 +1,7 @@
 package com.github.hh.backend.service;
 
 import com.github.hh.backend.exception.NoSuchProductException;
-import com.github.hh.backend.model.ChangeType;
-import com.github.hh.backend.model.ChangeStatus;
-import com.github.hh.backend.model.Product;
-import com.github.hh.backend.model.ProductDTO;
+import com.github.hh.backend.model.*;
 import com.github.hh.backend.repository.ProductRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -62,5 +59,10 @@ public class ProductService {
                     .toList();
     }
 
-
+    public List<ChangeDTO> getChangeLog() {
+        return changeService.getChangeLog().stream()
+                .map(change -> new ChangeDTO(change.productId(), change.description(), change.type(), change.status(), change.date()))
+                .sorted((change1, change2) -> change2.date().compareTo(change1.date()))
+                .toList();
+    }
 }
