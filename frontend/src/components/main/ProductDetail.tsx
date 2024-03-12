@@ -32,31 +32,36 @@ export default function ProductDetail(props:Readonly<ProductDetailProps>){
 
     return (
         <main className={"productDetail"}>
-            <h2>Produktdetails</h2>
-            <div>
-                <span>Produktname:</span>
-                <span>{product.name}</span>
-            </div>
-            <div>
-                <span>Artikelnummer:</span>
-                <span>{product.productNumber}</span>
-            </div>
-            <div>
-                <span>Anzahl auf Lager:</span>
-                <span>{product.amount}</span>
-            </div>
-            <div>
-                <span>Mindestbestand:</span>
-                <span>{product.minimumStockLevel}</span>
-            </div>
-            <div>
-                <span>Produktbeschreibung:</span>
-                <span>{product.description}</span>
-            </div>
-            <div>
+
+            <table>
+                <tbody>
+                    <tr>
+                        <th><h2>Produktname</h2></th>
+                        <td><h2>{product.name}</h2></td>
+                    </tr>
+
+                    <tr>
+                        <th>Artikelnummer:</th>
+                        <td>{product.productNumber}</td>
+                    </tr>
+                    <tr>
+                        <th>Anzahl auf Lager:</th>
+                        <td>{product.amount}</td>
+                    </tr>
+                    <tr>
+                        <th>Mindestbestand:</th>
+                        <td>{product.minimumStockLevel}</td>
+                    </tr>
+                    <tr>
+                        <th>Produktbeschreibung:</th>
+                        <td>{product.description}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
                 <button type="button" onClick={() => navigate(`/products/${id}/edit`)}>Update</button>
                 <button className={"deleteButton"} onClick={handleDeleteProduct} type={"button"}>Löschen</button>
-            </div>
+            </p>
         </main>
     )
 }
