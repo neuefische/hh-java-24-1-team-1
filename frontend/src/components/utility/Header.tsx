@@ -12,6 +12,7 @@ export default function Header(props: Readonly<HeaderProps>){
             <Link className={"link"} to={"/"} onClick={() => props.homeHook()}>Home</Link>
             <Link className={"link"} to={"/products/add"}>Produkt Hinzufügen</Link>
             <Link className={"link"} to={"/critical"} onClick={() => props.criticalHook()}>Kritische Produkte</Link>
+            <Link className={"link"} to={"/products/changelog"} onClick={() => props.criticalHook()}>Changelog</Link>
         </header>
     )
 }
