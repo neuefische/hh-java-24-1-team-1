@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
         ErrorMessage errorMsg = new ErrorMessage(
                 webRequest.getDescription(false),
                 HttpStatus.BAD_REQUEST,
-                exception.getMessage(),
+                "Product with ID " + exception.getMessage() + " does not exist",
                 LocalDateTime.now()
         );
 
