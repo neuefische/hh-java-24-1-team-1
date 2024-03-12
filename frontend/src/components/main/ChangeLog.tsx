@@ -10,7 +10,21 @@ type ChangeLogProps = {
 export function ChangeLog(props:Readonly<ChangeLogProps>): React.ReactElement {
     return (
         <main className={"changeLog"}>
-            {props.changes.map((change:Change) => (<ChangeCard key={change.date} change={change}/>))}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Datum</th>
+                        <th>Produkt ID</th>
+                        <th>Beschreibung</th>
+                        <th>Typ</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {props.changes.map((change:Change) => (<ChangeCard key={change.date} change={change}/>))}
+                </tbody>
+            </table>
         </main>
     );
 }
