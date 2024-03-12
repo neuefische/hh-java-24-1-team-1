@@ -13,6 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductRepo productRepo;
+    private final ChangeService changeService;
 
     public Product getProductById(String id) {
         if (!productRepo.existsById(id)) {
