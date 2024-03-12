@@ -19,6 +19,7 @@ export default function useChanges() {
     useEffect(()=> fetchChanges(), []);
 
     return {
-        changes
+        changes,
+        fetchChanges
     }
 }
