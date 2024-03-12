@@ -9,9 +9,11 @@ import CriticalProductList from "./components/main/CriticalProductList.tsx";
 import React, {useState} from "react";
 import {Product} from "./types/Product.ts";
 import {ChangeLog} from "./components/main/ChangeLog.tsx";
+import useChanges from "./hooks/useChanges.ts";
 
 export default function App(): React.ReactElement {
     const {products, saveProduct, getProductById, updateProduct, deleteProduct} = useProducts();
+    const {changes} = useChanges();
     const [selectedFilter, setSelectedFilter] = useState<string>("all");
     const [searchText, setSearchText] = useState<string>("");
 
@@ -44,7 +46,7 @@ export default function App(): React.ReactElement {
                     <Route path={"/products/:id/edit"} element={<ProductUpdate updateProduct={updateProduct} getProductById={getProductById}/>}/>
                     <Route path={"/products/:id"} element={<ProductDetail getProductById={getProductById} deleteProduct={deleteProduct}/>}/>
                     <Route path={"/critical"} element={<CriticalProductList handleFilterChange={setSelectedFilter} handleSearchText={setSearchText}  products={filteredProducts}/>} />
-                    <Route path={"/products/changelog"} element={<ChangeLog />} />
+                    <Route path={"/products/changelog"} element={<ChangeLog changes={changes}/>} />
                 </Routes>
             </main>
         </>
