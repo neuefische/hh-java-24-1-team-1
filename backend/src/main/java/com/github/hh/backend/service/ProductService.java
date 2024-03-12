@@ -17,11 +17,19 @@ public class ProductService {
     private final ProductRepo productRepo;
     private final ChangeService changeService;
 
+    public List<Product> findAllProducts() {
+        return productRepo.findAll();
+    }
+
     public Product getProductById(String id) {
         if (!productRepo.existsById(id)) {
             throw new NoSuchProductException(id);
         }
         return productRepo.findById(id).orElseThrow();
+    }
+
+    public Product addProduct(ProductDTO productDTO) {
+        return productRepo.save(new Product(null, productDTO.name(), productDTO.amount(), productDTO.description(), productDTO.productNumber(), productDTO.minimumStockLevel()));
     }
 
     public Product updateProduct(Product product) {
@@ -32,14 +40,6 @@ public class ProductService {
         Product newProduct = productRepo.save(product);
         changeService.updateChangeStatus(changeId, ChangeStatus.CREATED);
         return newProduct;
-    }
-
-    public List<Product> findAllProducts() {
-        return productRepo.findAll();
-    }
-
-    public Product addProduct(ProductDTO productDTO) {
-        return productRepo.save(new Product(null, productDTO.name(), productDTO.amount(), productDTO.description(), productDTO.productNumber(), productDTO.minimumStockLevel()));
     }
 
     public void deleteProductById(String id) {
@@ -54,4 +54,5 @@ public class ProductService {
                     .filter(product -> product.amount() < product.minimumStockLevel())
                     .toList();
     }
+
 }
