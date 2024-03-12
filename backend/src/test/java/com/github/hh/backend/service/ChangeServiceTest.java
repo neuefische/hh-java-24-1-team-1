@@ -4,7 +4,6 @@ import com.github.hh.backend.exception.NoSuchChangeException;
 import com.github.hh.backend.model.Change;
 import com.github.hh.backend.model.ChangeStatus;
 import com.github.hh.backend.model.ChangeType;
-import com.github.hh.backend.model.Product;
 import com.github.hh.backend.repository.ChangeRepo;
 import org.junit.jupiter.api.Test;
 
