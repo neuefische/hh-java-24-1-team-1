@@ -3,12 +3,23 @@
     padding: 10px;
     border-radius: 5px;
     margin: 20px 10px;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
     background: #f8f8f8;
 }
 
 .productDetail .deleteButton {
     color: red;
+}
+
+.productDetail table {
+    border-collapse: collapse; /* Kollabiert die Grenzen auf eine einzige Linie */
+}
+
+.productDetail th, .productDetail td {
+    text-align: left;
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.productDetail tr:nth-child(even) {
+    background-color: #f2f2f2;
 }
