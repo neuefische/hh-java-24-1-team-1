@@ -1,5 +1,6 @@
 package com.github.hh.backend.service;
 
+import com.github.hh.backend.exception.NoSuchChangeException;
 import com.github.hh.backend.model.Change;
 import com.github.hh.backend.model.ChangeStatus;
 import com.github.hh.backend.model.ChangeType;
@@ -20,14 +21,20 @@ public class ChangeService {
         return newChange.id();
     }
 
-    public void updateChangeStatus(String id, ChangeStatus status) {
-        Change change = changeRepo.findById(id).orElseThrow();
-        changeRepo.save(change.withStatus(status));
+    public Change updateChangeStatus(String changeId, ChangeStatus status) {
+        if(!changeRepo.existsById(changeId)){
+            throw new NoSuchChangeException(changeId);
+        }
+        Change change = changeRepo.findById(changeId).orElseThrow();
+        return changeRepo.save(change.withStatus(status));
     }
 
-    public void updateChangeProductId(String changeId, String id) {
+    public Change updateChangeProductId(String changeId, String productId) {
+        if(!changeRepo.existsById(changeId)) {
+            throw new NoSuchChangeException(changeId);
+        }
         Change change = changeRepo.findById(changeId).orElseThrow();
-        changeRepo.save(change.withProductId(id));
+        return changeRepo.save(change.withProductId(productId));
     }
 
     public List<Change> getChangeLog() {

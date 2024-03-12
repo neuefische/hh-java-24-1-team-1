@@ -1,5 +1,6 @@
 package com.github.hh.backend.handler;
 
+import com.github.hh.backend.exception.NoSuchChangeException;
 import com.github.hh.backend.exception.NoSuchProductException;
 import com.github.hh.backend.model.ErrorMessage;
 import org.springframework.http.HttpStatus;
@@ -24,5 +25,18 @@ public class GlobalExceptionHandler {
         );
 
         return new ResponseEntity<>(errorMsg, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({NoSuchChangeException.class})
+    public ResponseEntity<ErrorMessage> handleNoSuchChangeException(NoSuchChangeException exception,
+                                                                    WebRequest webRequest){
+        ErrorMessage errorMsg = new ErrorMessage(
+                webRequest.getDescription(false),
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                "Change with ID " + exception.getMessage() + " does not exist. How did you get this message? Seriously, how?",
+                LocalDateTime.now()
+        );
+
+        return new ResponseEntity<>(errorMsg, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
