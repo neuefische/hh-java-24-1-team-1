@@ -6,14 +6,14 @@ import Header from "./components/utility/Header.tsx";
 import AddProductGallery from "./components/main/AddProductGallery.tsx";
 import useProducts from "./hooks/useProducts.ts";
 import CriticalProductList from "./components/main/CriticalProductList.tsx";
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {Product} from "./types/Product.ts";
 import {ChangeLog} from "./components/main/ChangeLog.tsx";
 import useChanges from "./hooks/useChanges.ts";
 
 export default function App(): React.ReactElement {
     const {products, saveProduct, getProductById, updateProduct, deleteProduct} = useProducts();
-    const {changes} = useChanges();
+    const {changes, fetchChanges} = useChanges();
     const [selectedFilter, setSelectedFilter] = useState<string>("all");
     const [searchText, setSearchText] = useState<string>("");
 
@@ -35,6 +35,8 @@ export default function App(): React.ReactElement {
                 return false;
             }
         )
+
+    useEffect(fetchChanges,[products]);
 
     return (
         <>

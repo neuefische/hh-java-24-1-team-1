@@ -1,4 +1,5 @@
 .changeLog {
     margin: 0 10px;
     display: flex;
+    flex-direction: column;
 }
