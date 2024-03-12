@@ -15,8 +15,9 @@ import static org.mockito.Mockito.*;
 class ProductServiceTest {
 
     private final ProductRepo mockProductRepo = mock(ProductRepo.class);
+    private final ChangeService mockChangeService = mock(ChangeService.class);
 
-    private final ProductService productService = new ProductService(mockProductRepo);
+    private final ProductService productService = new ProductService(mockProductRepo, mockChangeService);
 
     @Test
     void findAllProducts_whenEmptyDb_thenReturnEmptyList(){
