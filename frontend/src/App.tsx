@@ -36,6 +36,7 @@ export default function App(): React.ReactElement {
             }
         )
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(fetchChanges,[products]);
 
     return (
