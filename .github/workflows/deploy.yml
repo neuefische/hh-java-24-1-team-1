@@ -81,8 +81,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: push-to-docker-hub
     environment:
-      name: Capstone Project # Capstone Project name
-      url: https://neuefische.de/ # Link to deployment
+      name: Warehouse App # Capstone Project name
+      url: https://warehouseapp-nmnt.onrender.com/ # must match the url of the Render Deployment
     steps:
       - name: Trigger Render.com Deployment
         run: |
