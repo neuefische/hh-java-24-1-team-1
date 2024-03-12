@@ -1,7 +1,7 @@
 .changeLog {
     border: 1px solid #ddd;
     border-radius: 5px;
-    margin: 20px 10px;
+    margin: 10px 10px;
     background: #f8f8f8;
     display: flex;
 }
@@ -18,12 +18,16 @@
     padding: 8px;
 }
 
-.changeLog tr:nth-child(odd) {
+.changeLog tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
 .changeLog tbody tr:hover {
     background-color: #c0e9f8;
+}
+
+.changeLog thead{
+    background-color: #cecece;
 }
 
 .changeLog table p {
