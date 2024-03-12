@@ -31,7 +31,7 @@ public class ProductService {
     public Product addProduct(ProductDTO productDTO) {
         String changeId = changeService.createChange(null, "Product added", ChangeType.ADD, ChangeStatus.ERROR);
         Product newProduct =  productRepo.save(new Product(null, productDTO.name(), productDTO.amount(), productDTO.description(), productDTO.productNumber(), productDTO.minimumStockLevel()));
-        changeService.updateChangeStatus(changeId, ChangeStatus.CREATED);
+        changeService.updateChangeStatus(changeId, ChangeStatus.DONE);
         changeService.updateChangeProductId(changeId, newProduct.id());
         return newProduct;
     }
@@ -42,7 +42,7 @@ public class ProductService {
         }
         String changeId = changeService.createChange(product.id(), "Product updated", ChangeType.UPDATE, ChangeStatus.ERROR);
         Product newProduct = productRepo.save(product);
-        changeService.updateChangeStatus(changeId, ChangeStatus.CREATED);
+        changeService.updateChangeStatus(changeId, ChangeStatus.DONE);
         return newProduct;
     }
 
@@ -50,7 +50,10 @@ public class ProductService {
         if (!productRepo.existsById(id)) {
             throw new NoSuchProductException(id);
         }
+        Product deletedProduct = productRepo.findById(id).orElseThrow();
+        String changeId = changeService.createChange(deletedProduct.id(), "Product deleted", ChangeType.DELETE, ChangeStatus.ERROR);
         productRepo.deleteById(id);
+        changeService.updateChangeStatus(changeId, ChangeStatus.DONE);
     }
 
     public List<Product> getProductsInCriticalStock() {
