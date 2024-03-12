@@ -1,11 +1,10 @@
 .productCard {
     border: 1px solid #ddd;
     padding: 10px;
-    border-radius: 5px;
-    margin: 10px;
     background: #f8f8f8;
 }
 
-.productCard:hover {
-    background-color: #efeeee;
+.productCard td {
+    padding: 10px;
+    text-align: left;
 }

@@ -8,13 +8,12 @@ type ProductCardProps = {
 };
 
 export default function ProductCard({ product }: Readonly<ProductCardProps>): React.ReactElement {
-
     return (
-        <div className={"productCard"}>
-            <h2>Produkt: {product.name}</h2>
-            <p>Artikelnummer: {product.productNumber}</p>
-            <p>Menge: {product.amount}</p>
-            <p><Link to={"/products/" + product.id}>Details</Link></p>
-        </div>
+        <tr className={"productCard"}>
+            <td><p><b>{product.name}</b></p></td>
+            <td><p>{product.productNumber}</p></td>
+            <td><p>{product.amount}</p></td>
+            <td><p><Link to={"/products/" + product.id}>Details</Link></p></td>
+        </tr>
     );
 }
