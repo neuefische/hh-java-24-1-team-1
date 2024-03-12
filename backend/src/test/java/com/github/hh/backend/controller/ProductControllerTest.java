@@ -2,9 +2,7 @@ package com.github.hh.backend.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.hh.backend.model.ErrorMessage;
-import com.github.hh.backend.model.Product;
-import com.github.hh.backend.model.ProductDTO;
+import com.github.hh.backend.model.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -173,5 +171,31 @@ class ProductControllerTest {
 
         // Then
         assertEquals(0, products.size());
+    }
+
+    @Test
+    void getChangeLog_whenProductsAdded_thenGetChangeLog() throws Exception {
+        // Given
+        ProductDTO productDTO = new ProductDTO("Product", 10,"Description", "1", 5);
+        String productDtoJson = objectMapper.writeValueAsString(productDTO);
+
+        MvcResult setup = mvc.perform(MockMvcRequestBuilders.post("/api/products").contentType(MediaType.APPLICATION_JSON).content(productDtoJson)).andReturn();
+        Product expectedProduct = objectMapper.readValue(setup.getResponse().getContentAsString(), Product.class);
+
+        ChangeDTO expected = new ChangeDTO(expectedProduct.id(), "Product added", ChangeType.ADD, ChangeStatus.DONE, null);
+        // When
+        MvcResult result = mvc.perform(MockMvcRequestBuilders.get("/api/products/changelog"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn();
+
+        List<ChangeDTO> actual = objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<>(){});
+
+        // Then
+        assertEquals(1, actual.size());
+        assertEquals(expected.productId(), actual.getFirst().productId());
+        assertEquals(expected.description(), actual.getFirst().description());
+        assertEquals(expected.type(), actual.getFirst().type());
+        assertEquals(expected.status(), actual.getFirst().status());
+        assertNotNull(actual.getFirst().date());
     }
 }
