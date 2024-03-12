@@ -1,6 +1,8 @@
 package com.github.hh.backend.service;
 
 import com.github.hh.backend.exception.NoSuchProductException;
+import com.github.hh.backend.model.ChangeType;
+import com.github.hh.backend.model.ChangeStatus;
 import com.github.hh.backend.model.Product;
 import com.github.hh.backend.model.ProductDTO;
 import com.github.hh.backend.repository.ProductRepo;
@@ -26,7 +28,10 @@ public class ProductService {
         if (!productRepo.existsById(product.id())) {
             throw new NoSuchProductException(product.id());
         }
-        return productRepo.save(product);
+        String changeId = changeService.createChange(product.id(), "Product updated", ChangeType.UPDATE, ChangeStatus.ERROR);
+        Product newProduct = productRepo.save(product);
+        changeService.updateChangeStatus(changeId, ChangeStatus.CREATED);
+        return newProduct;
     }
 
     public List<Product> findAllProducts() {
