@@ -12,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductRepo productRepo;
-    private final ChangeService changeService;
+    private final ProductChangeService productChangeService;
 
     public List<Product> findAllProducts() {
         return productRepo.findAll();
@@ -26,10 +26,10 @@ public class ProductService {
     }
 
     public Product addProduct(ProductDTO productDTO) {
-        String changeId = changeService.createChange(null, "Product added", ChangeType.ADD, ChangeStatus.ERROR);
+        String changeId = productChangeService.createChange(null, "Product added", ProductChangeType.ADD, ProductChangeStatus.ERROR);
         Product newProduct =  productRepo.save(new Product(null, productDTO.name(), productDTO.amount(), productDTO.description(), productDTO.productNumber(), productDTO.minimumStockLevel()));
-        changeService.updateChangeStatus(changeId, ChangeStatus.DONE);
-        changeService.updateChangeProductId(changeId, newProduct.id());
+        productChangeService.updateChangeStatus(changeId, ProductChangeStatus.DONE);
+        productChangeService.updateChangeProductId(changeId, newProduct.id());
         return newProduct;
     }
 
@@ -37,9 +37,9 @@ public class ProductService {
         if (!productRepo.existsById(product.id())) {
             throw new NoSuchProductException(product.id());
         }
-        String changeId = changeService.createChange(product.id(), "Product updated", ChangeType.UPDATE, ChangeStatus.ERROR);
+        String changeId = productChangeService.createChange(product.id(), "Product updated", ProductChangeType.UPDATE, ProductChangeStatus.ERROR);
         Product newProduct = productRepo.save(product);
-        changeService.updateChangeStatus(changeId, ChangeStatus.DONE);
+        productChangeService.updateChangeStatus(changeId, ProductChangeStatus.DONE);
         return newProduct;
     }
 
@@ -48,9 +48,9 @@ public class ProductService {
             throw new NoSuchProductException(id);
         }
         Product deletedProduct = productRepo.findById(id).orElseThrow();
-        String changeId = changeService.createChange(deletedProduct.id(), "Product deleted", ChangeType.DELETE, ChangeStatus.ERROR);
+        String changeId = productChangeService.createChange(deletedProduct.id(), "Product deleted", ProductChangeType.DELETE, ProductChangeStatus.ERROR);
         productRepo.deleteById(id);
-        changeService.updateChangeStatus(changeId, ChangeStatus.DONE);
+        productChangeService.updateChangeStatus(changeId, ProductChangeStatus.DONE);
     }
 
     public List<Product> getProductsInCriticalStock() {
@@ -59,9 +59,9 @@ public class ProductService {
                     .toList();
     }
 
-    public List<ChangeDTO> getChangeLog() {
-        return changeService.getChangeLog().stream()
-                .map(change -> new ChangeDTO(change.productId(), change.description(), change.type(), change.status(), change.date()))
+    public List<ProductChangeDTO> getChangeLog() {
+        return productChangeService.getChangeLog().stream()
+                .map(change -> new ProductChangeDTO(change.productId(), change.description(), change.type(), change.status(), change.date()))
                 .sorted((change1, change2) -> change2.date().compareTo(change1.date()))
                 .toList();
     }

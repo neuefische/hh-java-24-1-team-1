@@ -2,11 +2,11 @@ package com.github.hh.backend.model;
 
 import java.time.Instant;
 
-public record ChangeDTO(
+public record ProductChangeDTO(
         String productId,
         String description,
-        ChangeType type,
-        ChangeStatus status,
+        ProductChangeType type,
+        ProductChangeStatus status,
         Instant date
 ) {
 }

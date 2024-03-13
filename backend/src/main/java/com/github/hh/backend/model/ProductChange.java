@@ -5,15 +5,15 @@ import org.springframework.data.annotation.Id;
 
 import java.time.Instant;
 
-public record Change(
+public record ProductChange(
         @Id
         String id,
         @With
         String productId,
         String description,
-        ChangeType type,
+        ProductChangeType type,
         @With
-        ChangeStatus status,
+        ProductChangeStatus status,
         Instant date
 ) {
 
