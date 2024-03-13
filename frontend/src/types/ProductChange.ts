@@ -1,4 +1,4 @@
-export type Change = {
+export type ProductChange = {
     productId:string,
     description:string,
     type:string,

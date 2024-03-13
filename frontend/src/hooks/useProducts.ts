@@ -38,7 +38,7 @@ export default function useProducts() {
 
 
     function updateProduct(updatedProduct:Product) {
-        axios.put(`/api/products/update`, updatedProduct)
+        axios.put(`/api/products`, updatedProduct)
             .then((response) => {
                 console.log(response)
                 fetchProducts();
