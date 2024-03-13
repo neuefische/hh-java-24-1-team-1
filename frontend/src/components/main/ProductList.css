@@ -24,7 +24,7 @@
     background-color: #f2f2f2;
 }
 
-.productList tr:hover {
+.productList tbody tr:hover {
     background-color: #656363;
 }
 
