@@ -3,6 +3,7 @@ import {Product} from "../../types/Product.ts";
 import SearchBar from "../utility/SearchBar.tsx";
 import ProductCard from "../parts/ProductCard.tsx";
 import './ProductList.css';
+import TableHead from "../htmlParts/TableHead.tsx";
 
 type CriticalProductListProps = {
     products: Product[];
@@ -17,16 +18,9 @@ function CriticalProductList(props:Readonly<CriticalProductListProps>):JSX.Eleme
         <>
             <SearchBar handleFilterChange={props.handleFilterChange} handleSearchText={props.handleSearchText}
                        setResult={setSearchResults} products={props.products}/>
-            <main  className={"productList"}>
-                <table className={"productListTable"}>
-                    <thead>
-                    <tr>
-                        <th>Produktname</th>
-                        <th>Artikelnummer</th>
-                        <th>Anzahl auf Lager</th>
-                        <th>Details</th>
-                    </tr>
-                    </thead>
+            <main  className={"criticalProductList"}>
+                <table>
+                    <TableHead/>
                     <tbody>
                     {
                         searchResults ?
