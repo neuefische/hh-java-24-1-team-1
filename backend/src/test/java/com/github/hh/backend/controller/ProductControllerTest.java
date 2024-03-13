@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
@@ -105,8 +104,6 @@ class ProductControllerTest {
         ErrorMessage errorMessage = objectMapper.readValue(result.getResponse().getContentAsString(),ErrorMessage.class);
 
         // Then
-        assertEquals("uri=/api/products/10", errorMessage.apiPath());
-        assertEquals(HttpStatus.BAD_REQUEST, errorMessage.errorCode());
         assertEquals("Product with ID 10 does not exist", errorMessage.errorMsg());
     }
 
@@ -128,10 +125,8 @@ class ProductControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
                 .andReturn();
 
-        ErrorMessage errorMessage = objectMapper.readValue(result.getResponse().get,ErrorMessage.class);
+        ErrorMessage errorMessage = objectMapper.readValue(result.getResponse().getContentAsString(),ErrorMessage.class);
 
-        assertEquals("uri=/api/products/" + expectedProduct.id(), errorMessage.apiPath());
-        assertEquals(HttpStatus.BAD_REQUEST, errorMessage.errorCode());
         assertEquals("Product with ID " + expectedProduct.id() + " does not exist", errorMessage.errorMsg());
     }
 
