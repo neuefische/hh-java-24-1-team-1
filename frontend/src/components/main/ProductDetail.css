@@ -11,7 +11,7 @@
 }
 
 .productDetail table {
-    border-collapse: collapse; /* Kollabiert die Grenzen auf eine einzige Linie */
+    border-collapse: collapse;
 }
 
 .productDetail th, .productDetail td {
