@@ -43,7 +43,7 @@ class ProductControllerTest {
         String productJson = objectMapper.writeValueAsString(expectedProduct);
 
         // When and Then
-        MvcResult result = mvc.perform(MockMvcRequestBuilders.put("/api/products/update")
+        MvcResult result = mvc.perform(MockMvcRequestBuilders.put("/api/products")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(productJson)
                 )
