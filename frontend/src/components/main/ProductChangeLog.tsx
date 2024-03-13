@@ -9,7 +9,7 @@ type ChangeLogProps = {
 
 export function ProductChangeLog(props:Readonly<ChangeLogProps>): React.ReactElement {
     return (
-        <main className={"productList"}>
+        <main className={"changeLog"}>
             <table>
                 <thead>
                     <tr>
