@@ -24,12 +24,12 @@
     background-color: #f2f2f2;
 }
 
-.productList tr:hover {
+.productList tbody tr:hover {
     background-color: #656363;
 }
 
-.productList thead tr:hover {
-    background-color: #f8f8f8;
+.productList thead tr {
+    background-color: #cecece;
 }
 
 .productList table p {
