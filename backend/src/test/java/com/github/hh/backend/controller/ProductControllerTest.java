@@ -128,7 +128,7 @@ class ProductControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
                 .andReturn();
 
-        ErrorMessage errorMessage = objectMapper.readValue(result.getResponse().getContentAsString(),ErrorMessage.class);
+        ErrorMessage errorMessage = objectMapper.readValue(result.getResponse().get,ErrorMessage.class);
 
         assertEquals("uri=/api/products/" + expectedProduct.id(), errorMessage.apiPath());
         assertEquals(HttpStatus.BAD_REQUEST, errorMessage.errorCode());
