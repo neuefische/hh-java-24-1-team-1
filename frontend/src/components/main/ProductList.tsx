@@ -21,13 +21,14 @@ export function ProductList(props:Readonly<ProductListProps>): React.ReactElemen
 
                 <table className={"productListTable"}>
                     <thead>
-                        <tr>
-                            <th>Produktname</th>
-                            <th>Artikelnummer</th>
-                            <th>Anzahl auf Lager</th>
-                            <th>Details</th>
-                        </tr>
+                    <tr>
+                        <th>Produktname</th>
+                        <th>Artikelnummer</th>
+                        <th>Anzahl auf Lager</th>
+                        <th>Details</th>
+                    </tr>
                     </thead>
+                    <tbody>
                     {
                         searchResults ?
                             searchResults.map((product: Product) => (
@@ -35,6 +36,7 @@ export function ProductList(props:Readonly<ProductListProps>): React.ReactElemen
                             props.products.map((product: Product) => (
                                 <ProductCard key={product.id} product={product}/>))
                     }
+                    </tbody>
                 </table>
             </main>
         </>
