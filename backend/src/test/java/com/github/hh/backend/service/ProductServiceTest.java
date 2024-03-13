@@ -8,16 +8,17 @@ import org.junit.jupiter.api.Test;
 import java.time.Instant;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 
 class ProductServiceTest {
 
     private final ProductRepo mockProductRepo = mock(ProductRepo.class);
-    private final ChangeService mockChangeService = mock(ChangeService.class);
+    private final ProductChangeService mockProductChangeService = mock(ProductChangeService.class);
 
-    private final ProductService productService = new ProductService(mockProductRepo, mockChangeService);
+    private final ProductService productService = new ProductService(mockProductRepo, mockProductChangeService);
 
     @Test
     void findAllProducts_whenEmptyDb_thenReturnEmptyList(){
@@ -134,7 +135,7 @@ class ProductServiceTest {
         // When
         when(mockProductRepo.existsById(product.id())).thenReturn(true);
         when(mockProductRepo.findById(product.id())).thenReturn(java.util.Optional.of(product));
-        when(mockChangeService.createChange(product.id(), "Product deleted", ChangeType.DELETE, ChangeStatus.ERROR))
+        when(mockProductChangeService.createChange(product.id(), "Product deleted", ProductChangeType.DELETE, ProductChangeStatus.ERROR))
                 .thenReturn("new Change Id");
         productService.deleteProductById(product.id());
 
@@ -143,9 +144,9 @@ class ProductServiceTest {
         verify(mockProductRepo).deleteById(product.id());
         verify(mockProductRepo).findById(product.id());
         verifyNoMoreInteractions(mockProductRepo);
-        verify(mockChangeService).createChange(product.id(), "Product deleted", ChangeType.DELETE, ChangeStatus.ERROR);
-        verify(mockChangeService).updateChangeStatus("new Change Id", ChangeStatus.DONE);
-        verifyNoMoreInteractions(mockChangeService);
+        verify(mockProductChangeService).createChange(product.id(), "Product deleted", ProductChangeType.DELETE, ProductChangeStatus.ERROR);
+        verify(mockProductChangeService).updateChangeStatus("new Change Id", ProductChangeStatus.DONE);
+        verifyNoMoreInteractions(mockProductChangeService);
     }
 
     @Test
@@ -184,21 +185,21 @@ class ProductServiceTest {
     @Test
     void getChangeLog_shouldReturnListWithOneChangeDto() {
         // Given
-        List<Change> changes = List.of(
-                new Change("1", "1", "Product added", ChangeType.ADD, ChangeStatus.ERROR, Instant.now())
+        List<ProductChange> productChanges = List.of(
+                new ProductChange("1", "1", "Product added", ProductChangeType.ADD, ProductChangeStatus.ERROR, Instant.now())
         );
-        List<ChangeDTO> expected = List.of(
-                new ChangeDTO("1", "Product added", ChangeType.ADD, ChangeStatus.ERROR, changes.getFirst().date())
+        List<ProductChangeDTO> expected = List.of(
+                new ProductChangeDTO("1", "Product added", ProductChangeType.ADD, ProductChangeStatus.ERROR, productChanges.getFirst().date())
         );
 
         // When
-        when(mockChangeService.getChangeLog()).thenReturn(changes);
-        List<ChangeDTO> actual = productService.getChangeLog();
+        when(mockProductChangeService.getChangeLog()).thenReturn(productChanges);
+        List<ProductChangeDTO> actual = productService.getChangeLog();
 
         // Then
         assertEquals(expected, actual);
-        verify(mockChangeService).getChangeLog();
-        verifyNoMoreInteractions(mockChangeService);
+        verify(mockProductChangeService).getChangeLog();
+        verifyNoMoreInteractions(mockProductChangeService);
         verifyNoInteractions(mockProductRepo);
     }
 }

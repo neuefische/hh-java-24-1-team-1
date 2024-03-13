@@ -1,7 +1,7 @@
 package com.github.hh.backend.controller;
 
-import com.github.hh.backend.model.ChangeDTO;
 import com.github.hh.backend.model.Product;
+import com.github.hh.backend.model.ProductChangeDTO;
 import com.github.hh.backend.model.ProductDTO;
 import com.github.hh.backend.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
 
-    @PutMapping("/update")
+    @PutMapping
     public Product updateProduct(@RequestBody Product product) {
         return productService.updateProduct(product);
     }
@@ -48,7 +48,7 @@ public class ProductController {
     }
 
     @GetMapping("/changelog")
-    public List<ChangeDTO> getChangeLog() {
+    public List<ProductChangeDTO> getChangeLog() {
         return productService.getChangeLog();
     }
 }

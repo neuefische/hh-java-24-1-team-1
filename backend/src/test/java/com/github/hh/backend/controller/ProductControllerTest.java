@@ -182,13 +182,13 @@ class ProductControllerTest {
         MvcResult setup = mvc.perform(MockMvcRequestBuilders.post("/api/products").contentType(MediaType.APPLICATION_JSON).content(productDtoJson)).andReturn();
         Product expectedProduct = objectMapper.readValue(setup.getResponse().getContentAsString(), Product.class);
 
-        ChangeDTO expected = new ChangeDTO(expectedProduct.id(), "Product added", ChangeType.ADD, ChangeStatus.DONE, null);
+        ProductChangeDTO expected = new ProductChangeDTO(expectedProduct.id(), "Product added", ProductChangeType.ADD, ProductChangeStatus.DONE, null);
         // When
         MvcResult result = mvc.perform(MockMvcRequestBuilders.get("/api/products/changelog"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
 
-        List<ChangeDTO> actual = objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<>(){});
+        List<ProductChangeDTO> actual = objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<>(){});
 
         // Then
         assertEquals(1, actual.size());

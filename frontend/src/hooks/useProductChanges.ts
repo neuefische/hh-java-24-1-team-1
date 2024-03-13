@@ -1,10 +1,10 @@
-import {Change} from "../types/Change.ts";
+import {ProductChange} from "../types/ProductChange.ts";
 import axios from "axios";
 import {useEffect, useState} from "react";
 
 
-export default function useChanges() {
-    const [changes, setChanges] = useState<Change[]>([]);
+export default function useProductChanges() {
+    const [changes, setChanges] = useState<ProductChange[]>([]);
 
     function fetchChanges():void {
         axios.get('/api/products/changelog')

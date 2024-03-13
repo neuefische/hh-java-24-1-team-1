@@ -1,13 +1,13 @@
-import './ChangeLog.css';
+import './ProductChangeLog.css';
 import React from 'react';
-import {Change} from "../../types/Change.ts";
-import ChangeCard from "../parts/ChangeCard.tsx";
+import {ProductChange} from "../../types/ProductChange.ts";
+import ProductChangeCard from "../parts/ProductChangeCard.tsx";
 
 type ChangeLogProps = {
-    changes:Change[];
+    changes:ProductChange[];
 }
 
-export function ChangeLog(props:Readonly<ChangeLogProps>): React.ReactElement {
+export function ProductChangeLog(props:Readonly<ChangeLogProps>): React.ReactElement {
     return (
         <main className={"changeLog"}>
             <table>
@@ -22,7 +22,7 @@ export function ChangeLog(props:Readonly<ChangeLogProps>): React.ReactElement {
                 </thead>
 
                 <tbody>
-                    {props.changes.map((change:Change) => (<ChangeCard key={change.date} change={change}/>))}
+                    {props.changes.map((change:ProductChange) => (<ProductChangeCard key={change.date} change={change}/>))}
                 </tbody>
             </table>
         </main>

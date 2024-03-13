@@ -1,11 +1,11 @@
-import './ChangeCard.css';
-import {Change} from "../../types/Change.ts";
+import './ProductChangeCard.css';
+import {ProductChange} from "../../types/ProductChange.ts";
 import React from "react";
 
 type ChangeCardProps = {
-    change:Change;
+    change:ProductChange;
 }
-export default function ChangeCard(props:Readonly<ChangeCardProps>): React.ReactElement {
+export default function ProductChangeCard(props:Readonly<ChangeCardProps>): React.ReactElement {
     return (
       <tr className={"changeCard"}>
           <td><p>{props.change.date}</p></td>
