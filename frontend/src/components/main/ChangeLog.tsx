@@ -1,7 +1,8 @@
-import './ChangeLog.css';
+import './ProductList.css';
 import React from 'react';
 import {Change} from "../../types/Change.ts";
 import ChangeCard from "../parts/ChangeCard.tsx";
+
 
 type ChangeLogProps = {
     changes:Change[];
@@ -9,7 +10,7 @@ type ChangeLogProps = {
 
 export function ChangeLog(props:Readonly<ChangeLogProps>): React.ReactElement {
     return (
-        <main className={"changeLog"}>
+        <main className={"productList"}>
             <table>
                 <thead>
                     <tr>
