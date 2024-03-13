@@ -3,6 +3,7 @@ import React from 'react';
 import {ProductChange} from "../../types/ProductChange.ts";
 import ProductChangeCard from "../parts/ProductChangeCard.tsx";
 
+
 type ChangeLogProps = {
     changes:ProductChange[];
 }
