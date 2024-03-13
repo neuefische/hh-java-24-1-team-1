@@ -3,7 +3,7 @@ name: "Deploy App"
 on:
   push:
     branches:
-      - product
+      - main
 
 jobs:
   build-frontend:
