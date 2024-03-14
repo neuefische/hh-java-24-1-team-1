@@ -1,5 +1,7 @@
+import {Product} from "./Product.ts";
+
 export type ProductChange = {
-    productId:string,
+    products:Product[],
     description:string,
     type:string,
     status:string,
