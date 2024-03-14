@@ -87,10 +87,11 @@ class ProductServiceTest {
         // Given
         ProductDTO productDTO = new ProductDTO("Product", 10,"Description", 5);
         Product expected = new Product("1", "Product", 10,"Description", "1", 5);
-        ProductChange expectedChange = new ProductChange("new Change Id", new Product[]{expected}, "Product added", ProductChangeType.ADD, ProductChangeStatus.DONE, Instant.ofEpochMilli(1));
+        ProductChange expectedChange = new ProductChange("new Change Id", null, "Product added", ProductChangeType.ADD, ProductChangeStatus.DONE, Instant.ofEpochMilli(1));
 
         // When
-        when(mockProductRepo.save(new Product(null, productDTO.name(), productDTO.amount(), productDTO.description(), productDTO.productNumber(), productDTO.minimumStockLevel()))).thenReturn(expected);
+        when(mockProductRepo.save(new Product(null, productDTO.name(), productDTO.amount(), productDTO.description(), productDTO.productNumber(), productDTO.minimumStockLevel())))
+                .thenReturn(expected);
         when(mockProductChangeService.createChange(null, "Product added", ProductChangeType.ADD, ProductChangeStatus.ERROR))
                 .thenReturn(expectedChange.withStatus(ProductChangeStatus.ERROR));
         Product actual = productService.addProduct(productDTO);
@@ -100,7 +101,7 @@ class ProductServiceTest {
         verify(mockProductRepo).save(any(Product.class));
         verifyNoMoreInteractions(mockProductRepo);
         verify(mockProductChangeService).createChange(null, "Product added", ProductChangeType.ADD, ProductChangeStatus.ERROR);
-        verify(mockProductChangeService).updateProductChange(expectedChange);
+        verify(mockProductChangeService).updateProductChange(expectedChange.withProducts(new Product[]{expected}));
         verifyNoMoreInteractions(mockProductChangeService);
     }
 
