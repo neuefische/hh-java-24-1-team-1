@@ -21,7 +21,7 @@ public class ProductChangeService {
         return productChangeRepo.save(new ProductChange(null, products, description, type, status, Instant.now()));
     }
 
-    public ProductChange UpdateProductChange(ProductChange productChange){
+    public ProductChange updateProductChange(ProductChange productChange){
         return productChangeRepo.save(productChange);
     }
 
