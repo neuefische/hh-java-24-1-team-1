@@ -16,8 +16,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -177,7 +176,7 @@ class ProductControllerTest {
         MvcResult setup = mvc.perform(MockMvcRequestBuilders.post("/api/products").contentType(MediaType.APPLICATION_JSON).content(productDtoJson)).andReturn();
         Product expectedProduct = objectMapper.readValue(setup.getResponse().getContentAsString(), Product.class);
 
-        ProductChangeDTO expected = new ProductChangeDTO(expectedProduct.id(), "Product added", ProductChangeType.ADD, ProductChangeStatus.DONE, null);
+        ProductChangeDTO expected = new ProductChangeDTO(new Product[]{expectedProduct}, "Product added", ProductChangeType.ADD, ProductChangeStatus.DONE, null);
         // When
         MvcResult result = mvc.perform(MockMvcRequestBuilders.get("/api/products/changelog"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -187,7 +186,7 @@ class ProductControllerTest {
 
         // Then
         assertEquals(1, actual.size());
-        assertEquals(expected.productId(), actual.getFirst().productId());
+        assertArrayEquals(expected.products(), actual.getFirst().products());
         assertEquals(expected.description(), actual.getFirst().description());
         assertEquals(expected.type(), actual.getFirst().type());
         assertEquals(expected.status(), actual.getFirst().status());
