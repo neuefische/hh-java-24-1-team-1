@@ -1,4 +1,4 @@
-.addProductCard {
+.addProductForm {
     background-color: #f8f8f8;
     padding: 20px;
     border-radius: 8px;
@@ -7,28 +7,28 @@
     margin: 20px auto;
 }
 
-.addProductCard h2 {
+.addProductForm h2 {
     margin-bottom: 20px;
 }
 
-.addProductCard div {
+.addProductForm div {
     margin-bottom: 10px;
 }
 
-.addProductCard label {
+.addProductForm label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
 }
 
-.addProductCard input {
+.addProductForm input {
     width: 100%;
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
 }
 
-.addProductCard button {
+.addProductForm button {
     background-color: #4CAF50;
     color: white;
     padding: 10px 15px;
@@ -38,6 +38,11 @@
     width: 100%;
 }
 
-.addProductCard button:hover {
+.addProductForm button:hover {
     background-color: #45a049;
+}
+
+.addProductForm .error {
+    color: red;
+    margin: 0;
 }
