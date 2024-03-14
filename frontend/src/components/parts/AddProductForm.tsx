@@ -12,7 +12,6 @@ const initialFormData:ProductDTO = {
     name: '',
     description: '',
     amount: 0,
-    productNumber: '',
     minimumStockLevel: 0
 }
 
@@ -73,14 +72,6 @@ export default function AddProductForm(props: Readonly<AddProductFormProps>):JSX
                        value={formData.amount}
                        onChange={handleChangeInput}/>
                 {formError.amount && <p className={"error"}>{formError.amount}</p>}
-            </div>
-            <div>
-                <label htmlFor={"productNumber"}>Artikelnummer:</label>
-                <input id={"productNumber"} name={"productNumber"}
-                       type={"text"}
-                       value={formData.productNumber}
-                       onChange={handleChangeInput}/>
-                {formError.productNumber && <p className={"error"}>{formError.productNumber}</p>}
             </div>
             <div>
                 <label htmlFor={"minimumStockLevel"}>Mindestbestand:</label>
