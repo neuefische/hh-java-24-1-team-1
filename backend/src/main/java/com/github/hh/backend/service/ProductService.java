@@ -27,7 +27,7 @@ public class ProductService {
 
     public Product addProduct(ProductDTO productDTO) {
         String changeId = productChangeService.createChange(null, "Product added", ProductChangeType.ADD, ProductChangeStatus.ERROR);
-        Product newProduct =  productRepo.save(new Product(null, productDTO.name(), productDTO.amount(), productDTO.description(), productDTO.productNumber(), productDTO.minimumStockLevel()));
+        Product newProduct =  productRepo.save(new Product(null, productDTO.name(), productDTO.amount(), productDTO.description(), getNewProductId(), productDTO.minimumStockLevel()));
         productChangeService.updateChangeStatus(changeId, ProductChangeStatus.DONE);
         productChangeService.updateChangeProductId(changeId, newProduct.id());
         return newProduct;
@@ -64,5 +64,9 @@ public class ProductService {
                 .map(change -> new ProductChangeDTO(change.productId(), change.description(), change.type(), change.status(), change.date()))
                 .sorted((change1, change2) -> change2.date().compareTo(change1.date()))
                 .toList();
+    }
+
+    private String getNewProductId() {
+        return String.valueOf(productRepo.findAll().stream().toList().size() + 1);
     }
 }
