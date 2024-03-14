@@ -2,6 +2,7 @@ import './ProductChangeLog.css';
 import React from 'react';
 import {ProductChange} from "../../types/ProductChange.ts";
 import ProductChangeCard from "../parts/ProductChangeCard.tsx";
+import TableHead from "../htmlParts/TableHead.tsx";
 
 type ChangeLogProps = {
     changes:ProductChange[];
@@ -14,10 +15,11 @@ export function ProductChangeLog(props:Readonly<ChangeLogProps>): React.ReactEle
                 <thead>
                     <tr>
                         <th>Datum</th>
-                        <th>Produkt ID</th>
                         <th>Beschreibung</th>
                         <th>Typ</th>
                         <th>Status</th>
+                        <th>                <TableHead/>
+                        </th>
                     </tr>
                 </thead>
 
