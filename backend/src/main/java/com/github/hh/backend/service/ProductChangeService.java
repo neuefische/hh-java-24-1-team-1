@@ -1,6 +1,5 @@
 package com.github.hh.backend.service;
 
-import com.github.hh.backend.exception.NoSuchProductChangeException;
 import com.github.hh.backend.model.Product;
 import com.github.hh.backend.model.ProductChange;
 import com.github.hh.backend.model.ProductChangeStatus;
@@ -21,8 +20,8 @@ public class ProductChangeService {
         return productChangeRepo.save(new ProductChange(null, products, description, type, status, Instant.now()));
     }
 
-    public ProductChange updateProductChange(ProductChange productChange){
-        return productChangeRepo.save(productChange);
+    public void updateProductChange(ProductChange productChange){
+        productChangeRepo.save(productChange);
     }
 
     public List<ProductChange> getChangeLog() {

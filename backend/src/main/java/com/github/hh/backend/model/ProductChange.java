@@ -1,7 +1,5 @@
 package com.github.hh.backend.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 import lombok.With;
 import org.springframework.data.annotation.Id;
 
