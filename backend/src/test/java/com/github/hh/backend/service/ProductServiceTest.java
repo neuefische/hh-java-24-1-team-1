@@ -17,8 +17,9 @@ class ProductServiceTest {
 
     private final ProductRepo mockProductRepo = mock(ProductRepo.class);
     private final ProductChangeService mockProductChangeService = mock(ProductChangeService.class);
+    private final ProductIdService mockProductIdService = mock(ProductIdService.class);
 
-    private final ProductService productService = new ProductService(mockProductRepo, mockProductChangeService);
+    private final ProductService productService = new ProductService(mockProductRepo, mockProductChangeService, mockProductIdService);
 
     @Test
     void findAllProducts_whenEmptyDb_thenReturnEmptyList(){
@@ -84,7 +85,7 @@ class ProductServiceTest {
     @Test
     void addProduct_whenNewProductDTOGiven_thenReturnProductIncludingNewID(){
         // Given
-        ProductDTO productDTO = new ProductDTO("Product", 10,"Description", "1", 5);
+        ProductDTO productDTO = new ProductDTO("Product", 10,"Description", 5);
         Product expected = new Product("1", "Product", 10,"Description", "1", 5);
 
         // When
