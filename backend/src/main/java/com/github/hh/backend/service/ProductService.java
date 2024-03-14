@@ -62,7 +62,7 @@ public class ProductService {
 
     public List<ProductChangeDTO> getChangeLog() {
         return productChangeService.getChangeLog().stream()
-                .map(change -> new ProductChangeDTO(change.productId(), change.description(), change.type(), change.status(), change.date()))
+                .map(change -> new ProductChangeDTO(change.products(), change.description(), change.type(), change.status(), change.date()))
                 .sorted((change1, change2) -> change2.date().compareTo(change1.date()))
                 .toList();
     }
