@@ -94,6 +94,7 @@ class ProductServiceTest {
                 .thenReturn(expected);
         when(mockProductChangeService.createChange(null, "Product added", ProductChangeType.ADD, ProductChangeStatus.ERROR))
                 .thenReturn(expectedChange.withStatus(ProductChangeStatus.ERROR));
+
         Product actual = productService.addProduct(productDTO);
 
         // Then
