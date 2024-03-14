@@ -18,22 +18,4 @@ public record ProductChangeDTO(
         ProductChangeDTO that = (ProductChangeDTO) o;
         return Arrays.equals(products, that.products) && Objects.equals(description, that.description) && type == that.type && status == that.status && Objects.equals(date, that.date);
     }
-
-    @Override
-    public int hashCode() {
-        int result = Objects.hash(description, type, status, date);
-        result = 31 * result + Arrays.hashCode(products);
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "ProductChangeDTO{" +
-                "products=" + Arrays.toString(products) +
-                ", description='" + description + '\'' +
-                ", type=" + type +
-                ", status=" + status +
-                ", date=" + date +
-                '}';
-    }
 }
