@@ -27,7 +27,7 @@ public class ProductService {
     }
 
     public Product addProduct(ProductDTO productDTO) {
-        String changeId = productChangeService.createChange(null, "Product added", ProductChangeType.ADD, ProductChangeStatus.ERROR);
+        ProductChange newChange = productChangeService.createChange(null, "Product added", ProductChangeType.ADD, ProductChangeStatus.ERROR);
         Product newProduct =  productRepo.save(new Product(null, productDTO.name(), productDTO.amount(), productDTO.description(), productIdService.generateProductId(), productDTO.minimumStockLevel()));
         productChangeService.updateChangeStatus(changeId, ProductChangeStatus.DONE);
         productChangeService.updateChangeProductId(changeId, newProduct.id());
@@ -38,7 +38,10 @@ public class ProductService {
         if (!productRepo.existsById(product.id())) {
             throw new NoSuchProductException(product.id());
         }
-        String changeId = productChangeService.createChange(product.id(), "Product updated", ProductChangeType.UPDATE, ProductChangeStatus.ERROR);
+        Product[] products = new Product[2];
+        products[0] = productRepo.findById(product.id()).orElseThrow();
+        products[1] = product;
+        String changeId = productChangeService.createChange(products, "Product updated", ProductChangeType.UPDATE, ProductChangeStatus.ERROR);
         Product newProduct = productRepo.save(product);
         productChangeService.updateChangeStatus(changeId, ProductChangeStatus.DONE);
         return newProduct;
