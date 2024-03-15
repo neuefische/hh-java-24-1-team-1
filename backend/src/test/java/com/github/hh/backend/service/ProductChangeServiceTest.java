@@ -65,7 +65,7 @@ class ProductChangeServiceTest {
     }
 
     @Test
-    void updateChangeStatus_whenSuchChange_thenChange() {
+    void updateProductChange_whenSuchChange_thenChange() {
         // Given
         Product product = new Product("1", "Product", 10, "Description", "123", 5);
         ProductChange expected = new ProductChange("New Change Id",
