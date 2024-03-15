@@ -3,12 +3,12 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 
 export default function useStorageSpace() {
-    const [storageSpace, setStorageSpace] = useState<StorageSpace[]>([]);
+    const [storageSpaces, setStorageSpaces] = useState<StorageSpace[]>([]);
 
     function fetchStorageSpace():void {
         axios.get('/api/storage')
             .then(response => {
-                setStorageSpace(response.data);
+                setStorageSpaces(response.data);
 
             })
             .catch(error => {
@@ -17,7 +17,7 @@ export default function useStorageSpace() {
     }
 
     function getEmptyStorageSpaces():StorageSpace[] {
-        const emptySpaces:StorageSpace[] = storageSpace.filter((space:StorageSpace) => !space.isOccupied);
+        const emptySpaces:StorageSpace[] = storageSpaces.filter((space:StorageSpace) => !space.isOccupied);
 
         if(emptySpaces.length === 0) console.error('Kein freier Lagerplatz gefunden.');
         else return emptySpaces;
@@ -25,7 +25,7 @@ export default function useStorageSpace() {
     }
 
     function getOccupiedStorageSpaces():StorageSpace[] {
-        const occupiedSpaces:StorageSpace[] = storageSpace.filter((space:StorageSpace) => space.isOccupied);
+        const occupiedSpaces:StorageSpace[] = storageSpaces.filter((space:StorageSpace) => space.isOccupied);
 
         if(occupiedSpaces.length === 0) console.error('Kein belegter Lagerplatz gefunden.');
         else return occupiedSpaces;
@@ -36,7 +36,7 @@ export default function useStorageSpace() {
         return getOccupiedStorageSpaces().length;
     }
 
-    function postNewStorageSpace(newStorageSpace:StorageSpace) {
+    /*function postNewStorageSpace(newStorageSpace:StorageSpace) {
         axios.post('/api/storage', newStorageSpace)
             .then((response) => {
                 console.log("New storage space added with id " + response.data.id + ".");
@@ -46,15 +46,15 @@ export default function useStorageSpace() {
                 console.error("Error creating storage space: ", error.message);
             })
     }
-
+*/
     useEffect(()=> fetchStorageSpace(), []);
 
 
     return {
-        storageSpace,
+        storageSpaces,
         getEmptyStorageSpaces,
         getOccupiedStorageSpaces,
         getOccupiedStorageSpacesCount,
-        postNewStorageSpace
+
     }
 }

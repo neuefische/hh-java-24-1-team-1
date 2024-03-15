@@ -25,4 +25,9 @@ public class StorageSpaceController {
         return storageSpaceService.addNewStorageSpace(storageSpaceId);
     }
 
+    @PutMapping
+    public void toggleStorageSpaceOccupation(@RequestBody String storageSpaceId){
+        storageSpaceService.toggleStorageSpaceOccupation(storageSpaceId);
+    }
+
 }
