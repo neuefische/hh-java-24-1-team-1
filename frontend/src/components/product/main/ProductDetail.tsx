@@ -2,7 +2,7 @@ import './ProductDetail.css'
 import {useEffect, useState} from "react";
 import {NavigateFunction, useNavigate, useParams} from "react-router-dom";
 import {Product} from "../../../types/Product.ts";
-import Barcode from "../../parts/Barcode.tsx";
+import Barcode from "../parts/Barcode.tsx";
 
 type ProductDetailProps = {
     getProductById:(id:string)=>Product,
