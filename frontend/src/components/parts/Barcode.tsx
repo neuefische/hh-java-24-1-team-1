@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import {useEffect, useRef} from 'react';
 import JsBarcode from 'jsbarcode';
 
 type BarcodeProps = {
@@ -8,13 +8,17 @@ type BarcodeProps = {
 export default function Barcode({ barcode }: BarcodeProps) {
     const barcodeRef = useRef(null);
 
-    useEffect(() => {
-    if (barcodeRef.current && barcode) {
-        JsBarcode(barcodeRef.current, barcode, {
-            format: "CODE39",
-        });
+    function hasValidLength(barcode: string) {
+        return barcode.length <= 64 && barcode.length > 0;
     }
-}, [barcode]);
 
-    return <svg ref={barcodeRef}></svg>;
+    useEffect(() => {
+        if (barcodeRef.current && barcode && hasValidLength(barcode)) {
+            JsBarcode(barcodeRef.current, barcode, {
+                format: "CODE128",
+            });
+        }
+    }, [barcode]);
+
+    return <svg ref={barcodeRef}/>
 }
