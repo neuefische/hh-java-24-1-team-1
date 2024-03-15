@@ -41,3 +41,8 @@
 .productUpdate button:hover {
     background-color: #0056b3;
 }
+
+.productUpdate .error {
+    color: red;
+    margin: 0;
+}
