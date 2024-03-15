@@ -25,7 +25,7 @@ class ProductChangeServiceTest {
         // Given
         Product product = new Product("1", "Product", 10, "Description", "123", 5);
         ProductChange expected = new ProductChange("New Change Id",
-                new Product[]{product},
+                List.of(product),
                 "Create",
                 ProductChangeType.ADD,
                 ProductChangeStatus.ERROR,
@@ -48,7 +48,7 @@ class ProductChangeServiceTest {
         // Given
         Product product = new Product("1", "Product", 10, "Description", "123", 5);
         ProductChange productChange = new ProductChange("New Change Id",
-                new Product[]{product},
+                List.of(product),
                 "Create",
                 ProductChangeType.ADD,
                 ProductChangeStatus.ERROR,
@@ -69,7 +69,7 @@ class ProductChangeServiceTest {
         // Given
         Product product = new Product("1", "Product", 10, "Description", "123", 5);
         ProductChange expected = new ProductChange("New Change Id",
-                new Product[]{product},
+                List.of(product),
                 "Create",
                 ProductChangeType.ADD,
                 ProductChangeStatus.ERROR,
@@ -94,8 +94,8 @@ class ProductChangeServiceTest {
         Product product1 = new Product("1", "Product", 10, "Description", "123", 5);
         Product product2 = new Product("2", "Product", 10, "Description", "123", 5);
         List<ProductChange> expected = List.of(
-                new ProductChange("1", new Product[]{product1}, "Create", ProductChangeType.ADD, ProductChangeStatus.ERROR, Instant.now()),
-                new ProductChange("2", new Product[]{product2}, "Update", ProductChangeType.UPDATE, ProductChangeStatus.DONE, Instant.now())
+                new ProductChange("1", List.of(product1), "Create", ProductChangeType.ADD, ProductChangeStatus.ERROR, Instant.now()),
+                new ProductChange("2", List.of(product2), "Update", ProductChangeType.UPDATE, ProductChangeStatus.DONE, Instant.now())
         );
 
 
