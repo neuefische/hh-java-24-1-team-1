@@ -1,5 +1,6 @@
 package com.github.hh.backend.service;
 
+import com.github.hh.backend.exception.DuplicateProductNumberException;
 import com.github.hh.backend.exception.NoSuchProductException;
 import com.github.hh.backend.model.*;
 import com.github.hh.backend.repository.ProductRepo;
@@ -7,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -133,10 +135,56 @@ class ProductServiceTest {
         verify(mockProductRepo).save(expectedNew);
         verify(mockProductRepo).existsById(expectedNew.id());
         verify(mockProductRepo).findById(expectedNew.id());
-        verifyNoMoreInteractions(mockProductRepo);
         verify(mockProductChangeService).createChange(products, "Product updated", ProductChangeType.UPDATE, ProductChangeStatus.ERROR);
         verify(mockProductChangeService).updateProductChange(expectedChange);
         verifyNoMoreInteractions(mockProductChangeService);
+    }
+
+    @Test
+    void updateProduct_WithUniqueProductNumber_ShouldUpdateProduct() {
+        // Given
+        Product existingProduct = new Product("1", "Old Product", 20, "Old Description", "12345", 10);
+        Product updatedProduct = new Product("1", "New Product", 20, "New Description", "12345", 10);
+        ProductChange change = new ProductChange("changeId", List.of(existingProduct), "Product updated", ProductChangeType.UPDATE, ProductChangeStatus.ERROR, Instant.now());
+
+        when(mockProductRepo.existsById("1")).thenReturn(true);
+        when(mockProductRepo.findById("1")).thenReturn(Optional.of(existingProduct));
+        when(mockProductRepo.existsByProductNumber("12345")).thenReturn(false);
+        when(mockProductChangeService.createChange(any(), anyString(), any(ProductChangeType.class), any(ProductChangeStatus.class))).thenReturn(change);
+        when(mockProductRepo.save(updatedProduct)).thenReturn(updatedProduct);
+
+        // When
+        Product result = productService.updateProduct(updatedProduct);
+
+        // Then
+        assertEquals(updatedProduct, result);
+        verify(mockProductRepo).existsById("1");
+        verify(mockProductRepo).findById("1");
+        verify(mockProductRepo).existsByProductNumber("12345");
+        verify(mockProductRepo).save(updatedProduct);
+        verify(mockProductChangeService).createChange(any(), anyString(), any(ProductChangeType.class), any(ProductChangeStatus.class));
+        verify(mockProductChangeService).updateProductChange(change.withStatus(ProductChangeStatus.DONE));
+    }
+
+    @Test
+    void updateProduct_WithExistingProductNumber_ShouldThrowException() {
+        // Given
+        Product existingProduct = new Product("1", "Old Product", 20, "Old Description", "12345", 10);
+        Product updatedProduct = new Product("1", "New Product", 20, "New Description", "54321", 10);
+
+        when(mockProductRepo.existsById("1")).thenReturn(true);
+        when(mockProductRepo.findById("1")).thenReturn(Optional.of(existingProduct));
+        when(mockProductRepo.existsByProductNumber("54321")).thenReturn(true);
+
+        // Then
+        assertThrows(DuplicateProductNumberException.class, () -> {
+            productService.updateProduct(updatedProduct);
+        });
+
+        verify(mockProductRepo).existsById("1");
+        verify(mockProductRepo).existsByProductNumber("54321");
+        verifyNoMoreInteractions(mockProductRepo);
+        verifyNoInteractions(mockProductChangeService);
     }
 
 

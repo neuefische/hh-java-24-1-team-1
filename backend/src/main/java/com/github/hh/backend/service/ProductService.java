@@ -1,5 +1,6 @@
 package com.github.hh.backend.service;
 
+import com.github.hh.backend.exception.DuplicateProductNumberException;
 import com.github.hh.backend.exception.NoSuchProductException;
 import com.github.hh.backend.model.*;
 import com.github.hh.backend.repository.ProductRepo;
@@ -28,15 +29,21 @@ public class ProductService {
 
     public Product addProduct(ProductDTO productDTO) {
         ProductChange newChange = productChangeService.createChange(null, "Product added", ProductChangeType.ADD, ProductChangeStatus.ERROR);
-        Product newProduct =  productRepo.save(new Product(null, productDTO.name(), productDTO.amount(), productDTO.description(), productIdService.generateProductId(), productDTO.minimumStockLevel()));
+        Product newProduct = productRepo.save(new Product(null, productDTO.name(), productDTO.amount(), productDTO.description(), productIdService.generateProductId(), productDTO.minimumStockLevel()));
         productChangeService.updateProductChange(newChange.withStatus(ProductChangeStatus.DONE).withProducts(List.of(newProduct)));
         return newProduct;
     }
 
     public Product updateProduct(Product product) {
+
         if (!productRepo.existsById(product.id())) {
             throw new NoSuchProductException(product.id());
         }
+        // Prüfen, ob die Artikelnummer einzigartig ist
+        if (productRepo.existsByProductNumber(product.productNumber())) {
+            throw new DuplicateProductNumberException(product.productNumber());
+        }
+
         List<Product> products = List.of(productRepo.findById(product.id()).orElseThrow(), product);
         ProductChange newChange = productChangeService.createChange(products, "Product updated", ProductChangeType.UPDATE, ProductChangeStatus.ERROR);
         Product newProduct = productRepo.save(product);
@@ -54,9 +61,9 @@ public class ProductService {
     }
 
     public List<Product> getProductsInCriticalStock() {
-            return productRepo.findAll().stream()
-                    .filter(product -> product.amount() < product.minimumStockLevel())
-                    .toList();
+        return productRepo.findAll().stream()
+                .filter(product -> product.amount() < product.minimumStockLevel())
+                .toList();
     }
 
     public List<ProductChangeDTO> getChangeLog() {

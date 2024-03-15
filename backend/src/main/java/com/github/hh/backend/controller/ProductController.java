@@ -16,8 +16,8 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
 
-    @PutMapping
-    public Product updateProduct(@RequestBody Product product) {
+    @PutMapping("/{id}")
+    public Product updateProduct(@PathVariable String id, @RequestBody Product product) {
         return productService.updateProduct(product);
     }
 

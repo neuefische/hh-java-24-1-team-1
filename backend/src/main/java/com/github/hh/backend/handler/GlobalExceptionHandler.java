@@ -1,5 +1,6 @@
 package com.github.hh.backend.handler;
 
+import com.github.hh.backend.exception.DuplicateProductNumberException;
 import com.github.hh.backend.exception.NoSuchProductChangeException;
 import com.github.hh.backend.exception.NoSuchProductException;
 import com.github.hh.backend.model.ErrorMessage;
@@ -15,7 +16,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(NoSuchProductException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorMessage handleNoSuchProductException(NoSuchProductException exception){
+    public ErrorMessage handleNoSuchProductException(NoSuchProductException exception) {
         return new ErrorMessage(
                 "Product with ID " + exception.getMessage() + " does not exist",
                 LocalDateTime.now()
@@ -24,11 +25,19 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(NoSuchProductChangeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorMessage handleNoSuchChangeException(NoSuchProductChangeException exception){
+    public ErrorMessage handleNoSuchChangeException(NoSuchProductChangeException exception) {
         return new ErrorMessage(
                 "Change with ID " + exception.getMessage() + " does not exist. How did you get this message? Seriously, how?",
                 LocalDateTime.now()
         );
     }
 
+    @ExceptionHandler(DuplicateProductNumberException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorMessage handleDuplicateProductNumberException(DuplicateProductNumberException exception) {
+        return new ErrorMessage(
+                 exception.getMessage(),
+                LocalDateTime.now()
+        );
+    }
 }

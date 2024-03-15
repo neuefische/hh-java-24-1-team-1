@@ -36,17 +36,19 @@ export default function useProducts() {
     }
 
 
-    function updateProduct(updatedProduct:Product) {
-        axios.put(`/api/products`, updatedProduct)
-            .then((response) => {
-                console.log(response)
+    function updateProduct(updatedProduct: Product) {
+        axios.put(`/api/products/${updatedProduct.id}`, updatedProduct)
+            .then(() => {
                 fetchProducts();
             })
             .catch(error => {
-                console.log(error)
+                if (error?.response?.status === 400) {
+                    alert('Fehler: ' + error.response.data.errorMsg);
+                } else {
+                    alert('Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.');
+                }
             });
     }
-
     function deleteProduct(id:string):void{
         axios.delete(`/api/products/${id}`)
             .then(fetchProducts)
