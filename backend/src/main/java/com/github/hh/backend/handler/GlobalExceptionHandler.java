@@ -3,6 +3,7 @@ package com.github.hh.backend.handler;
 import com.github.hh.backend.exception.NoEmptyStorageSpaceException;
 import com.github.hh.backend.exception.NoSuchProductChangeException;
 import com.github.hh.backend.exception.NoSuchProductException;
+import com.github.hh.backend.exception.NoSuchStorageSpaceException;
 import com.github.hh.backend.model.ErrorMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -40,4 +41,14 @@ public class GlobalExceptionHandler {
                 LocalDateTime.now()
         );
     }
+
+    @ExceptionHandler(NoSuchStorageSpaceException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorMessage handleNoSuchStorageSpaceException(NoSuchStorageSpaceException exception){
+        return new ErrorMessage(
+                "Storage space with ID " + exception.getMessage() + " does not exist",
+                LocalDateTime.now()
+        );
+    }
+
 }
