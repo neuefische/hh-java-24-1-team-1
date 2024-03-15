@@ -1,6 +1,6 @@
 export type Product = {
     id:string,
-    storageSpaceId:string,
+    storageSpaceName:string,
     name:string,
     amount:number,
     description:string,
