@@ -2,6 +2,7 @@ import './ProductDetail.css'
 import {useEffect, useState} from "react";
 import {NavigateFunction, useNavigate, useParams} from "react-router-dom";
 import {Product} from "../../types/Product.ts";
+import Barcode from "../parts/Barcode.tsx";
 
 type ProductDetailProps = {
     getProductById:(id:string)=>Product,
@@ -43,6 +44,10 @@ export default function ProductDetail(props:Readonly<ProductDetailProps>){
                     <tr>
                         <th>Artikelnummer:</th>
                         <td>{product.productNumber}</td>
+                    </tr>
+                    <tr>
+                        <th>Barcode:</th>
+                        <td><Barcode barcode={product.productNumber}/></td>
                     </tr>
                     <tr>
                         <th>Anzahl auf Lager:</th>
