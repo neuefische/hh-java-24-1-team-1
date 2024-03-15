@@ -85,12 +85,14 @@ class ProductServiceTest {
     @Test
     void addProduct_whenNewProductDTOGiven_thenReturnProductIncludingNewID(){
         // Given
+        String productId = "1";
         ProductDTO productDTO = new ProductDTO("Product", 10,"Description", 5);
         Product expected = new Product("1", "Product", 10,"Description", "1", 5);
         ProductChange expectedChange = new ProductChange("new Change Id", null, "Product added", ProductChangeType.ADD, ProductChangeStatus.DONE, Instant.ofEpochMilli(1));
 
         // When
-        when(mockProductRepo.save(new Product(null, productDTO.name(), productDTO.amount(), productDTO.description(), productDTO.productNumber(), productDTO.minimumStockLevel())))
+        when(mockProductIdService.generateProductId()).thenReturn(productId);
+        when(mockProductRepo.save(new Product(null, productDTO.name(), productDTO.amount(), productDTO.description(), productId, productDTO.minimumStockLevel())))
                 .thenReturn(expected);
         when(mockProductChangeService.createChange(null, "Product added", ProductChangeType.ADD, ProductChangeStatus.ERROR))
                 .thenReturn(expectedChange.withStatus(ProductChangeStatus.ERROR));
