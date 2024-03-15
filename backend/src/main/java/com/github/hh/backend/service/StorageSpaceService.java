@@ -31,13 +31,13 @@ public class StorageSpaceService {
 
     public List<StorageSpaceDTO> getAllStorageSpaces() {
         return storageSpaceRepo.findAll().stream()
-                .map(storageSpace -> new StorageSpaceDTO(storageSpace.id(), storageSpace.isOccupied()))
+                .map(storageSpace -> new StorageSpaceDTO(storageSpace.storageSpaceName(), storageSpace.isOccupied()))
                 .toList();
     }
 
     public StorageSpaceDTO addNewStorageSpace(String storageSpaceId) {
         StorageSpace newStorageSpace = storageSpaceRepo.save(new StorageSpace(null, storageSpaceId, false));
-        return new StorageSpaceDTO(newStorageSpace.id(), newStorageSpace.isOccupied());
+        return new StorageSpaceDTO(newStorageSpace.storageSpaceName(), newStorageSpace.isOccupied());
     }
 
     public void toggleStorageSpaceOccupation(String storageSpaceId) {

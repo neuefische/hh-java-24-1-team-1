@@ -19,17 +19,15 @@ export default function useStorageSpace() {
     function getEmptyStorageSpaces():StorageSpace[] {
         const emptySpaces:StorageSpace[] = storageSpaces.filter((space:StorageSpace) => !space.isOccupied);
 
-        if(emptySpaces.length === 0) console.error('Kein freier Lagerplatz gefunden.');
+        if(emptySpaces.length === 0) return [];
         else return emptySpaces;
-        return [{storageSpaceId:'',isOccupied:false}];
     }
 
     function getOccupiedStorageSpaces():StorageSpace[] {
         const occupiedSpaces:StorageSpace[] = storageSpaces.filter((space:StorageSpace) => space.isOccupied);
 
-        if(occupiedSpaces.length === 0) console.error('Kein belegter Lagerplatz gefunden.');
+        if(occupiedSpaces.length === 0) return [];
         else return occupiedSpaces;
-        return [{storageSpaceId:'',isOccupied:false}];
     }
 
     function getOccupiedStorageSpacesCount():number {
