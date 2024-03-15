@@ -1,10 +1,10 @@
 import * as yup from 'Yup';
-import {ProductDataSchema, FormError} from "../../types/ProductDataSchema";
+import {ProductDataSchema, FormError} from "../../../types/ProductDataSchema.ts";
 
 import './ProductUpdate.css'
 import {useNavigate, useParams} from "react-router-dom";
 import {FormEvent, useState} from "react";
-import {Product} from "../../types/Product.ts";
+import {Product} from "../../../types/Product.ts";
 
 type ProductUpdateProps = {
     updateProduct: (product:Product) => void,

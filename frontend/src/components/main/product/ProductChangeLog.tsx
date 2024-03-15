@@ -1,8 +1,8 @@
 import './ProductChangeLog.css';
 import React from 'react';
-import {ProductChange} from "../../types/ProductChange.ts";
-import ProductChangeCard from "../parts/ProductChangeCard.tsx";
-import TableHead from "../htmlParts/TableHead.tsx";
+import {ProductChange} from "../../../types/ProductChange.ts";
+import ProductChangeCard from "../../parts/ProductChangeCard.tsx";
+import TableHead from "../../htmlParts/TableHead.tsx";
 
 type ChangeLogProps = {
     changes:ProductChange[];
