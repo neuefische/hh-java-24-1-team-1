@@ -1,7 +1,7 @@
 package com.github.hh.backend.model;
 
 public record StorageSpaceDTO(
-        String storageSpaceId,
+        String storageSpaceName,
         boolean isOccupied
 ) {
 }
