@@ -10,9 +10,11 @@ import React, {useEffect, useState} from "react";
 import {Product} from "./types/Product.ts";
 import {ProductChangeLog} from "./components/main/product/ProductChangeLog.tsx";
 import useProductChanges from "./hooks/useProductChanges.ts";
+import useStorageSpace from "./hooks/useStorageSpace.ts";
 
 export default function App(): React.ReactElement {
     const {products, saveProduct, getProductById, updateProduct, deleteProduct} = useProducts();
+    const {storageSpace, getEmptyStorageSpaces, getOccupiedStorageSpaces, getOccupiedStorageSpacesCount, postNewStorageSpace} = useStorageSpace();
     const {changes, fetchChanges} = useProductChanges();
     const [selectedFilter, setSelectedFilter] = useState<string>("all");
     const [searchText, setSearchText] = useState<string>("");
