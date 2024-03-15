@@ -36,19 +36,7 @@ export default function useStorageSpace() {
         return getOccupiedStorageSpaces().length;
     }
 
-    /*function postNewStorageSpace(newStorageSpace:StorageSpace) {
-        axios.post('/api/storage', newStorageSpace)
-            .then((response) => {
-                console.log("New storage space added with id " + response.data.id + ".");
-                fetchStorageSpace();
-            })
-            .catch(error => {
-                console.error("Error creating storage space: ", error.message);
-            })
-    }
-*/
     useEffect(()=> fetchStorageSpace(), []);
-
 
     return {
         storageSpaces,
