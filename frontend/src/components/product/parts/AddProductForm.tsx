@@ -1,8 +1,8 @@
 import * as yup from 'Yup';
-import {ProductDtoDataSchema, FormError} from "../../types/ProductDataSchema";
+import {ProductDtoDataSchema, FormError} from "../../../types/ProductDataSchema.ts";
 import './AddProductForm.css'
 import {ChangeEvent, FormEvent, useState} from "react";
-import {ProductDTO} from "../../types/ProductDTO.ts";
+import {ProductDTO} from "../../../types/ProductDTO.ts";
 
 type AddProductFormProps = {
     handleSubmit: (event:FormEvent<HTMLFormElement>, newProduct:ProductDTO) => void

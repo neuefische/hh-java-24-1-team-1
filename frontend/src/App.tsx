@@ -1,14 +1,14 @@
 import {Route, Routes} from "react-router-dom";
-import ProductUpdate from "./components/main/product/ProductUpdate.tsx";
-import ProductDetail from "./components/main/product/ProductDetail.tsx";
-import {ProductList} from "./components/main/product/ProductList.tsx";
+import ProductUpdate from "./components/product/main/ProductUpdate.tsx";
+import ProductDetail from "./components/product/main/ProductDetail.tsx";
+import {ProductList} from "./components/product/main/ProductList.tsx";
 import Header from "./components/utility/Header.tsx";
-import AddProductGallery from "./components/main/product/AddProductGallery.tsx";
+import AddProductGallery from "./components/product/main/AddProductGallery.tsx";
 import useProducts from "./hooks/useProducts.ts";
-import CriticalProductList from "./components/main/product/CriticalProductList.tsx";
+import CriticalProductList from "./components/product/main/CriticalProductList.tsx";
 import React, {useEffect, useState} from "react";
 import {Product} from "./types/Product.ts";
-import {ProductChangeLog} from "./components/main/product/ProductChangeLog.tsx";
+import {ProductChangeLog} from "./components/product/main/ProductChangeLog.tsx";
 import useProductChanges from "./hooks/useProductChanges.ts";
 import useStorageSpace from "./hooks/useStorageSpace.ts";
 
