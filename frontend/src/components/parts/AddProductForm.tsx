@@ -1,5 +1,5 @@
 import * as yup from 'Yup';
-import {ProductDataSchema, FormError} from "../../types/ProductDataSchema";
+import {ProductDtoDataSchema, FormError} from "../../types/ProductDataSchema";
 import './AddProductForm.css'
 import {ChangeEvent, FormEvent, useState} from "react";
 import {ProductDTO} from "../../types/ProductDTO.ts";
@@ -20,7 +20,7 @@ export default function AddProductForm(props: Readonly<AddProductFormProps>):JSX
     const [formError, setFormError] = useState<FormError>({});
     function handleSubmit(event:FormEvent<HTMLFormElement>):void{
         event.preventDefault();
-        ProductDataSchema.validate(formData, {abortEarly: false})
+        ProductDtoDataSchema.validate(formData, {abortEarly: false})
             .then(() => {
                 props.handleSubmit(event, formData);
                 setFormData(initialFormData);
@@ -86,6 +86,4 @@ export default function AddProductForm(props: Readonly<AddProductFormProps>):JSX
             </div>
         </form>
     )
-
-
 }

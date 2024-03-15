@@ -13,7 +13,6 @@ export default function ProductDtoCard({ productDto }: Readonly<ProductCardProps
             <h2>{productDto.name}</h2>
             <p>Menge: {productDto.amount}</p>
             <p>Beschreibung: {productDto.description}</p>
-            <p>Artikelnummer: {productDto.productNumber}</p>
             <p>Mindestbestand: {productDto.minimumStockLevel}</p>
         </div>
     );
