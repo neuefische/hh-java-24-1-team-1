@@ -7,6 +7,7 @@ export default function TableHead(): React.ReactElement {
                 <th>Produktname</th>
                 <th>Artikelnummer</th>
                 <th>Anzahl auf Lager</th>
+                <th>Lagerplatz</th>
                 <th>Details</th>
             </tr>
         </thead>
