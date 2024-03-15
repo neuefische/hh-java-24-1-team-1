@@ -29,7 +29,7 @@ public class ProductService {
     public Product addProduct(ProductDTO productDTO) {
         ProductChange newChange = productChangeService.createChange(null, "Product added", ProductChangeType.ADD, ProductChangeStatus.ERROR);
         Product newProduct =  productRepo.save(new Product(null, productDTO.name(), productDTO.amount(), productDTO.description(), productIdService.generateProductId(), productDTO.minimumStockLevel()));
-        productChangeService.updateProductChange(newChange.withStatus(ProductChangeStatus.DONE).withProducts(new Product[]{newProduct}));
+        productChangeService.updateProductChange(newChange.withStatus(ProductChangeStatus.DONE).withProducts(List.of(newProduct)));
         return newProduct;
     }
 
@@ -37,7 +37,7 @@ public class ProductService {
         if (!productRepo.existsById(product.id())) {
             throw new NoSuchProductException(product.id());
         }
-        Product[] products = new Product[]{productRepo.findById(product.id()).orElseThrow(), product};
+        List<Product> products = List.of(productRepo.findById(product.id()).orElseThrow(), product);
         ProductChange newChange = productChangeService.createChange(products, "Product updated", ProductChangeType.UPDATE, ProductChangeStatus.ERROR);
         Product newProduct = productRepo.save(product);
         productChangeService.updateProductChange(newChange.withStatus(ProductChangeStatus.DONE));
@@ -48,7 +48,7 @@ public class ProductService {
         if (!productRepo.existsById(id)) {
             throw new NoSuchProductException(id);
         }
-        ProductChange newChange = productChangeService.createChange(new Product[]{productRepo.findById(id).orElseThrow()}, "Product deleted", ProductChangeType.DELETE, ProductChangeStatus.ERROR);
+        ProductChange newChange = productChangeService.createChange(List.of(productRepo.findById(id).orElseThrow()), "Product deleted", ProductChangeType.DELETE, ProductChangeStatus.ERROR);
         productRepo.deleteById(id);
         productChangeService.updateProductChange(newChange.withStatus(ProductChangeStatus.DONE));
     }

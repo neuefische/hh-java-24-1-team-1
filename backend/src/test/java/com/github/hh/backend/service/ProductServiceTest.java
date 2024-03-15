@@ -104,7 +104,7 @@ class ProductServiceTest {
         verify(mockProductRepo).save(any(Product.class));
         verifyNoMoreInteractions(mockProductRepo);
         verify(mockProductChangeService).createChange(null, "Product added", ProductChangeType.ADD, ProductChangeStatus.ERROR);
-        verify(mockProductChangeService).updateProductChange(expectedChange.withProducts(new Product[]{expected}));
+        verify(mockProductChangeService).updateProductChange(expectedChange.withProducts(List.of(expected)));
         verifyNoMoreInteractions(mockProductChangeService);
     }
 
@@ -113,7 +113,7 @@ class ProductServiceTest {
         // Given
         Product expectedOld = new Product("1", "Name", 20,"Description", "2", 10);
         Product expectedNew = new Product("1", "Updated Name", 20,"Updated Description", "2", 10);
-        Product[] products = new Product[]{expectedOld, expectedNew};
+        List<Product> products = List.of(expectedOld, expectedNew);
 
         ProductChange expectedChange = new ProductChange("new Change Id", products, "Product updated", ProductChangeType.UPDATE, ProductChangeStatus.DONE, Instant.ofEpochMilli(1));
 
@@ -156,14 +156,14 @@ class ProductServiceTest {
     void deleteProductById_whenSuchProduct_thenDelete(){
         // Given
         Product product = new Product("1", "Product 1", 10,"Description 1", "1", 5);
-        ProductChange expected = new ProductChange("new Change Id", new Product[]{product}, "Product deleted", ProductChangeType.DELETE, ProductChangeStatus.ERROR, Instant.now());
+        ProductChange expected = new ProductChange("new Change Id", List.of(product), "Product deleted", ProductChangeType.DELETE, ProductChangeStatus.ERROR, Instant.now());
 
         // When
         when(mockProductRepo.existsById(product.id()))
                 .thenReturn(true);
         when(mockProductRepo.findById(product.id()))
                 .thenReturn(java.util.Optional.of(product));
-        when(mockProductChangeService.createChange(new Product[]{product}, "Product deleted", ProductChangeType.DELETE, ProductChangeStatus.ERROR))
+        when(mockProductChangeService.createChange(List.of(product), "Product deleted", ProductChangeType.DELETE, ProductChangeStatus.ERROR))
                 .thenReturn(expected);
         productService.deleteProductById(product.id());
 
@@ -172,7 +172,7 @@ class ProductServiceTest {
         verify(mockProductRepo).deleteById(product.id());
         verify(mockProductRepo).findById(product.id());
         verifyNoMoreInteractions(mockProductRepo);
-        verify(mockProductChangeService).createChange(new Product[]{product}, "Product deleted", ProductChangeType.DELETE, ProductChangeStatus.ERROR);
+        verify(mockProductChangeService).createChange(List.of(product), "Product deleted", ProductChangeType.DELETE, ProductChangeStatus.ERROR);
         verify(mockProductChangeService).updateProductChange(expected.withStatus(ProductChangeStatus.DONE));
         verifyNoMoreInteractions(mockProductChangeService);
     }
@@ -215,10 +215,10 @@ class ProductServiceTest {
         // Given
         Product product = new Product("1", "Product", 10, "Description", "123", 5);
         List<ProductChange> productChanges = List.of(
-                new ProductChange("1", new Product[]{product}, "Product added", ProductChangeType.ADD, ProductChangeStatus.ERROR, Instant.now())
+                new ProductChange("1", List.of(product), "Product added", ProductChangeType.ADD, ProductChangeStatus.ERROR, Instant.now())
         );
         List<ProductChangeDTO> expected = List.of(
-                new ProductChangeDTO(new Product[]{product}, "Product added", ProductChangeType.ADD, ProductChangeStatus.ERROR, productChanges.getFirst().date())
+                new ProductChangeDTO(List.of(product), "Product added", ProductChangeType.ADD, ProductChangeStatus.ERROR, productChanges.getFirst().date())
         );
 
         // When
