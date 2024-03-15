@@ -1,7 +1,7 @@
 package com.github.hh.backend.model;
 
 public record ProductDTO(
-        String storageSpaceId,
+        String storageSpaceName,
         String name,
         int amount,
         String description,
