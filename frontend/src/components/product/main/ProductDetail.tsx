@@ -13,6 +13,7 @@ export default function ProductDetail(props:Readonly<ProductDetailProps>){
     const { id = '' } = useParams<string>();
     const [product, setProduct] = useState<Product>({
         id: "",
+        storageSpaceName: "",
         name: "",
         description: "",
         amount: 0,
@@ -56,6 +57,10 @@ export default function ProductDetail(props:Readonly<ProductDetailProps>){
                     <tr>
                         <th>Mindestbestand:</th>
                         <td>{product.minimumStockLevel}</td>
+                    </tr>
+                    <tr>
+                        <th>Lagerplatz:</th>
+                        <td>{product.storageSpaceName}</td>
                     </tr>
                     <tr>
                         <th>Produktbeschreibung:</th>
