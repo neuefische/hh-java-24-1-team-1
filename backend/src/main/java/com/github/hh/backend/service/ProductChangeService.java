@@ -17,7 +17,7 @@ import java.util.List;
 public class ProductChangeService {
     private final ProductChangeRepo productChangeRepo;
 
-    public ProductChange createChange(Product[] products, String description, ProductChangeType type, ProductChangeStatus status) {
+    public ProductChange createChange(List<Product> products, String description, ProductChangeType type, ProductChangeStatus status) {
         return productChangeRepo.save(new ProductChange(null, products, description, type, status, Instant.now()));
     }
 
