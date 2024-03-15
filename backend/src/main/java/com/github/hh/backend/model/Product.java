@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 public record Product (
         @Id
         String id,
+        String storageSpaceId,
         String name,
         int amount,
         String description,
