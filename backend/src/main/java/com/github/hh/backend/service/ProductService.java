@@ -29,9 +29,9 @@ public class ProductService {
 
     public Product addProduct(ProductDTO productDTO) {
         ProductChange newChange = productChangeService.createChange(null, "Product added", ProductChangeType.ADD, ProductChangeStatus.ERROR);
-        Product newProduct =  productRepo.save(new Product(null, productDTO.name(), storageSpaceService.getNewStorageSpace(), productDTO.amount(), productDTO.description(), productIdService.generateProductId(), productDTO.minimumStockLevel()));
+        Product newProduct =  productRepo.save(new Product(null, storageSpaceService.getNewStorageSpace(), productDTO.name(), productDTO.amount(), productDTO.description(), productIdService.generateProductId(), productDTO.minimumStockLevel()));
         productChangeService.updateProductChange(newChange.withStatus(ProductChangeStatus.DONE).withProducts(List.of(newProduct)));
-        storageSpaceService.occupyStorageSpace(newProduct.storageSpaceId());
+        storageSpaceService.occupyStorageSpace(newProduct.storageSpaceName());
         return newProduct;
     }
 
@@ -43,8 +43,8 @@ public class ProductService {
         ProductChange newChange = productChangeService.createChange(List.of(oldProduct, product), "Product updated", ProductChangeType.UPDATE, ProductChangeStatus.ERROR);
         Product newProduct = productRepo.save(product);
         productChangeService.updateProductChange(newChange.withStatus(ProductChangeStatus.DONE));
-        storageSpaceService.freeStorageSpace(oldProduct.storageSpaceId());
-        storageSpaceService.occupyStorageSpace(newProduct.storageSpaceId());
+        storageSpaceService.freeStorageSpace(oldProduct.storageSpaceName());
+        storageSpaceService.occupyStorageSpace(newProduct.storageSpaceName());
         return newProduct;
     }
 
@@ -56,7 +56,7 @@ public class ProductService {
         ProductChange newChange = productChangeService.createChange(List.of(deletedProduct), "Product deleted", ProductChangeType.DELETE, ProductChangeStatus.ERROR);
         productRepo.deleteById(id);
         productChangeService.updateProductChange(newChange.withStatus(ProductChangeStatus.DONE));
-        storageSpaceService.freeStorageSpace(deletedProduct.storageSpaceId());
+        storageSpaceService.freeStorageSpace(deletedProduct.storageSpaceName());
     }
 
     public List<Product> getProductsInCriticalStock() {

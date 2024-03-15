@@ -51,4 +51,11 @@ public class ProductController {
     public List<ProductChangeDTO> getChangeLog() {
         return productService.getChangeLog();
     }
+
+    @PostMapping("/bulk")
+    public void addBulkProducts(@RequestBody List<ProductDTO> productDTOs) {
+        for(ProductDTO productDTO : productDTOs) {
+            productService.addProduct(productDTO);
+        }
+    }
 }
