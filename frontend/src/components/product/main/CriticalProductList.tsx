@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {Product} from "../../../types/Product.ts";
 import SearchBar from "../../utility/SearchBar.tsx";
-import ProductCard from "../../parts/ProductCard.tsx";
+import ProductCard from "../parts/ProductCard.tsx";
 import './CriticalProductList.css';
 import TableHead from "../../htmlParts/TableHead.tsx";
 

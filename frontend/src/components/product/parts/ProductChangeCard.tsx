@@ -1,8 +1,8 @@
 import './ProductChangeCard.css';
-import {ProductChange} from "../../types/ProductChange.ts";
+import {ProductChange} from "../../../types/ProductChange.ts";
 import React from "react";
 import ProductCard from "./ProductCard.tsx";
-import {Product} from "../../types/Product.ts";
+import {Product} from "../../../types/Product.ts";
 
 type ChangeCardProps = {
     change:ProductChange;
