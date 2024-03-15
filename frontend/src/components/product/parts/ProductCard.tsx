@@ -13,7 +13,7 @@ export default function ProductCard({ product }: Readonly<ProductCardProps>): Re
             <td><p><b>{product.name}</b></p></td>
             <td><p>{product.productNumber}</p></td>
             <td><p>{product.amount}</p></td>
-            <td><p>{product.storageSpaceId}</p></td>
+            <td><p>{product.storageSpaceName}</p></td>
             <td><p><Link to={"/products/" + product.id}>Details</Link></p></td>
         </tr>
     );
