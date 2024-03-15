@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {Product} from '../../types/Product.ts';
-import SearchBar from "../utility/SearchBar.tsx";
-import ProductCard from "../parts/ProductCard.tsx";
+import {Product} from '../../../types/Product.ts';
+import SearchBar from "../../utility/SearchBar.tsx";
+import ProductCard from "../../parts/ProductCard.tsx";
 import './ProductList.css';
-import TableHead from "../htmlParts/TableHead.tsx";
+import TableHead from "../../htmlParts/TableHead.tsx";
 
 type ProductListProps = {
     products:Product[];
