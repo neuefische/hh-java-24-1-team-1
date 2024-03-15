@@ -1,5 +1,6 @@
 package com.github.hh.backend.handler;
 
+import com.github.hh.backend.exception.NoEmptyStorageSpaceException;
 import com.github.hh.backend.exception.DuplicateProductNumberException;
 import com.github.hh.backend.exception.NoSuchProductChangeException;
 import com.github.hh.backend.exception.NoSuchProductException;
@@ -32,6 +33,14 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ExceptionHandler(NoEmptyStorageSpaceException.class)
+    @ResponseStatus(HttpStatus.EXPECTATION_FAILED)
+    public ErrorMessage handleNoEmptyStorageSpaceException(){
+        return new ErrorMessage(
+                "No empty storage space available",
+                LocalDateTime.now()
+        );
+    }
     @ExceptionHandler(DuplicateProductNumberException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorMessage handleDuplicateProductNumberException(DuplicateProductNumberException exception) {
