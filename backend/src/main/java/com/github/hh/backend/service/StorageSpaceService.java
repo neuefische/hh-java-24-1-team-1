@@ -39,4 +39,9 @@ public class StorageSpaceService {
         StorageSpace newStorageSpace = storageSpaceRepo.save(new StorageSpace(null, storageSpaceId, false));
         return new StorageSpaceDTO(newStorageSpace.id(), newStorageSpace.isOccupied());
     }
+
+    public void toggleStorageSpaceOccupation(String storageSpaceId) {
+        StorageSpace storageSpace = storageSpaceRepo.findById(storageSpaceId).orElseThrow();
+        storageSpaceRepo.save(storageSpace.withOccupied(!storageSpace.isOccupied()));
+    }
 }
