@@ -1,14 +1,14 @@
 import {Route, Routes} from "react-router-dom";
-import ProductUpdate from "./components/main/ProductUpdate.tsx";
-import ProductDetail from "./components/main/ProductDetail.tsx";
-import {ProductList} from "./components/main/ProductList.tsx";
+import ProductUpdate from "./components/main/product/ProductUpdate.tsx";
+import ProductDetail from "./components/main/product/ProductDetail.tsx";
+import {ProductList} from "./components/main/product/ProductList.tsx";
 import Header from "./components/utility/Header.tsx";
-import AddProductGallery from "./components/main/AddProductGallery.tsx";
+import AddProductGallery from "./components/main/product/AddProductGallery.tsx";
 import useProducts from "./hooks/useProducts.ts";
-import CriticalProductList from "./components/main/CriticalProductList.tsx";
+import CriticalProductList from "./components/main/product/CriticalProductList.tsx";
 import React, {useEffect, useState} from "react";
 import {Product} from "./types/Product.ts";
-import {ProductChangeLog} from "./components/main/ProductChangeLog.tsx";
+import {ProductChangeLog} from "./components/main/product/ProductChangeLog.tsx";
 import useProductChanges from "./hooks/useProductChanges.ts";
 
 export default function App(): React.ReactElement {
