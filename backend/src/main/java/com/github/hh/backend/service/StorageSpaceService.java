@@ -1,6 +1,7 @@
 package com.github.hh.backend.service;
 
 import com.github.hh.backend.model.StorageSpace;
+import com.github.hh.backend.model.StorageSpaceDTO;
 import com.github.hh.backend.repository.StorageSpaceRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,33 +29,14 @@ public class StorageSpaceService {
         storageSpaceRepo.save(storageSpaceRepo.findById(id).orElseThrow().withOccupied(false));
     }
 
-    public List<String> getAllStorageSpaces() {
+    public List<StorageSpaceDTO> getAllStorageSpaces() {
         return storageSpaceRepo.findAll().stream()
-                .map(StorageSpace::id)
+                .map(storageSpace -> new StorageSpaceDTO(storageSpace.id(), storageSpace.isOccupied()))
                 .toList();
     }
 
-    public List<String> getEmptyStorageSpaces() {
-        return storageSpaceRepo.findAll().stream()
-                .filter(s -> !s.isOccupied())
-                .map(StorageSpace::id)
-                .toList();
-    }
-
-    public List<String> getOccupiedStorageSpaces() {
-        return storageSpaceRepo.findAll().stream()
-                .filter(StorageSpace::isOccupied)
-                .map(StorageSpace::id)
-                .toList();
-    }
-
-    public int getOccupiedStorageSpacesCount() {
-        return (int) storageSpaceRepo.findAll().stream()
-                .filter(StorageSpace::isOccupied)
-                .count();
-    }
-
-    public String addNewStorageSpace(String storageSpaceId) {
-        return storageSpaceRepo.save(new StorageSpace(null, storageSpaceId, false)).storageSpaceId();
+    public StorageSpaceDTO addNewStorageSpace(String storageSpaceId) {
+        StorageSpace newStorageSpace = storageSpaceRepo.save(new StorageSpace(null, storageSpaceId, false));
+        return new StorageSpaceDTO(newStorageSpace.id(), newStorageSpace.isOccupied());
     }
 }

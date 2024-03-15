@@ -1,5 +1,6 @@
 package com.github.hh.backend.controller;
 
+import com.github.hh.backend.model.StorageSpaceDTO;
 import com.github.hh.backend.service.StorageSpaceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,28 +15,13 @@ public class StorageSpaceController {
     private final StorageSpaceService storageSpaceService;
 
     @GetMapping
-    public List<String> getAllStorageSpaces() {
+    public List<StorageSpaceDTO> getAllStorageSpaces() {
         return storageSpaceService.getAllStorageSpaces();
-    }
-
-    @GetMapping("/empty")
-    public List<String> getEmptyStorageSpaces() {
-        return storageSpaceService.getEmptyStorageSpaces();
-    }
-
-    @GetMapping("/occupied")
-    public List<String> getOccupiedStorageSpaces() {
-        return storageSpaceService.getOccupiedStorageSpaces();
-    }
-
-    @GetMapping("/occupied/count")
-    public int getOccupiedStorageSpacesCount() {
-        return storageSpaceService.getOccupiedStorageSpacesCount();
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public String addNewStorageSpace(@RequestBody String storageSpaceId){
+    public StorageSpaceDTO addNewStorageSpace(@RequestBody String storageSpaceId){
         return storageSpaceService.addNewStorageSpace(storageSpaceId);
     }
 

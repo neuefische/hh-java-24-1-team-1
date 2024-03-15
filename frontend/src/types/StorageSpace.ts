@@ -1,4 +1,4 @@
 export type StorageSpace = {
-    storageSpaceId:string;
-
+    storageSpaceId:string,
+    isOccupied:boolean
 }
