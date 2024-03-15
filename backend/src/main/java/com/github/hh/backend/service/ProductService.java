@@ -14,6 +14,7 @@ public class ProductService {
     private final ProductRepo productRepo;
     private final ProductChangeService productChangeService;
     private final ProductIdService productIdService;
+    private final StorageSpaceService storageSpaceService;
 
     public List<Product> findAllProducts() {
         return productRepo.findAll();
@@ -28,8 +29,9 @@ public class ProductService {
 
     public Product addProduct(ProductDTO productDTO) {
         ProductChange newChange = productChangeService.createChange(null, "Product added", ProductChangeType.ADD, ProductChangeStatus.ERROR);
-        Product newProduct =  productRepo.save(new Product(null, productDTO.name(), productDTO.amount(), productDTO.description(), productIdService.generateProductId(), productDTO.minimumStockLevel()));
+        Product newProduct =  productRepo.save(new Product(null, productDTO.name(), storageSpaceService.getNewStorageSpace(), productDTO.amount(), productDTO.description(), productIdService.generateProductId(), productDTO.minimumStockLevel()));
         productChangeService.updateProductChange(newChange.withStatus(ProductChangeStatus.DONE).withProducts(List.of(newProduct)));
+        storageSpaceService.occupyStorageSpace(newProduct.storageSpaceId());
         return newProduct;
     }
 
@@ -37,10 +39,12 @@ public class ProductService {
         if (!productRepo.existsById(product.id())) {
             throw new NoSuchProductException(product.id());
         }
-        List<Product> products = List.of(productRepo.findById(product.id()).orElseThrow(), product);
-        ProductChange newChange = productChangeService.createChange(products, "Product updated", ProductChangeType.UPDATE, ProductChangeStatus.ERROR);
+        Product oldProduct = productRepo.findById(product.id()).orElseThrow();
+        ProductChange newChange = productChangeService.createChange(List.of(oldProduct, product), "Product updated", ProductChangeType.UPDATE, ProductChangeStatus.ERROR);
         Product newProduct = productRepo.save(product);
         productChangeService.updateProductChange(newChange.withStatus(ProductChangeStatus.DONE));
+        storageSpaceService.freeStorageSpace(oldProduct.storageSpaceId());
+        storageSpaceService.occupyStorageSpace(newProduct.storageSpaceId());
         return newProduct;
     }
 
@@ -48,9 +52,11 @@ public class ProductService {
         if (!productRepo.existsById(id)) {
             throw new NoSuchProductException(id);
         }
-        ProductChange newChange = productChangeService.createChange(List.of(productRepo.findById(id).orElseThrow()), "Product deleted", ProductChangeType.DELETE, ProductChangeStatus.ERROR);
+        Product deletedProduct = productRepo.findById(id).orElseThrow();
+        ProductChange newChange = productChangeService.createChange(List.of(deletedProduct), "Product deleted", ProductChangeType.DELETE, ProductChangeStatus.ERROR);
         productRepo.deleteById(id);
         productChangeService.updateProductChange(newChange.withStatus(ProductChangeStatus.DONE));
+        storageSpaceService.freeStorageSpace(deletedProduct.storageSpaceId());
     }
 
     public List<Product> getProductsInCriticalStock() {

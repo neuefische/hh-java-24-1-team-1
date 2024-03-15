@@ -1,10 +1,14 @@
 package com.github.hh.backend.model;
 
+import lombok.With;
 import org.springframework.data.annotation.Id;
 
-public record ProductId(
+@With
+public record StorageSpace(
         @Id
         String id,
-        int productId
+        String storageSpaceId,
+        boolean isOccupied
+
 ) {
 }
