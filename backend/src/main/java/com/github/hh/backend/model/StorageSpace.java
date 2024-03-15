@@ -7,7 +7,7 @@ import org.springframework.data.annotation.Id;
 public record StorageSpace(
         @Id
         String id,
-        String storageSpaceId,
+        String storageSpaceName,
         boolean isOccupied
 
 ) {
