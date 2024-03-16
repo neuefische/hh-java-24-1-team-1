@@ -54,7 +54,7 @@ export default function App(): React.ReactElement {
                     <Route path={"/critical"} element={<CriticalProductList handleFilterChange={setSelectedFilter} handleSearchText={setSearchText}  products={filteredProducts}/>} />
                     <Route path={"/products/changelog"} element={<ProductChangeLog changes={changes}/>} />
 
-                    <Route path={"/storage"} element={<StorageSpaceGallery storageSpaces={storageSpaces} getEmptyStorageSpaces={getEmptyStorageSpaces} getOccupiedStorageSpaces={getOccupiedStorageSpaces} getOccupiedStorageSpacesCount={getOccupiedStorageSpacesCount}/>}/>
+                    <Route path={"/storage"} element={<StorageSpaceGallery products={products} storageSpaces={storageSpaces} getEmptyStorageSpaces={getEmptyStorageSpaces} getOccupiedStorageSpaces={getOccupiedStorageSpaces} getOccupiedStorageSpacesCount={getOccupiedStorageSpacesCount}/>}/>
                 </Routes>
             </main>
         </>
