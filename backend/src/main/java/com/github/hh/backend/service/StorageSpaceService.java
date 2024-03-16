@@ -1,5 +1,6 @@
 package com.github.hh.backend.service;
 
+import com.github.hh.backend.exception.MultipleStorageSpacesWithTheSameNameException;
 import com.github.hh.backend.exception.NoSuchStorageSpaceException;
 import com.github.hh.backend.model.StorageSpace;
 import com.github.hh.backend.repository.StorageSpaceRepo;
@@ -33,7 +34,7 @@ public class StorageSpaceService {
             throw new NoSuchStorageSpaceException(storageSpaceName);
         }
         if(storageSpaceList.size() > 1) {
-            throw new IllegalStateException("Multiple storage spaces with the same name");
+            throw new MultipleStorageSpacesWithTheSameNameException(storageSpaceName);
         }
 
         StorageSpace storageSpace = storageSpaceList.getFirst();
