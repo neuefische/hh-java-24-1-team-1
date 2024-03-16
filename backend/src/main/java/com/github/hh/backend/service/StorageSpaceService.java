@@ -2,7 +2,6 @@ package com.github.hh.backend.service;
 
 import com.github.hh.backend.exception.NoSuchStorageSpaceException;
 import com.github.hh.backend.model.StorageSpace;
-import com.github.hh.backend.model.StorageSpaceDTO;
 import com.github.hh.backend.repository.StorageSpaceRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StorageSpaceService {
     private final StorageSpaceRepo storageSpaceRepo;
-    public String getNewStorageSpace() {
+    public String getNewStorageSpaceName() {
         List<StorageSpace> emptyStorageSpaces = storageSpaceRepo.findAll().stream()
                 .filter(space -> !space.isOccupied())
                 .toList();
@@ -26,15 +25,7 @@ public class StorageSpaceService {
         return emptyStorageSpaces.getFirst().storageSpaceName();
     }
 
-    public void occupyStorageSpace(String storageSpaceName) {
-        storageSpaceRepo.save(storageSpaceRepo.findById(getStorageSpaceByStorageSpaceName(storageSpaceName).id()).orElseThrow(() -> new NoSuchStorageSpaceException(storageSpaceName)).withOccupied(true));
-    }
-
-    public void freeStorageSpace(String storageSpaceName) {
-        storageSpaceRepo.save(storageSpaceRepo.findById(getStorageSpaceByStorageSpaceName(storageSpaceName).id()).orElseThrow().withOccupied(false));
-    }
-
-    private StorageSpace getStorageSpaceByStorageSpaceName(String storageSpaceName) {
+    public StorageSpace toggleStorageSpaceOccupationByName(String storageSpaceName) {
         List<StorageSpace> storageSpaceList = storageSpaceRepo.findAll().stream()
                 .filter(storageSpace -> storageSpace.storageSpaceName().equals(storageSpaceName)).toList();
 
@@ -45,20 +36,25 @@ public class StorageSpaceService {
             throw new IllegalStateException("Multiple storage spaces with the same name");
         }
 
-        return storageSpaceList.getFirst();
+        StorageSpace storageSpace = storageSpaceList.getFirst();
+
+        return storageSpaceRepo.save(storageSpace.withOccupied(!storageSpace.isOccupied()));
     }
 
     public List<StorageSpace> getAllStorageSpaces() {
         return storageSpaceRepo.findAll();
     }
 
-    public StorageSpaceDTO addNewStorageSpace(String id) {
-        StorageSpace newStorageSpace = storageSpaceRepo.save(new StorageSpace(null, id, false));
-        return new StorageSpaceDTO(newStorageSpace.storageSpaceName(), newStorageSpace.isOccupied());
+    public StorageSpace addNewStorageSpace(String storageSpaceName) {
+        return storageSpaceRepo.save(new StorageSpace(null, storageSpaceName, false));
     }
 
-    public void toggleStorageSpaceOccupation(String id) {
-        StorageSpace storageSpace = storageSpaceRepo.findById(id).orElseThrow();
-        storageSpaceRepo.save(storageSpace.withOccupied(!storageSpace.isOccupied()));
+    public StorageSpace toggleStorageSpaceOccupation(String id) {
+        StorageSpace storageSpace = storageSpaceRepo.findById(id).orElseThrow(() -> new NoSuchStorageSpaceException(id));
+        return storageSpaceRepo.save(storageSpace.withOccupied(!storageSpace.isOccupied()));
+    }
+
+    public StorageSpace getStorageSpaceById(String id) {
+        return storageSpaceRepo.findById(id).orElseThrow(() -> new NoSuchStorageSpaceException(id));
     }
 }
