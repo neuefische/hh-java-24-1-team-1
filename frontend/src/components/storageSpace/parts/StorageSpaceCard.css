@@ -1,0 +1,53 @@
+.storageSpaceCard {
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.storageSpaceCard .yesDiv {
+    text-align: center;
+    background-color: #ff8080;
+    height: 100%;
+}
+
+.storageSpaceCard .noDiv {
+    text-align: center;
+    background-color: #80ff80;
+}
+
+.storageSpaceCard .productColumn {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+.storageSpaceCard .productColumn .productTable  {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.storageSpaceCard .productColumn .productTable .productTbody{
+    display: flex;
+    align-items: stretch;
+}
+
+.storageSpaceCard .productColumn .productTable .productTbody tr {
+    display: flex;
+    flex: 1;
+}
+
+.storageSpaceCard .productColumn .productTable td:first-of-type {
+    flex: 5;
+}
+
+.storageSpaceCard .productColumn .productTable td:nth-of-type(2),
+.storageSpaceCard .productColumn .productTable td:nth-of-type(3) {
+    flex: 2;
+}
+
+.storageSpaceCard .productColumn .productTable td:nth-of-type(4),
+.storageSpaceCard .productColumn .productTable td:nth-of-type(5) {
+    flex: 2;
+}
