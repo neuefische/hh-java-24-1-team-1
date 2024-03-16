@@ -32,7 +32,7 @@ export default function StorageSpaceGallery(props:Readonly<StorageSpaceGalleryPr
                                 <tr>
                                     <th>Name</th>
                                     <th>Artikel Nr.</th>
-                                    <th>Auflager</th>
+                                    <th>Auf Lager</th>
                                     <th>Details</th>
                                 </tr>
                                 </thead>
