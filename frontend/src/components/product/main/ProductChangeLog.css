@@ -1,6 +1,5 @@
 .productChangeLog {
     border: 1px solid #ddd;
-    padding: 10px;
     border-radius: 5px;
     margin: 20px 10px;
     background: #f8f8f8;
@@ -10,31 +9,29 @@
 .productChangeLog .productChangeLogMainTable {
     border-collapse: collapse;
     flex: 1;
-    margin: 10px;
     box-sizing: border-box;
 }
 
 .productChangeLog th, .productChangeLog td {
     text-align: left;
-    border: 1px solid #ddd;
 }
 
 .productChangeLog tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: #e3e3e3;
 }
 
 .productChangeLog tbody tr:hover {
     background-color: #c0e9f8;
 }
 
-.productChangeLog thead{
+.productChangeLog .productChangeLogMainTableHead{
     background-color: #cecece;
+    height: 30px;
 }
 
 .productChangeLog table p {
     margin: 0;
 }
-
 
 .productChangeLog .productChangeLogProductColumn {
     display: flex;
@@ -43,7 +40,6 @@
 }
 
 .productChangeLog .productChangeLogProductColumn .productChangeLogProductTable  {
-    background-color: #fff;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -52,6 +48,10 @@
 .productChangeLog .productChangeLogProductColumn .productChangeLogProductTable .productChangeLogProductTableHead{
     display: flex;
     align-items: stretch;
+}
+
+.productChangeLog .productChangeLogProductColumn .productChangeLogProductTable .productChangeLogProductTableHead th{
+    padding: 8px;
 }
 
 .productChangeLog .productChangeLogProductColumn .productChangeLogProductTable .productChangeLogProductTableHead tr {

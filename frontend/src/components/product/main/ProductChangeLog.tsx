@@ -11,7 +11,7 @@ export function ProductChangeLog(props:Readonly<ChangeLogProps>): React.ReactEle
     return (
         <main className={"productChangeLog"}>
             <table className={"productChangeLogMainTable"}>
-                <thead>
+                <thead className={"productChangeLogMainTableHead"}>
                     <tr>
                         <th>Datum</th>
                         <th>Beschreibung</th>
