@@ -70,10 +70,7 @@
 }
 
 .storageSpaceGallery .productHeadColumn .productHeadTable th:nth-of-type(2),
-.storageSpaceGallery .productHeadColumn .productHeadTable th:nth-of-type(3) {
-    flex: 2;
-}
-
+.storageSpaceGallery .productHeadColumn .productHeadTable th:nth-of-type(3),
 .storageSpaceGallery .productHeadColumn .productHeadTable th:nth-of-type(4),
 .storageSpaceGallery .productHeadColumn .productHeadTable th:nth-of-type(5) {
     flex: 2;
