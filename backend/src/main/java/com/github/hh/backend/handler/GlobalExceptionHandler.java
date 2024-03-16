@@ -53,7 +53,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(NoSuchStorageSpaceException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorMessage handleNoSuchStorageSpaceException(NoSuchStorageSpaceException exception){
         return new ErrorMessage(
                 "Storage space with ID " + exception.getMessage() + " does not exist",
@@ -62,7 +62,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(IllegalStateException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorMessage handleIllegalStateException(IllegalStateException exception){
         return new ErrorMessage(
                 exception.getMessage(),
