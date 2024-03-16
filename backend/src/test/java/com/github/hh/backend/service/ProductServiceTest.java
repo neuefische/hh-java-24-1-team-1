@@ -97,7 +97,7 @@ class ProductServiceTest {
         // When
         when(mockProductChangeService.createChange(null, "Product added", ProductChangeType.ADD, ProductChangeStatus.ERROR))
                 .thenReturn(expectedChange.withStatus(ProductChangeStatus.ERROR));
-        when(mockStorageSpaceService.getNewStorageSpace()).thenReturn(storageSpaceName);
+        when(mockStorageSpaceService.getNewStorageSpaceName()).thenReturn(storageSpaceName);
         when(mockProductIdService.generateProductId()).thenReturn(productId);
         when(mockProductRepo.save(
                 new Product(
@@ -119,8 +119,8 @@ class ProductServiceTest {
         verify(mockProductChangeService).createChange(null, "Product added", ProductChangeType.ADD, ProductChangeStatus.ERROR);
         verify(mockProductChangeService).updateProductChange(expectedChange.withProducts(List.of(expected)));
         verifyNoMoreInteractions(mockProductChangeService);
-        verify(mockStorageSpaceService).getNewStorageSpace();
-        verify(mockStorageSpaceService).occupyStorageSpace(storageSpaceName);
+        verify(mockStorageSpaceService).getNewStorageSpaceName();
+        verify(mockStorageSpaceService).toggleStorageSpaceOccupationByName(storageSpaceName);
         verifyNoMoreInteractions(mockStorageSpaceService);
     }
 
@@ -152,8 +152,8 @@ class ProductServiceTest {
         verify(mockProductChangeService).createChange(products, "Product updated", ProductChangeType.UPDATE, ProductChangeStatus.ERROR);
         verify(mockProductChangeService).updateProductChange(expectedChange);
         verifyNoMoreInteractions(mockProductChangeService);
-        verify(mockStorageSpaceService).freeStorageSpace(expectedOld.storageSpaceName());
-        verify(mockStorageSpaceService).occupyStorageSpace(expectedNew.storageSpaceName());
+        verify(mockStorageSpaceService).toggleStorageSpaceOccupationByName(expectedOld.storageSpaceName());
+        verify(mockStorageSpaceService).toggleStorageSpaceOccupationByName(expectedNew.storageSpaceName());
         verifyNoMoreInteractions(mockStorageSpaceService);
     }
 
@@ -243,7 +243,7 @@ class ProductServiceTest {
         verify(mockProductChangeService).createChange(List.of(product), "Product deleted", ProductChangeType.DELETE, ProductChangeStatus.ERROR);
         verify(mockProductChangeService).updateProductChange(expected.withStatus(ProductChangeStatus.DONE));
         verifyNoMoreInteractions(mockProductChangeService);
-        verify(mockStorageSpaceService).freeStorageSpace(product.storageSpaceName());
+        verify(mockStorageSpaceService).toggleStorageSpaceOccupationByName(product.storageSpaceName());
         verifyNoMoreInteractions(mockStorageSpaceService);
     }
 

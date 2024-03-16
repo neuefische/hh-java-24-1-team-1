@@ -20,15 +20,20 @@ public class StorageSpaceController {
         return storageSpaceService.getAllStorageSpaces();
     }
 
+    @GetMapping("/{id}")
+    public StorageSpace getStorageSpaceById(@PathVariable String id) {
+        return storageSpaceService.getStorageSpaceById(id);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public StorageSpaceDTO addNewStorageSpace(@RequestBody String id){
-        return storageSpaceService.addNewStorageSpace(id);
+    public StorageSpace addNewStorageSpace(@RequestBody String storageSpaceName){
+        return storageSpaceService.addNewStorageSpace(storageSpaceName);
     }
 
     @PutMapping
-    public void toggleStorageSpaceOccupation(@RequestBody String id){
-        storageSpaceService.toggleStorageSpaceOccupation(id);
+    public StorageSpace toggleStorageSpaceOccupation(@RequestBody String id){
+        return storageSpaceService.toggleStorageSpaceOccupation(id);
     }
 
 }
