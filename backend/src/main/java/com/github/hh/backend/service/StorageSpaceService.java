@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StorageSpaceService {
     private final StorageSpaceRepo storageSpaceRepo;
-    public String getNewStorageSpace() throws NoEmptyStorageSpaceException {
+    public String getNewStorageSpace() {
         List<StorageSpace> emptyStorageSpaces = storageSpaceRepo.findAll().stream()
                 .filter(space -> !space.isOccupied())
                 .toList();
