@@ -1,7 +1,6 @@
 package com.github.hh.backend.controller;
 
 import com.github.hh.backend.model.StorageSpace;
-import com.github.hh.backend.model.StorageSpaceDTO;
 import com.github.hh.backend.service.StorageSpaceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
