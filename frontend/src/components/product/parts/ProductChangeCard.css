@@ -1,10 +1,36 @@
-.changeCard {
-    border: 1px solid #ddd;
-    padding: 10px;
+.productChangeCard {
     background: #f8f8f8;
 }
 
-.changeCard td {
-    padding: 10px;
+.productChangeCard td {
     text-align: left;
+}
+
+.productChangeCard {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.productChangeCard .productChangeCardTableBody{
+    display: flex;
+    align-items: stretch;
+}
+
+.productChangeCard .productChangeCardTableBody tr {
+    display: flex;
+    flex: 1;
+    padding: 0;
+}
+
+.productChangeCard td:first-of-type {
+    flex: 5;
+}
+
+.productChangeCard td:nth-of-type(2),
+.productChangeCard td:nth-of-type(3),
+.productChangeCard td:nth-of-type(4),
+.productChangeCard td:nth-of-type(5) {
+    flex: 2;
 }

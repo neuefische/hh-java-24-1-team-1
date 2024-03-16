@@ -1,4 +1,4 @@
-.changeLog {
+.productChangeLog {
     border: 1px solid #ddd;
     padding: 10px;
     border-radius: 5px;
@@ -7,31 +7,65 @@
     display: flex;
 }
 
-.changeLog table {
+.productChangeLog .productChangeLogMainTable {
     border-collapse: collapse;
-    width: 100%;
+    flex: 1;
     margin: 10px;
     box-sizing: border-box;
 }
 
-.changeLog th, .changeLog td {
+.productChangeLog th, .productChangeLog td {
     text-align: left;
     border: 1px solid #ddd;
-    padding: 8px;
 }
 
-.changeLog tr:nth-child(even) {
+.productChangeLog tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
-.changeLog tbody tr:hover {
+.productChangeLog tbody tr:hover {
     background-color: #c0e9f8;
 }
 
-.changeLog thead{
+.productChangeLog thead{
     background-color: #cecece;
 }
 
-.changeLog table p {
+.productChangeLog table p {
     margin: 0;
+}
+
+
+.productChangeLog .productChangeLogProductColumn {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+.productChangeLog .productChangeLogProductColumn .productChangeLogProductTable  {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.productChangeLog .productChangeLogProductColumn .productChangeLogProductTable .productChangeLogProductTableHead{
+    display: flex;
+    align-items: stretch;
+}
+
+.productChangeLog .productChangeLogProductColumn .productChangeLogProductTable .productChangeLogProductTableHead tr {
+    display: flex;
+    flex: 1;
+}
+
+.productChangeLog .productChangeLogProductColumn .productChangeLogProductTable th:first-of-type {
+    flex: 5;
+}
+
+.productChangeLog .productChangeLogProductColumn .productChangeLogProductTable th:nth-of-type(2),
+.productChangeLog .productChangeLogProductColumn .productChangeLogProductTable th:nth-of-type(3),
+.productChangeLog .productChangeLogProductColumn .productChangeLogProductTable th:nth-of-type(4),
+.productChangeLog .productChangeLogProductColumn .productChangeLogProductTable th:nth-of-type(5) {
+    flex: 2;
 }
