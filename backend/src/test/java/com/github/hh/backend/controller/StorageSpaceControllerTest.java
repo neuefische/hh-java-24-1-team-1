@@ -1,6 +1,5 @@
 package com.github.hh.backend.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.hh.backend.model.ErrorMessage;
