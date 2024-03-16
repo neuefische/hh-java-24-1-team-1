@@ -6,31 +6,32 @@
     text-align: left;
 }
 
-.productChangeCard {
+.productChangeCard .productChangeCardProductColumn{
     background-color: #fff;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding: 0;
 }
 
-.productChangeCard .productChangeCardTableBody{
+.productChangeCard .productChangeCardProductColumn .productChangeCardProductTableBody{
     display: flex;
     align-items: stretch;
 }
 
-.productChangeCard .productChangeCardTableBody tr {
+.productChangeCard .productChangeCardProductColumn .productChangeCardProductTableBody tr {
     display: flex;
     flex: 1;
     padding: 0;
 }
 
-.productChangeCard td:first-of-type {
+.productChangeCard .productChangeCardProductColumn .productChangeCardProductTableBody td:first-of-type {
     flex: 5;
 }
 
-.productChangeCard td:nth-of-type(2),
-.productChangeCard td:nth-of-type(3),
-.productChangeCard td:nth-of-type(4),
-.productChangeCard td:nth-of-type(5) {
+.productChangeCard .productChangeCardProductColumn .productChangeCardProductTableBody td:nth-of-type(2),
+.productChangeCard .productChangeCardProductColumn .productChangeCardProductTableBody td:nth-of-type(3),
+.productChangeCard .productChangeCardProductColumn .productChangeCardProductTableBody td:nth-of-type(4),
+.productChangeCard .productChangeCardProductColumn .productChangeCardProductTableBody td:nth-of-type(5) {
     flex: 2;
 }
