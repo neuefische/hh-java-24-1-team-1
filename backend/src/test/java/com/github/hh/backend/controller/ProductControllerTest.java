@@ -12,10 +12,10 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -34,8 +34,14 @@ class ProductControllerTest {
     @Test
     void updateProduct_shouldReturnUpdatedProduct() throws Exception {
         // Given
+        String storageSpaceNameOld = "storageSpaceNameOld";
+        mvc.perform(MockMvcRequestBuilders.post("/api/storage").contentType(MediaType.APPLICATION_JSON).content(storageSpaceNameOld)).andReturn();
+
+        String storageSpaceNameNew = "storageSpaceNameNew";
+        mvc.perform(MockMvcRequestBuilders.post("/api/storage").contentType(MediaType.APPLICATION_JSON).content(storageSpaceNameNew)).andReturn();
+
         String uniqueProductNumber = "P" + System.currentTimeMillis(); // Erzeugt eine einzigartige Produktnummer
-        ProductDTO productDTO = new ProductDTO("Product", 10, "Description", 5);
+        ProductDTO productDTO = new ProductDTO(storageSpaceNameOld, "Product", 10, "Description", 5);
         String productDTOJson = objectMapper.writeValueAsString(productDTO);
 
         MvcResult setupResult = mvc.perform(MockMvcRequestBuilders.post("/api/products")
@@ -45,26 +51,37 @@ class ProductControllerTest {
         Product originalProduct = objectMapper.readValue(setupResult.getResponse().getContentAsString(), Product.class);
 
         // Produkt aktualisieren
-        Product updatedProduct = originalProduct.withName("Updated Product").withDescription("Updated Description").withProductNumber(uniqueProductNumber);
+        Product updatedProduct = originalProduct.withStorageSpaceName(storageSpaceNameNew).withName("Updated Product").withDescription("Updated Description").withProductNumber(uniqueProductNumber);
         String updatedProductJson = objectMapper.writeValueAsString(updatedProduct);
 
         // When and Then
-        mvc.perform(MockMvcRequestBuilders.put("/api/products/" + originalProduct.id())
+        MvcResult resultJson = mvc.perform(MockMvcRequestBuilders.put("/api/products/" + originalProduct.id())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(updatedProductJson))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json(updatedProductJson));
+                .andReturn();
+
+        Product result = objectMapper.readValue(resultJson.getResponse().getContentAsString(), Product.class);
+        assertEquals(updatedProduct, result);
     }
 
     @Test
     void updateProduct_duplicateProductNumberFailure() throws Exception {
         // Given
-        ProductDTO firstProductDTO = new ProductDTO("FirstProduct", 10, "Description", 5);
-        ProductDTO secondProductDTO = new ProductDTO("SecondProduct", 20, "Other Description", 10);
+        String storageSpaceName1 = "storageSpaceName1";
+        mvc.perform(MockMvcRequestBuilders.post("/api/storage").contentType(MediaType.APPLICATION_JSON).content(storageSpaceName1)).andReturn();
+
+        String storageSpaceName2 = "storageSpaceName2";
+        mvc.perform(MockMvcRequestBuilders.post("/api/storage").contentType(MediaType.APPLICATION_JSON).content(storageSpaceName2)).andReturn();
+
+        ProductDTO firstProductDTO = new ProductDTO(storageSpaceName1, "FirstProduct", 10, "Description", 5);
+        ProductDTO secondProductDTO = new ProductDTO(storageSpaceName2, "SecondProduct", 20, "Other Description", 10);
+
         mvc.perform(MockMvcRequestBuilders.post("/api/products")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(firstProductDTO)))
                 .andReturn();
+
         MvcResult setupResult = mvc.perform(MockMvcRequestBuilders.post("/api/products")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(secondProductDTO)))

@@ -160,8 +160,8 @@ class ProductServiceTest {
     @Test
     void updateProduct_WithUniqueProductNumber_ShouldUpdateProduct() {
         // Given
-        Product existingProduct = new Product("1", "Old Product", 20, "Old Description", "12345", 10);
-        Product updatedProduct = new Product("1", "New Product", 20, "New Description", "12345", 10);
+        Product existingProduct = new Product("1", "storageSpaceNameOld", "Old Product", 20, "Old Description", "12345", 10);
+        Product updatedProduct = new Product("1", "storageSpaceNameNew", "New Product", 20, "New Description", "12345", 10);
         ProductChange change = new ProductChange("changeId", List.of(existingProduct), "Product updated", ProductChangeType.UPDATE, ProductChangeStatus.ERROR, Instant.now());
 
         when(mockProductRepo.existsById("1")).thenReturn(true);
@@ -186,17 +186,15 @@ class ProductServiceTest {
     @Test
     void updateProduct_WithExistingProductNumber_ShouldThrowException() {
         // Given
-        Product existingProduct = new Product("1", "Old Product", 20, "Old Description", "12345", 10);
-        Product updatedProduct = new Product("1", "New Product", 20, "New Description", "54321", 10);
+        Product existingProduct = new Product("1", "storageSpaceNameOld","Old Product", 20, "Old Description", "12345", 10);
+        Product updatedProduct = new Product("1", "storageSpaceNameNew","New Product", 20, "New Description", "54321", 10);
 
         when(mockProductRepo.existsById("1")).thenReturn(true);
         when(mockProductRepo.findById("1")).thenReturn(Optional.of(existingProduct));
         when(mockProductRepo.existsByProductNumber("54321")).thenReturn(true);
 
         // Then
-        assertThrows(DuplicateProductNumberException.class, () -> {
-            productService.updateProduct(updatedProduct);
-        });
+        assertThrows(DuplicateProductNumberException.class, () -> productService.updateProduct(updatedProduct));
 
         verify(mockProductRepo).existsById("1");
         verify(mockProductRepo).existsByProductNumber("54321");
