@@ -20,8 +20,9 @@ class ProductServiceTest {
     private final ProductRepo mockProductRepo = mock(ProductRepo.class);
     private final ProductChangeService mockProductChangeService = mock(ProductChangeService.class);
     private final ProductIdService mockProductIdService = mock(ProductIdService.class);
+    private final StorageSpaceService mockStorageSpaceService = mock(StorageSpaceService.class);
 
-    private final ProductService productService = new ProductService(mockProductRepo, mockProductChangeService, mockProductIdService);
+    private final ProductService productService = new ProductService(mockProductRepo, mockProductChangeService, mockProductIdService, mockStorageSpaceService);
 
     @Test
     void findAllProducts_whenEmptyDb_thenReturnEmptyList(){
@@ -40,8 +41,8 @@ class ProductServiceTest {
     void findAllProducts_whenProductsInDb_thenReturnThose() {
         // Given
         List<Product> expected = List.of(
-                new Product("1", "Product 1", 10,"Description 1", "1", 5),
-                new Product("2", "Product 2", 20,"Description 2", "2", 10)
+                new Product("1", "R1-01-01", "Product 1", 10,"Description 1", "1", 5),
+                new Product("2", "R1-01-02", "Product 2", 20,"Description 2", "2", 10)
         );
 
         // When
@@ -57,7 +58,7 @@ class ProductServiceTest {
     @Test
     void getProductById_shouldReturnProduct() {
         // Given
-        Product expected = new Product("1", "Product 1", 10,"Description 1", "1", 5);
+        Product expected = new Product("1", "R1-01-01", "Product 1", 10,"Description 1", "1", 5);
 
         // When
         when(mockProductRepo.existsById(expected.id())).thenReturn(true);
@@ -88,16 +89,26 @@ class ProductServiceTest {
     void addProduct_whenNewProductDTOGiven_thenReturnProductIncludingNewID(){
         // Given
         String productId = "1";
-        ProductDTO productDTO = new ProductDTO("Product", 10,"Description", 5);
-        Product expected = new Product("1", "Product", 10,"Description", "1", 5);
+        String storageSpaceName = "R1-01-01";
+        ProductDTO productDTO = new ProductDTO(null, "Product", 10,"Description", 5);
+        Product expected = new Product(productId, storageSpaceName, "Product", 10,"Description", "1", 5);
         ProductChange expectedChange = new ProductChange("new Change Id", null, "Product added", ProductChangeType.ADD, ProductChangeStatus.DONE, Instant.ofEpochMilli(1));
 
         // When
-        when(mockProductIdService.generateProductId()).thenReturn(productId);
-        when(mockProductRepo.save(new Product(null, productDTO.name(), productDTO.amount(), productDTO.description(), productId, productDTO.minimumStockLevel())))
-                .thenReturn(expected);
         when(mockProductChangeService.createChange(null, "Product added", ProductChangeType.ADD, ProductChangeStatus.ERROR))
                 .thenReturn(expectedChange.withStatus(ProductChangeStatus.ERROR));
+        when(mockStorageSpaceService.getNewStorageSpace()).thenReturn(storageSpaceName);
+        when(mockProductIdService.generateProductId()).thenReturn(productId);
+        when(mockProductRepo.save(
+                new Product(
+                        null,
+                        storageSpaceName,
+                        productDTO.name(),
+                        productDTO.amount(),
+                        productDTO.description(),
+                        productId,
+                        productDTO.minimumStockLevel())))
+                .thenReturn(expected);
 
         Product actual = productService.addProduct(productDTO);
 
@@ -108,13 +119,16 @@ class ProductServiceTest {
         verify(mockProductChangeService).createChange(null, "Product added", ProductChangeType.ADD, ProductChangeStatus.ERROR);
         verify(mockProductChangeService).updateProductChange(expectedChange.withProducts(List.of(expected)));
         verifyNoMoreInteractions(mockProductChangeService);
+        verify(mockStorageSpaceService).getNewStorageSpace();
+        verify(mockStorageSpaceService).occupyStorageSpace(storageSpaceName);
+        verifyNoMoreInteractions(mockStorageSpaceService);
     }
 
     @Test
     void updateProduct_shouldReturnUpdatedProduct() {
         // Given
-        Product expectedOld = new Product("1", "Name", 20,"Description", "2", 10);
-        Product expectedNew = new Product("1", "Updated Name", 20,"Updated Description", "2", 10);
+        Product expectedOld = new Product("1", "R1-01-01", "Name", 10,"Description", "1", 5);
+        Product expectedNew = new Product("1", "R1-01-02", "Updated Name", 20,"Updated Description", "2", 10);
         List<Product> products = List.of(expectedOld, expectedNew);
 
         ProductChange expectedChange = new ProductChange("new Change Id", products, "Product updated", ProductChangeType.UPDATE, ProductChangeStatus.DONE, Instant.ofEpochMilli(1));
@@ -138,6 +152,9 @@ class ProductServiceTest {
         verify(mockProductChangeService).createChange(products, "Product updated", ProductChangeType.UPDATE, ProductChangeStatus.ERROR);
         verify(mockProductChangeService).updateProductChange(expectedChange);
         verifyNoMoreInteractions(mockProductChangeService);
+        verify(mockStorageSpaceService).freeStorageSpace(expectedOld.storageSpaceName());
+        verify(mockStorageSpaceService).occupyStorageSpace(expectedNew.storageSpaceName());
+        verifyNoMoreInteractions(mockStorageSpaceService);
     }
 
     @Test
@@ -198,12 +215,15 @@ class ProductServiceTest {
         assertThrows(NoSuchProductException.class, () -> productService.deleteProductById(id));
         verify(mockProductRepo).existsById(id);
         verifyNoMoreInteractions(mockProductRepo);
+        verifyNoInteractions(mockProductIdService);
+        verifyNoInteractions(mockProductChangeService);
+        verifyNoInteractions(mockStorageSpaceService);
     }
 
     @Test
     void deleteProductById_whenSuchProduct_thenDelete(){
         // Given
-        Product product = new Product("1", "Product 1", 10,"Description 1", "1", 5);
+        Product product = new Product("1", "R1-01-01", "Product 1", 10,"Description 1", "1", 5);
         ProductChange expected = new ProductChange("new Change Id", List.of(product), "Product deleted", ProductChangeType.DELETE, ProductChangeStatus.ERROR, Instant.now());
 
         // When
@@ -223,14 +243,16 @@ class ProductServiceTest {
         verify(mockProductChangeService).createChange(List.of(product), "Product deleted", ProductChangeType.DELETE, ProductChangeStatus.ERROR);
         verify(mockProductChangeService).updateProductChange(expected.withStatus(ProductChangeStatus.DONE));
         verifyNoMoreInteractions(mockProductChangeService);
+        verify(mockStorageSpaceService).freeStorageSpace(product.storageSpaceName());
+        verifyNoMoreInteractions(mockStorageSpaceService);
     }
 
     @Test
     void getProductsInCriticalStock_shouldReturnEmptyList() {
         // Given
         List<Product> allProducts = List.of(
-                new Product("1", "Product 1", 10,"Description 1", "1", 5),
-                new Product("2", "Product 2", 20,"Description 2", "2", 10)
+                new Product("1", "R1-01-01", "Product 1", 10,"Description 1", "1", 5),
+                new Product("2", "R1-01-02", "Product 2", 20,"Description 2", "2", 10)
         );
         List<Product> expected = List.of();
         // When
@@ -245,8 +267,8 @@ class ProductServiceTest {
     @Test
     void getProductsInCriticalStock_shouldReturnListWithOneProduct() {
         // Given
-        Product product01 = new Product("1", "Product 1", 10,"Description 1", "1", 15);
-        Product product02 = new Product("2", "Product 2", 20,"Description 2", "2", 10);
+        Product product01 = new Product("1", "R1-01-01", "Product 1", 10,"Description 1", "1", 15);
+        Product product02 = new Product("2", "R1-01-02", "Product 2", 20,"Description 2", "2", 10);
         List<Product> allProducts = List.of(product01, product02);
         List<Product> expected = List.of(product01);
         // When
@@ -261,7 +283,7 @@ class ProductServiceTest {
     @Test
     void getChangeLog_shouldReturnListWithOneChangeDto() {
         // Given
-        Product product = new Product("1", "Product", 10, "Description", "123", 5);
+        Product product = new Product("1", "R1-01-01", "Product", 10, "Description", "123", 5);
         List<ProductChange> productChanges = List.of(
                 new ProductChange("1", List.of(product), "Product added", ProductChangeType.ADD, ProductChangeStatus.ERROR, Instant.now())
         );
