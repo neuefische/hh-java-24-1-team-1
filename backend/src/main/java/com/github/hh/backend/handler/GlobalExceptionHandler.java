@@ -1,10 +1,6 @@
 package com.github.hh.backend.handler;
 
-import com.github.hh.backend.exception.NoEmptyStorageSpaceException;
-import com.github.hh.backend.exception.DuplicateProductNumberException;
-import com.github.hh.backend.exception.NoSuchProductChangeException;
-import com.github.hh.backend.exception.NoSuchProductException;
-import com.github.hh.backend.exception.NoSuchStorageSpaceException;
+import com.github.hh.backend.exception.*;
 import com.github.hh.backend.model.ErrorMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -27,7 +23,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(NoSuchProductChangeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorMessage handleNoSuchChangeException(NoSuchProductChangeException exception) {
+    public ErrorMessage handleNoSuchChangeException(NoSuchProductChangeException exception){
         return new ErrorMessage(
                 "Change with ID " + exception.getMessage() + " does not exist. How did you get this message? Seriously, how?",
                 LocalDateTime.now()
@@ -61,11 +57,11 @@ public class GlobalExceptionHandler {
         );
     }
 
-    @ExceptionHandler(IllegalStateException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorMessage handleIllegalStateException(IllegalStateException exception){
+    @ExceptionHandler(MultipleStorageSpacesWithTheSameNameException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorMessage handleMultipleStorageSpacesWithTheSameNameException(MultipleStorageSpacesWithTheSameNameException exception){
         return new ErrorMessage(
-                exception.getMessage(),
+                "Multiple storage spaces with the same name: " + exception.getMessage(),
                 LocalDateTime.now()
         );
     }

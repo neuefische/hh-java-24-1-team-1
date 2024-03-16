@@ -1,5 +1,6 @@
 package com.github.hh.backend.service;
 
+import com.github.hh.backend.exception.MultipleStorageSpacesWithTheSameNameException;
 import com.github.hh.backend.exception.NoEmptyStorageSpaceException;
 import com.github.hh.backend.exception.NoSuchStorageSpaceException;
 import com.github.hh.backend.model.StorageSpace;
@@ -63,7 +64,7 @@ class StorageSpaceServiceTest {
         when(mockStorageSpaceRepo.findAll()).thenReturn(List.of(storageSpace1, storageSpace2));
 
         // Then
-        assertThrows(IllegalStateException.class, () -> storageSpaceService.toggleStorageSpaceOccupationByName(storageSpaceName));
+        assertThrows(MultipleStorageSpacesWithTheSameNameException.class, () -> storageSpaceService.toggleStorageSpaceOccupationByName(storageSpaceName));
     }
 
     @Test
