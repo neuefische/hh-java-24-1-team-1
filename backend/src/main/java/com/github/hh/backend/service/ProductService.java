@@ -30,7 +30,15 @@ public class ProductService {
 
     public Product addProduct(ProductDTO productDTO) {
         ProductChange newChange = productChangeService.createChange(null, "Product added", ProductChangeType.ADD, ProductChangeStatus.ERROR);
-        Product newProduct = productRepo.save(new Product(null, storageSpaceService.getNewStorageSpace(), productDTO.name(), productDTO.amount(), productDTO.description(), productIdService.generateProductId(), productDTO.minimumStockLevel()));
+        Product newProduct = productRepo.save(
+                new Product(
+                        null,
+                        storageSpaceService.getNewStorageSpace(),
+                        productDTO.name(), productDTO.amount(),
+                        productDTO.description(),
+                        productIdService.generateProductId(),
+                        productDTO.minimumStockLevel()
+                ));
         productChangeService.updateProductChange(newChange.withStatus(ProductChangeStatus.DONE).withProducts(List.of(newProduct)));
         storageSpaceService.occupyStorageSpace(newProduct.storageSpaceName());
         return newProduct;

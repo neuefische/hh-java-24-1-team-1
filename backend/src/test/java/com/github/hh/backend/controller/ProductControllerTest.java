@@ -31,7 +31,7 @@ class ProductControllerTest {
     private ObjectMapper objectMapper;
 
     @Test
-    void updateProduct_successfulUpdate() throws Exception {
+    void updateProduct_shouldReturnUpdatedProduct() throws Exception {
         // Given
         String uniqueProductNumber = "P" + System.currentTimeMillis(); // Erzeugt eine einzigartige Produktnummer
         ProductDTO productDTO = new ProductDTO("Product", 10, "Description", 5);
@@ -54,7 +54,6 @@ class ProductControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(updatedProductJson));
     }
-
 
     @Test
     void updateProduct_duplicateProductNumberFailure() throws Exception {
@@ -82,12 +81,15 @@ class ProductControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isBadRequest()); // Erwarte Status 400 Bad Request
     }
 
-
     @Test
     void addProduct_whenNewProductDTOGiven_thenReturnProductIncludingNewID() throws Exception {
         // Given
-        ProductDTO productDTO = new ProductDTO("Product", 10,"Description", 5);
+        ProductDTO productDTO = new ProductDTO("R1-01-01", "Product", 10,"Description", 5);
         String productDtoJson = objectMapper.writeValueAsString(productDTO);
+
+        String storageSpaceDtoJson = objectMapper.writeValueAsString("R1-01-01");
+
+        mvc.perform(MockMvcRequestBuilders.post("/api/storage").contentType(MediaType.APPLICATION_JSON).content(storageSpaceDtoJson)).andReturn();
 
         // When and Then
         MvcResult result = mvc.perform(MockMvcRequestBuilders.post("/api/products")
@@ -107,8 +109,11 @@ class ProductControllerTest {
     @Test
     void getProductById_returnTestProduct_whenCalledByCorrectId() throws Exception {
         // Given
-        ProductDTO productDTO = new ProductDTO("Product", 10,"Description", 5);
+        ProductDTO productDTO = new ProductDTO("R1-01-01", "Product", 10,"Description", 5);
         String productDtoJson = objectMapper.writeValueAsString(productDTO);
+        String storageSpaceDtoJson = objectMapper.writeValueAsString("R1-01-01");
+
+        mvc.perform(MockMvcRequestBuilders.post("/api/storage").contentType(MediaType.APPLICATION_JSON).content(storageSpaceDtoJson)).andReturn();
 
         MvcResult setup = mvc.perform(MockMvcRequestBuilders.post("/api/products").contentType(MediaType.APPLICATION_JSON).content(productDtoJson)).andReturn();
         Product expectedProduct = objectMapper.readValue(setup.getResponse().getContentAsString(), Product.class);
@@ -139,11 +144,15 @@ class ProductControllerTest {
     @Test
     void deleteProductById_whenSuchProduct_thenDelete() throws Exception {
         // Given
-        ProductDTO productDTO = new ProductDTO("Product", 10,"Description", 5);
+        ProductDTO productDTO = new ProductDTO(null, "Product", 10,"Description", 5);
         String productDtoJson = objectMapper.writeValueAsString(productDTO);
+        String storageSpaceDtoJson = objectMapper.writeValueAsString("R1-01-01");
+
+        mvc.perform(MockMvcRequestBuilders.post("/api/storage").contentType(MediaType.APPLICATION_JSON).content(storageSpaceDtoJson)).andReturn();
 
         MvcResult setup = mvc.perform(MockMvcRequestBuilders.post("/api/products").contentType(MediaType.APPLICATION_JSON).content(productDtoJson)).andReturn();
         Product expectedProduct = objectMapper.readValue(setup.getResponse().getContentAsString(), Product.class);
+
 
         // When & Then
 
@@ -162,9 +171,11 @@ class ProductControllerTest {
     @Test
     void getProductInCriticalStock_shouldReturnProductsInCriticalStock() throws Exception {
         // Given
-        ProductDTO productDTO = new ProductDTO("Product", 10,"Description", 15);
+        ProductDTO productDTO = new ProductDTO("R1-01-01", "Product", 10,"Description", 15);
         String productDtoJson = objectMapper.writeValueAsString(productDTO);
+        String storageSpaceDtoJson = objectMapper.writeValueAsString("R1-01-01");
 
+        mvc.perform(MockMvcRequestBuilders.post("/api/storage").contentType(MediaType.APPLICATION_JSON).content(storageSpaceDtoJson)).andReturn();
         mvc.perform(MockMvcRequestBuilders.post("/api/products").contentType(MediaType.APPLICATION_JSON).content(productDtoJson)).andReturn();
 
         // When
@@ -181,7 +192,7 @@ class ProductControllerTest {
     @Test
     void getProductInCriticalStock_shouldReturnEmptyList() throws Exception {
         // Given
-        ProductDTO productDTO = new ProductDTO("Product", 10,"Description", 5);
+        ProductDTO productDTO = new ProductDTO("R1-01-01", "Product", 10,"Description", 5);
         String productDtoJson = objectMapper.writeValueAsString(productDTO);
 
         mvc.perform(MockMvcRequestBuilders.post("/api/products").contentType(MediaType.APPLICATION_JSON).content(productDtoJson)).andReturn();
@@ -200,8 +211,11 @@ class ProductControllerTest {
     @Test
     void getChangeLog_whenProductsAdded_thenGetChangeLog() throws Exception {
         // Given
-        ProductDTO productDTO = new ProductDTO("Product", 10,"Description", 5);
+        ProductDTO productDTO = new ProductDTO("R1-01-01", "Product", 10,"Description", 5);
         String productDtoJson = objectMapper.writeValueAsString(productDTO);
+        String storageSpaceDtoJson = objectMapper.writeValueAsString("R1-01-01");
+
+        mvc.perform(MockMvcRequestBuilders.post("/api/storage").contentType(MediaType.APPLICATION_JSON).content(storageSpaceDtoJson)).andReturn();
 
         MvcResult setup = mvc.perform(MockMvcRequestBuilders.post("/api/products").contentType(MediaType.APPLICATION_JSON).content(productDtoJson)).andReturn();
         Product expectedProduct = objectMapper.readValue(setup.getResponse().getContentAsString(), Product.class);
@@ -221,5 +235,34 @@ class ProductControllerTest {
         assertEquals(expected.type(), actual.getFirst().type());
         assertEquals(expected.status(), actual.getFirst().status());
         assertNotNull(actual.getFirst().date());
+    }
+
+    @Test
+    void addBulkProducts_whenMultiple_thenAddMultiple() throws Exception {
+        // Given
+        ProductDTO productDTO1 = new ProductDTO("R1-01-01", "Product1", 10,"Description1", 5);
+        ProductDTO productDTO2 = new ProductDTO("R1-01-01", "Product2", 10,"Description2", 5);
+
+        String storageSpaceDtoJson1 = objectMapper.writeValueAsString("R1-01-01");
+        mvc.perform(MockMvcRequestBuilders.post("/api/storage").contentType(MediaType.APPLICATION_JSON).content(storageSpaceDtoJson1)).andReturn();
+
+        String storageSpaceDtoJson2 = objectMapper.writeValueAsString("R1-01-02");
+        mvc.perform(MockMvcRequestBuilders.post("/api/storage").contentType(MediaType.APPLICATION_JSON).content(storageSpaceDtoJson2)).andReturn();
+
+        // When
+        mvc.perform(MockMvcRequestBuilders.post("/api/products/bulk")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(List.of(productDTO1, productDTO2)))
+                )
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        // Then
+        MvcResult result = mvc.perform(MockMvcRequestBuilders.get("/api/products"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn();
+
+        List<Product> products = objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<>(){});
+
+        assertEquals(2, products.size());
     }
 }

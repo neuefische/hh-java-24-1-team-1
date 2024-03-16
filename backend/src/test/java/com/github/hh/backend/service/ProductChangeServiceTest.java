@@ -23,7 +23,7 @@ class ProductChangeServiceTest {
     @Test
     void createChange() {
         // Given
-        Product product = new Product("1", "Product", 10, "Description", "123", 5);
+        Product product = new Product("1", "R1-01-01", "Product", 10, "Description", "123", 5);
         ProductChange expected = new ProductChange("New Change Id",
                 List.of(product),
                 "Create",
@@ -46,7 +46,7 @@ class ProductChangeServiceTest {
     @Test
     void updateProductChange_whenNoSuchChange_thenThrow() {
         // Given
-        Product product = new Product("1", "Product", 10, "Description", "123", 5);
+        Product product = new Product("1", "R1-01-01", "Product", 10, "Description", "123", 5);
         ProductChange productChange = new ProductChange("New Change Id",
                 List.of(product),
                 "Create",
@@ -67,7 +67,7 @@ class ProductChangeServiceTest {
     @Test
     void updateProductChange_whenSuchChange_thenChange() {
         // Given
-        Product product = new Product("1", "Product", 10, "Description", "123", 5);
+        Product product = new Product("1", "R1-01-01", "Product", 10, "Description", "123", 5);
         ProductChange expected = new ProductChange("New Change Id",
                 List.of(product),
                 "Create",
@@ -91,8 +91,8 @@ class ProductChangeServiceTest {
     @Test
     void getChangeLog_thenReturnTheLog() {
         // Given
-        Product product1 = new Product("1", "Product", 10, "Description", "123", 5);
-        Product product2 = new Product("2", "Product", 10, "Description", "123", 5);
+        Product product1 = new Product("1", "R1-01-01", "Product", 10, "Description", "123", 5);
+        Product product2 = new Product("2", "R1-01-01", "Product", 10, "Description", "123", 5);
         List<ProductChange> expected = List.of(
                 new ProductChange("1", List.of(product1), "Create", ProductChangeType.ADD, ProductChangeStatus.ERROR, Instant.now()),
                 new ProductChange("2", List.of(product2), "Update", ProductChangeType.UPDATE, ProductChangeStatus.DONE, Instant.now())
