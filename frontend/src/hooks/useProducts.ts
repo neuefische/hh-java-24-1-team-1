@@ -21,7 +21,7 @@ export default function useProducts() {
 
         if(productWithId.length === 0) console.error('Kein Produkt mit der ID ' + id + ' gefunden.');
         else return productWithId[0];
-        return {id:id, name:'', amount:0, description:'', productNumber:'', minimumStockLevel:0};
+        return {id:id, storageSpaceName:'', name:'', amount:0, description:'', productNumber:'', minimumStockLevel:0};
     }
 
     function saveProduct(newProduct:ProductDTO) {
