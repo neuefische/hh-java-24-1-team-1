@@ -8,11 +8,13 @@ import {Product} from "../../../types/Product.ts";
 
 type ProductUpdateProps = {
     updateProduct: (product:Product) => void,
-    getProductById:(id:string) => Product
+    getProductById:(id:string) => Product,
+    availableStorageSpaces: string[]
 }
 
 function ProductUpdate(props:Readonly<ProductUpdateProps>) {
     const { id = '' } = useParams<string>();
+    const storageSpaceName = props.getProductById(id).storageSpaceName;
     const [product, setProduct] = useState<Product>(props.getProductById(id));
     const [formError, setFormError] = useState<FormError>({});
 
@@ -45,6 +47,16 @@ function ProductUpdate(props:Readonly<ProductUpdateProps>) {
                     <input type="text" value={product.name} name={"name"}
                            onChange={(e) => setProduct({...product, name: e.target.value})}/>
                     {formError.name && <p className={"error"}>{formError.name}</p>}
+                </div>
+                <div>
+                    <label htmlFor={"storageSpace"}>Lagerplatz</label>
+                    <select value={product.storageSpaceName} name={"storageSpace"}
+                            onChange={(e) => setProduct({...product, storageSpaceName: e.target.value})}>
+                        <option key={storageSpaceName} value={storageSpaceName}>{storageSpaceName}</option>
+                        {props.availableStorageSpaces.map((storageSpaceName:string) => {
+                            return <option key={storageSpaceName} value={storageSpaceName}>{storageSpaceName}</option>
+                        })}
+                    </select>
                 </div>
                 <div>
                     <label htmlFor={"description"}>Description</label>

@@ -12,6 +12,7 @@ import {ProductChangeLog} from "./components/product/main/ProductChangeLog.tsx";
 import useProductChanges from "./hooks/useProductChanges.ts";
 import useStorageSpace from "./hooks/useStorageSpace.ts";
 import StorageSpaceGallery from "./components/storageSpace/main/StorageSpaceGallery.tsx";
+import {StorageSpace} from "./types/StorageSpace.ts";
 
 export default function App(): React.ReactElement {
     const {products, saveProduct, getProductById, updateProduct, deleteProduct} = useProducts();
@@ -49,7 +50,7 @@ export default function App(): React.ReactElement {
                 <Routes>
                     <Route path={"/"} element={<ProductList handleFilterChange={setSelectedFilter} handleSearchText={setSearchText} products={filteredProducts} />} />
                     <Route path={"/products/add"} element={<AddProductGallery saveProduct={saveProduct}/>}/>
-                    <Route path={"/products/:id/edit"} element={<ProductUpdate updateProduct={updateProduct} getProductById={getProductById}/>}/>
+                    <Route path={"/products/:id/edit"} element={<ProductUpdate availableStorageSpaces={getEmptyStorageSpaces().map((storageSpace:StorageSpace) => storageSpace.storageSpaceName)} updateProduct={updateProduct} getProductById={getProductById}/>}/>
                     <Route path={"/products/:id"} element={<ProductDetail getProductById={getProductById} deleteProduct={deleteProduct}/>}/>
                     <Route path={"/critical"} element={<CriticalProductList handleFilterChange={setSelectedFilter} handleSearchText={setSearchText}  products={filteredProducts}/>} />
                     <Route path={"/products/changelog"} element={<ProductChangeLog changes={changes}/>} />
