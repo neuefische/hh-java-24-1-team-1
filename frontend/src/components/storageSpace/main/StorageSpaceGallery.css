@@ -38,6 +38,10 @@
     background-color: #f2f2f2;
 }
 
+.storageSpaceGallery tbody tr:hover {
+    background-color: #bcffee;
+}
+
 .storageSpaceGallery thead{
     background-color: #cecece;
 }
