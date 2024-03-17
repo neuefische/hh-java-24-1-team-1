@@ -1,0 +1,274 @@
+[{
+  "_id": {
+    "$oid": "65f6167e4c09473d9977751e"
+  },
+  "storageSpaceName": "RA-01-01",
+  "isOccupied": true,
+  "_class": "com.github.hh.backend.model.StorageSpace"
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d9977751f"
+  },
+  "storageSpaceName": "RA-01-02",
+  "isOccupied": false,
+  "_class": "com.github.hh.backend.model.StorageSpace"
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d99777520"
+  },
+  "storageSpaceName": "RA-01-03",
+  "isOccupied": true,
+  "_class": "com.github.hh.backend.model.StorageSpace"
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d99777521"
+  },
+  "storageSpaceName": "RA-01-04",
+  "isOccupied": true,
+  "_class": "com.github.hh.backend.model.StorageSpace"
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d99777522"
+  },
+  "storageSpaceName": "RA-02-01",
+  "isOccupied": true,
+  "_class": "com.github.hh.backend.model.StorageSpace"
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d99777523"
+  },
+  "storageSpaceName": "RA-02-02",
+  "isOccupied": true,
+  "_class": "com.github.hh.backend.model.StorageSpace"
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d99777524"
+  },
+  "storageSpaceName": "RA-02-03",
+  "isOccupied": true,
+  "_class": "com.github.hh.backend.model.StorageSpace"
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d99777525"
+  },
+  "storageSpaceName": "RA-02-04",
+  "isOccupied": true,
+  "_class": "com.github.hh.backend.model.StorageSpace"
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d99777526"
+  },
+  "storageSpaceName": "RB-01-01",
+  "isOccupied": true,
+  "_class": "com.github.hh.backend.model.StorageSpace"
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d99777527"
+  },
+  "storageSpaceName": "RB-01-02",
+  "isOccupied": true,
+  "_class": "com.github.hh.backend.model.StorageSpace"
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d99777528"
+  },
+  "storageSpaceName": "RB-01-03",
+  "isOccupied": true,
+  "_class": "com.github.hh.backend.model.StorageSpace"
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d99777529"
+  },
+  "storageSpaceName": "RB-01-04",
+  "isOccupied": true,
+  "_class": "com.github.hh.backend.model.StorageSpace"
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d9977752a"
+  },
+  "storageSpaceName": "RB-02-01",
+  "isOccupied": true,
+  "_class": "com.github.hh.backend.model.StorageSpace"
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d9977752b"
+  },
+  "storageSpaceName": "RB-02-02",
+  "isOccupied": true,
+  "_class": "com.github.hh.backend.model.StorageSpace"
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d9977752c"
+  },
+  "storageSpaceName": "RB-02-03",
+  "isOccupied": false,
+  "_class": "com.github.hh.backend.model.StorageSpace"
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d9977752d"
+  },
+  "storageSpaceName": "RB-02-04",
+  "isOccupied": true,
+  "_class": "com.github.hh.backend.model.StorageSpace"
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d9977752e"
+  },
+  "storageSpaceName": "RB-03-01",
+  "isOccupied": true,
+  "_class": "com.github.hh.backend.model.StorageSpace"
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d9977752f"
+  },
+  "storageSpaceName": "RB-03-02",
+  "isOccupied": true,
+  "_class": "com.github.hh.backend.model.StorageSpace"
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d99777530"
+  },
+  "storageSpaceName": "RB-03-03",
+  "isOccupied": true,
+  "_class": "com.github.hh.backend.model.StorageSpace"
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d99777531"
+  },
+  "storageSpaceName": "RB-03-04",
+  "isOccupied": true,
+  "_class": "com.github.hh.backend.model.StorageSpace"
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d99777532"
+  },
+  "storageSpaceName": "RC-01-01",
+  "isOccupied": false
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d99777533"
+  },
+  "storageSpaceName": "RC-01-02",
+  "isOccupied": false
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d99777534"
+  },
+  "storageSpaceName": "RC-01-03",
+  "isOccupied": false
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d99777535"
+  },
+  "storageSpaceName": "RC-01-04",
+  "isOccupied": false
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d99777536"
+  },
+  "storageSpaceName": "RC-02-01",
+  "isOccupied": false
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d99777537"
+  },
+  "storageSpaceName": "RC-02-02",
+  "isOccupied": true,
+  "_class": "com.github.hh.backend.model.StorageSpace"
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d99777538"
+  },
+  "storageSpaceName": "RC-02-03",
+  "isOccupied": false
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d99777539"
+  },
+  "storageSpaceName": "RC-02-04",
+  "isOccupied": false
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d9977753a"
+  },
+  "storageSpaceName": "RC-03-01",
+  "isOccupied": false
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d9977753b"
+  },
+  "storageSpaceName": "RC-03-02",
+  "isOccupied": false
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d9977753c"
+  },
+  "storageSpaceName": "RC-03-03",
+  "isOccupied": false
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d9977753d"
+  },
+  "storageSpaceName": "RC-03-04",
+  "isOccupied": false
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d9977753e"
+  },
+  "storageSpaceName": "RC-04-01",
+  "isOccupied": false
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d9977753f"
+  },
+  "storageSpaceName": "RC-04-02",
+  "isOccupied": true,
+  "_class": "com.github.hh.backend.model.StorageSpace"
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d99777540"
+  },
+  "storageSpaceName": "RC-04-03",
+  "isOccupied": false
+},
+{
+  "_id": {
+    "$oid": "65f6167e4c09473d99777541"
+  },
+  "storageSpaceName": "RC-04-04",
+  "isOccupied": false
+}]

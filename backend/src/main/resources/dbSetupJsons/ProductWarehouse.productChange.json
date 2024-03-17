@@ -1,0 +1,824 @@
+[{
+  "_id": {
+    "$oid": "65f61693af22202a8bac6bac"
+  },
+  "products": [
+    {
+      "_id": {
+        "$oid": "65f61693af22202a8bac6bad"
+      },
+      "storageSpaceName": "RA-01-01",
+      "name": "Laptop",
+      "amount": 50,
+      "description": "High-performance laptop with advanced features.",
+      "productNumber": "P1",
+      "minimumStockLevel": 10
+    }
+  ],
+  "description": "Product added",
+  "type": "ADD",
+  "status": "DONE",
+  "date": {
+    "$date": "2024-03-16T22:00:50.982Z"
+  },
+  "_class": "com.github.hh.backend.model.ProductChange"
+},
+{
+  "_id": {
+    "$oid": "65f61693af22202a8bac6bae"
+  },
+  "products": [
+    {
+      "_id": {
+        "$oid": "65f61693af22202a8bac6baf"
+      },
+      "storageSpaceName": "RA-01-02",
+      "name": "Smartphone",
+      "amount": 100,
+      "description": "Latest smartphone model with cutting-edge technology.",
+      "productNumber": "P2",
+      "minimumStockLevel": 20
+    }
+  ],
+  "description": "Product added",
+  "type": "ADD",
+  "status": "DONE",
+  "date": {
+    "$date": "2024-03-16T22:00:51.258Z"
+  },
+  "_class": "com.github.hh.backend.model.ProductChange"
+},
+{
+  "_id": {
+    "$oid": "65f61693af22202a8bac6bb0"
+  },
+  "products": [
+    {
+      "_id": {
+        "$oid": "65f61693af22202a8bac6bb1"
+      },
+      "storageSpaceName": "RA-01-03",
+      "name": "Tablet",
+      "amount": 30,
+      "description": "Portable tablet device for entertainment and productivity.",
+      "productNumber": "P3",
+      "minimumStockLevel": 15
+    }
+  ],
+  "description": "Product added",
+  "type": "ADD",
+  "status": "DONE",
+  "date": {
+    "$date": "2024-03-16T22:00:51.483Z"
+  },
+  "_class": "com.github.hh.backend.model.ProductChange"
+},
+{
+  "_id": {
+    "$oid": "65f61693af22202a8bac6bb2"
+  },
+  "products": [
+    {
+      "_id": {
+        "$oid": "65f61693af22202a8bac6bb3"
+      },
+      "storageSpaceName": "RA-01-04",
+      "name": "Headphones",
+      "amount": 80,
+      "description": "Wireless headphones for immersive audio experience.",
+      "productNumber": "P4",
+      "minimumStockLevel": 25
+    }
+  ],
+  "description": "Product added",
+  "type": "ADD",
+  "status": "DONE",
+  "date": {
+    "$date": "2024-03-16T22:00:51.722Z"
+  },
+  "_class": "com.github.hh.backend.model.ProductChange"
+},
+{
+  "_id": {
+    "$oid": "65f61693af22202a8bac6bb4"
+  },
+  "products": [
+    {
+      "_id": {
+        "$oid": "65f61694af22202a8bac6bb5"
+      },
+      "storageSpaceName": "RA-02-01",
+      "name": "Camera",
+      "amount": 40,
+      "description": "Professional-grade camera for photography enthusiasts.",
+      "productNumber": "P5",
+      "minimumStockLevel": 12
+    }
+  ],
+  "description": "Product added",
+  "type": "ADD",
+  "status": "DONE",
+  "date": {
+    "$date": "2024-03-16T22:00:51.932Z"
+  },
+  "_class": "com.github.hh.backend.model.ProductChange"
+},
+{
+  "_id": {
+    "$oid": "65f61694af22202a8bac6bb6"
+  },
+  "products": [
+    {
+      "_id": {
+        "$oid": "65f61694af22202a8bac6bb7"
+      },
+      "storageSpaceName": "RA-02-02",
+      "name": "Printer",
+      "amount": 60,
+      "description": "All-in-one printer for home and office use.",
+      "productNumber": "P6",
+      "minimumStockLevel": 18
+    }
+  ],
+  "description": "Product added",
+  "type": "ADD",
+  "status": "DONE",
+  "date": {
+    "$date": "2024-03-16T22:00:52.139Z"
+  },
+  "_class": "com.github.hh.backend.model.ProductChange"
+},
+{
+  "_id": {
+    "$oid": "65f61694af22202a8bac6bb8"
+  },
+  "products": [
+    {
+      "_id": {
+        "$oid": "65f61694af22202a8bac6bb9"
+      },
+      "storageSpaceName": "RA-02-03",
+      "name": "Keyboard",
+      "amount": 90,
+      "description": "Mechanical gaming keyboard with RGB lighting.",
+      "productNumber": "P7",
+      "minimumStockLevel": 30
+    }
+  ],
+  "description": "Product added",
+  "type": "ADD",
+  "status": "DONE",
+  "date": {
+    "$date": "2024-03-16T22:00:52.347Z"
+  },
+  "_class": "com.github.hh.backend.model.ProductChange"
+},
+{
+  "_id": {
+    "$oid": "65f61694af22202a8bac6bba"
+  },
+  "products": [
+    {
+      "_id": {
+        "$oid": "65f61694af22202a8bac6bbb"
+      },
+      "storageSpaceName": "RA-02-04",
+      "name": "Mouse",
+      "amount": 70,
+      "description": "Ergonomic mouse for comfortable computing.",
+      "productNumber": "P8",
+      "minimumStockLevel": 22
+    }
+  ],
+  "description": "Product added",
+  "type": "ADD",
+  "status": "DONE",
+  "date": {
+    "$date": "2024-03-16T22:00:52.574Z"
+  },
+  "_class": "com.github.hh.backend.model.ProductChange"
+},
+{
+  "_id": {
+    "$oid": "65f61694af22202a8bac6bbc"
+  },
+  "products": [
+    {
+      "_id": {
+        "$oid": "65f61694af22202a8bac6bbd"
+      },
+      "storageSpaceName": "RB-01-01",
+      "name": "Monitor",
+      "amount": 55,
+      "description": "High-resolution monitor for immersive viewing experience.",
+      "productNumber": "P9",
+      "minimumStockLevel": 17
+    }
+  ],
+  "description": "Product added",
+  "type": "ADD",
+  "status": "DONE",
+  "date": {
+    "$date": "2024-03-16T22:00:52.789Z"
+  },
+  "_class": "com.github.hh.backend.model.ProductChange"
+},
+{
+  "_id": {
+    "$oid": "65f61695af22202a8bac6bbe"
+  },
+  "products": [
+    {
+      "_id": {
+        "$oid": "65f61695af22202a8bac6bbf"
+      },
+      "storageSpaceName": "RB-01-02",
+      "name": "External Hard Drive",
+      "amount": 120,
+      "description": "Portable storage solution with large capacity.",
+      "productNumber": "P10",
+      "minimumStockLevel": 35
+    }
+  ],
+  "description": "Product added",
+  "type": "ADD",
+  "status": "DONE",
+  "date": {
+    "$date": "2024-03-16T22:00:53.059Z"
+  },
+  "_class": "com.github.hh.backend.model.ProductChange"
+},
+{
+  "_id": {
+    "$oid": "65f61695af22202a8bac6bc0"
+  },
+  "products": [
+    {
+      "_id": {
+        "$oid": "65f61695af22202a8bac6bc1"
+      },
+      "storageSpaceName": "RB-01-03",
+      "name": "Wireless Router",
+      "amount": 25,
+      "description": "High-speed wireless router for seamless internet connectivity.",
+      "productNumber": "P11",
+      "minimumStockLevel": 8
+    }
+  ],
+  "description": "Product added",
+  "type": "ADD",
+  "status": "DONE",
+  "date": {
+    "$date": "2024-03-16T22:00:53.298Z"
+  },
+  "_class": "com.github.hh.backend.model.ProductChange"
+},
+{
+  "_id": {
+    "$oid": "65f61695af22202a8bac6bc2"
+  },
+  "products": [
+    {
+      "_id": {
+        "$oid": "65f61695af22202a8bac6bc3"
+      },
+      "storageSpaceName": "RB-01-04",
+      "name": "Wireless Earbuds",
+      "amount": 35,
+      "description": "True wireless earbuds with noise-cancelling technology.",
+      "productNumber": "P12",
+      "minimumStockLevel": 10
+    }
+  ],
+  "description": "Product added",
+  "type": "ADD",
+  "status": "DONE",
+  "date": {
+    "$date": "2024-03-16T22:00:53.508Z"
+  },
+  "_class": "com.github.hh.backend.model.ProductChange"
+},
+{
+  "_id": {
+    "$oid": "65f61695af22202a8bac6bc4"
+  },
+  "products": [
+    {
+      "_id": {
+        "$oid": "65f61695af22202a8bac6bc5"
+      },
+      "storageSpaceName": "RB-02-01",
+      "name": "Fitness Tracker",
+      "amount": 50,
+      "description": "Smart fitness tracker with heart rate monitoring and GPS.",
+      "productNumber": "P13",
+      "minimumStockLevel": 15
+    }
+  ],
+  "description": "Product added",
+  "type": "ADD",
+  "status": "DONE",
+  "date": {
+    "$date": "2024-03-16T22:00:53.716Z"
+  },
+  "_class": "com.github.hh.backend.model.ProductChange"
+},
+{
+  "_id": {
+    "$oid": "65f61695af22202a8bac6bc6"
+  },
+  "products": [
+    {
+      "_id": {
+        "$oid": "65f61696af22202a8bac6bc7"
+      },
+      "storageSpaceName": "RB-02-02",
+      "name": "Smart Watch",
+      "amount": 40,
+      "description": "Multifunctional smartwatch with touchscreen display.",
+      "productNumber": "P14",
+      "minimumStockLevel": 12
+    }
+  ],
+  "description": "Product added",
+  "type": "ADD",
+  "status": "DONE",
+  "date": {
+    "$date": "2024-03-16T22:00:53.932Z"
+  },
+  "_class": "com.github.hh.backend.model.ProductChange"
+},
+{
+  "_id": {
+    "$oid": "65f61696af22202a8bac6bc8"
+  },
+  "products": [
+    {
+      "_id": {
+        "$oid": "65f61696af22202a8bac6bc9"
+      },
+      "storageSpaceName": "RB-02-03",
+      "name": "Wireless Speaker",
+      "amount": 30,
+      "description": "Portable wireless speaker with high-fidelity sound.",
+      "productNumber": "P15",
+      "minimumStockLevel": 10
+    }
+  ],
+  "description": "Product added",
+  "type": "ADD",
+  "status": "DONE",
+  "date": {
+    "$date": "2024-03-16T22:00:54.137Z"
+  },
+  "_class": "com.github.hh.backend.model.ProductChange"
+},
+{
+  "_id": {
+    "$oid": "65f61696af22202a8bac6bca"
+  },
+  "products": [
+    {
+      "_id": {
+        "$oid": "65f61696af22202a8bac6bcb"
+      },
+      "storageSpaceName": "RB-02-04",
+      "name": "Gaming Console",
+      "amount": 20,
+      "description": "Next-generation gaming console with powerful hardware.",
+      "productNumber": "P16",
+      "minimumStockLevel": 6
+    }
+  ],
+  "description": "Product added",
+  "type": "ADD",
+  "status": "DONE",
+  "date": {
+    "$date": "2024-03-16T22:00:54.353Z"
+  },
+  "_class": "com.github.hh.backend.model.ProductChange"
+},
+{
+  "_id": {
+    "$oid": "65f61696af22202a8bac6bcc"
+  },
+  "products": [
+    {
+      "_id": {
+        "$oid": "65f61696af22202a8bac6bcd"
+      },
+      "storageSpaceName": "RB-03-01",
+      "name": "Virtual Reality Headset",
+      "amount": 15,
+      "description": "Immersive virtual reality headset for gaming and entertainment.",
+      "productNumber": "P17",
+      "minimumStockLevel": 5
+    }
+  ],
+  "description": "Product added",
+  "type": "ADD",
+  "status": "DONE",
+  "date": {
+    "$date": "2024-03-16T22:00:54.598Z"
+  },
+  "_class": "com.github.hh.backend.model.ProductChange"
+},
+{
+  "_id": {
+    "$oid": "65f61696af22202a8bac6bce"
+  },
+  "products": [
+    {
+      "_id": {
+        "$oid": "65f61696af22202a8bac6bcf"
+      },
+      "storageSpaceName": "RB-03-02",
+      "name": "Wireless Keyboard",
+      "amount": 45,
+      "description": "Slim and ergonomic wireless keyboard for comfortable typing.",
+      "productNumber": "P18",
+      "minimumStockLevel": 15
+    }
+  ],
+  "description": "Product added",
+  "type": "ADD",
+  "status": "DONE",
+  "date": {
+    "$date": "2024-03-16T22:00:54.804Z"
+  },
+  "_class": "com.github.hh.backend.model.ProductChange"
+},
+{
+  "_id": {
+    "$oid": "65f61697af22202a8bac6bd0"
+  },
+  "products": [
+    {
+      "_id": {
+        "$oid": "65f61697af22202a8bac6bd1"
+      },
+      "storageSpaceName": "RB-03-03",
+      "name": "Wireless Mouse",
+      "amount": 55,
+      "description": "Wireless mouse with precision tracking and long battery life.",
+      "productNumber": "P19",
+      "minimumStockLevel": 18
+    }
+  ],
+  "description": "Product added",
+  "type": "ADD",
+  "status": "DONE",
+  "date": {
+    "$date": "2024-03-16T22:00:55.012Z"
+  },
+  "_class": "com.github.hh.backend.model.ProductChange"
+},
+{
+  "_id": {
+    "$oid": "65f61697af22202a8bac6bd2"
+  },
+  "products": [
+    {
+      "_id": {
+        "$oid": "65f61697af22202a8bac6bd3"
+      },
+      "storageSpaceName": "RB-03-04",
+      "name": "Smart Thermostat",
+      "amount": 10,
+      "description": "Wi-Fi enabled smart thermostat for energy-efficient heating and cooling.",
+      "productNumber": "P20",
+      "minimumStockLevel": 4
+    }
+  ],
+  "description": "Product added",
+  "type": "ADD",
+  "status": "DONE",
+  "date": {
+    "$date": "2024-03-16T22:00:55.216Z"
+  },
+  "_class": "com.github.hh.backend.model.ProductChange"
+},
+{
+  "_id": {
+    "$oid": "65f6c101378d5f5e239f7d30"
+  },
+  "products": [
+    {
+      "_id": {
+        "$oid": "65f61693af22202a8bac6baf"
+      },
+      "storageSpaceName": "RA-01-02",
+      "name": "Smartphone",
+      "amount": 100,
+      "description": "Latest smartphone model with cutting-edge technology.",
+      "productNumber": "P2",
+      "minimumStockLevel": 20
+    },
+    {
+      "_id": {
+        "$oid": "65f61693af22202a8bac6baf"
+      },
+      "storageSpaceName": "RC-04-02",
+      "name": "Smartphone",
+      "amount": 100,
+      "description": "Latest smartphone model with cutting-edge technology.",
+      "productNumber": "P2",
+      "minimumStockLevel": 20
+    }
+  ],
+  "description": "Product updated",
+  "type": "UPDATE",
+  "status": "DONE",
+  "date": {
+    "$date": "2024-03-17T10:08:01.567Z"
+  },
+  "_class": "com.github.hh.backend.model.ProductChange"
+},
+{
+  "_id": {
+    "$oid": "65f6c11d378d5f5e239f7d31"
+  },
+  "products": [
+    {
+      "_id": {
+        "$oid": "65f61693af22202a8bac6bad"
+      },
+      "storageSpaceName": "RA-01-01",
+      "name": "Laptop",
+      "amount": 50,
+      "description": "High-performance laptop with advanced features.",
+      "productNumber": "P1",
+      "minimumStockLevel": 10
+    },
+    {
+      "_id": {
+        "$oid": "65f61693af22202a8bac6bad"
+      },
+      "storageSpaceName": "RA-01-01",
+      "name": "Laptop",
+      "amount": 50,
+      "description": "High-performance laptop with advanced features.",
+      "productNumber": "P1000",
+      "minimumStockLevel": 10
+    }
+  ],
+  "description": "Product updated",
+  "type": "UPDATE",
+  "status": "DONE",
+  "date": {
+    "$date": "2024-03-17T10:08:29.324Z"
+  },
+  "_class": "com.github.hh.backend.model.ProductChange"
+},
+{
+  "_id": {
+    "$oid": "65f6e8e4761209630807475f"
+  },
+  "products": [
+    {
+      "_id": {
+        "$oid": "65f61696af22202a8bac6bc9"
+      },
+      "storageSpaceName": "RB-02-03",
+      "name": "Wireless Speaker",
+      "amount": 30,
+      "description": "Portable wireless speaker with high-fidelity sound.",
+      "productNumber": "P15",
+      "minimumStockLevel": 10
+    },
+    {
+      "_id": {
+        "$oid": "65f61696af22202a8bac6bc9"
+      },
+      "storageSpaceName": "RC-02-02",
+      "name": "Wireless Speaker",
+      "amount": 30,
+      "description": "Portable wireless speaker with high-fidelity sound.",
+      "productNumber": "P15",
+      "minimumStockLevel": 10
+    }
+  ],
+  "description": "Product updated",
+  "type": "UPDATE",
+  "status": "DONE",
+  "date": {
+    "$date": "2024-03-17T12:58:12.960Z"
+  },
+  "_class": "com.github.hh.backend.model.ProductChange"
+},
+{
+  "_id": {
+    "$oid": "65f6ec387612096308074760"
+  },
+  "products": [
+    {
+      "_id": {
+        "$oid": "65f61697af22202a8bac6bd3"
+      },
+      "storageSpaceName": "RB-03-04",
+      "name": "Smart Thermostat",
+      "amount": 10,
+      "description": "Wi-Fi enabled smart thermostat for energy-efficient heating and cooling.",
+      "productNumber": "P20",
+      "minimumStockLevel": 4
+    },
+    {
+      "_id": {
+        "$oid": "65f61697af22202a8bac6bd3"
+      },
+      "storageSpaceName": "RB-03-04",
+      "name": "Smart Thermostat",
+      "amount": 2,
+      "description": "Wi-Fi enabled smart thermostat for energy-efficient heating and cooling.",
+      "productNumber": "P20",
+      "minimumStockLevel": 4
+    }
+  ],
+  "description": "Product updated",
+  "type": "UPDATE",
+  "status": "DONE",
+  "date": {
+    "$date": "2024-03-17T13:12:24.234Z"
+  },
+  "_class": "com.github.hh.backend.model.ProductChange"
+},
+{
+  "_id": {
+    "$oid": "65f6ec427612096308074761"
+  },
+  "products": [
+    {
+      "_id": {
+        "$oid": "65f61695af22202a8bac6bc3"
+      },
+      "storageSpaceName": "RB-01-04",
+      "name": "Wireless Earbuds",
+      "amount": 35,
+      "description": "True wireless earbuds with noise-cancelling technology.",
+      "productNumber": "P12",
+      "minimumStockLevel": 10
+    },
+    {
+      "_id": {
+        "$oid": "65f61695af22202a8bac6bc3"
+      },
+      "storageSpaceName": "RB-01-04",
+      "name": "Wireless Earbuds 2",
+      "amount": 35,
+      "description": "True wireless earbuds with noise-cancelling technology.",
+      "productNumber": "P12",
+      "minimumStockLevel": 10
+    }
+  ],
+  "description": "Product updated",
+  "type": "UPDATE",
+  "status": "DONE",
+  "date": {
+    "$date": "2024-03-17T13:12:34.924Z"
+  },
+  "_class": "com.github.hh.backend.model.ProductChange"
+},
+{
+  "_id": {
+    "$oid": "65f6ec517612096308074762"
+  },
+  "products": [
+    {
+      "_id": {
+        "$oid": "65f61694af22202a8bac6bb7"
+      },
+      "storageSpaceName": "RA-02-02",
+      "name": "Printer",
+      "amount": 60,
+      "description": "All-in-one printer for home and office use.",
+      "productNumber": "P6",
+      "minimumStockLevel": 18
+    },
+    {
+      "_id": {
+        "$oid": "65f61694af22202a8bac6bb7"
+      },
+      "storageSpaceName": "RA-02-02",
+      "name": "Printer",
+      "amount": 60,
+      "description": "All-in-one printer for home and office use.",
+      "productNumber": "P6",
+      "minimumStockLevel": 120
+    }
+  ],
+  "description": "Product updated",
+  "type": "UPDATE",
+  "status": "DONE",
+  "date": {
+    "$date": "2024-03-17T13:12:49.572Z"
+  },
+  "_class": "com.github.hh.backend.model.ProductChange"
+},
+{
+  "_id": {
+    "$oid": "65f6ec657612096308074763"
+  },
+  "products": [
+    {
+      "_id": {
+        "$oid": "65f61695af22202a8bac6bc5"
+      },
+      "storageSpaceName": "RB-02-01",
+      "name": "Fitness Tracker",
+      "amount": 50,
+      "description": "Smart fitness tracker with heart rate monitoring and GPS.",
+      "productNumber": "P13",
+      "minimumStockLevel": 15
+    },
+    {
+      "_id": {
+        "$oid": "65f61695af22202a8bac6bc5"
+      },
+      "storageSpaceName": "RB-02-01",
+      "name": "Fitness Tracker",
+      "amount": 50,
+      "description": "Smart fitness tracker with heart rate monitoring and GPS. (Not a medical equipment.)",
+      "productNumber": "P13",
+      "minimumStockLevel": 15
+    }
+  ],
+  "description": "Product updated",
+  "type": "UPDATE",
+  "status": "DONE",
+  "date": {
+    "$date": "2024-03-17T13:13:09.321Z"
+  },
+  "_class": "com.github.hh.backend.model.ProductChange"
+},
+{
+  "_id": {
+    "$oid": "65f70ceb871b1214f6199a7f"
+  },
+  "products": [
+    {
+      "_id": {
+        "$oid": "65f61693af22202a8bac6bad"
+      },
+      "storageSpaceName": "RA-01-01",
+      "name": "Laptop",
+      "amount": 50,
+      "description": "High-performance laptop with advanced features.",
+      "productNumber": "P1000",
+      "minimumStockLevel": 10
+    },
+    {
+      "_id": {
+        "$oid": "65f61693af22202a8bac6bad"
+      },
+      "storageSpaceName": "RA-01-01",
+      "name": "Laptop",
+      "amount": 51,
+      "description": "High-performance laptop with advanced features.",
+      "productNumber": "P1000",
+      "minimumStockLevel": 10
+    }
+  ],
+  "description": "Product updated",
+  "type": "UPDATE",
+  "status": "DONE",
+  "date": {
+    "$date": "2024-03-17T15:31:55.054Z"
+  },
+  "_class": "com.github.hh.backend.model.ProductChange"
+},
+{
+  "_id": {
+    "$oid": "65f70cfd871b1214f6199a80"
+  },
+  "products": [
+    {
+      "_id": {
+        "$oid": "65f61693af22202a8bac6bad"
+      },
+      "storageSpaceName": "RA-01-01",
+      "name": "Laptop",
+      "amount": 51,
+      "description": "High-performance laptop with advanced features.",
+      "productNumber": "P1000",
+      "minimumStockLevel": 10
+    },
+    {
+      "_id": {
+        "$oid": "65f61693af22202a8bac6bad"
+      },
+      "storageSpaceName": "RA-01-01",
+      "name": "Laptop",
+      "amount": 50,
+      "description": "High-performance laptop with advanced features.",
+      "productNumber": "P1000",
+      "minimumStockLevel": 10
+    }
+  ],
+  "description": "Product updated",
+  "type": "UPDATE",
+  "status": "DONE",
+  "date": {
+    "$date": "2024-03-17T15:32:13.161Z"
+  },
+  "_class": "com.github.hh.backend.model.ProductChange"
+}]

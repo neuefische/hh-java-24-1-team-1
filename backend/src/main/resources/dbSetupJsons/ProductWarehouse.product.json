@@ -1,0 +1,240 @@
+[{
+  "_id": {
+    "$oid": "65f61693af22202a8bac6bad"
+  },
+  "storageSpaceName": "RA-01-01",
+  "name": "Laptop",
+  "amount": 50,
+  "description": "High-performance laptop with advanced features.",
+  "productNumber": "P1000",
+  "minimumStockLevel": 10,
+  "_class": "com.github.hh.backend.model.Product"
+},
+{
+  "_id": {
+    "$oid": "65f61693af22202a8bac6baf"
+  },
+  "storageSpaceName": "RC-04-02",
+  "name": "Smartphone",
+  "amount": 100,
+  "description": "Latest smartphone model with cutting-edge technology.",
+  "productNumber": "P2",
+  "minimumStockLevel": 20,
+  "_class": "com.github.hh.backend.model.Product"
+},
+{
+  "_id": {
+    "$oid": "65f61693af22202a8bac6bb1"
+  },
+  "storageSpaceName": "RA-01-03",
+  "name": "Tablet",
+  "amount": 30,
+  "description": "Portable tablet device for entertainment and productivity.",
+  "productNumber": "P3",
+  "minimumStockLevel": 15,
+  "_class": "com.github.hh.backend.model.Product"
+},
+{
+  "_id": {
+    "$oid": "65f61693af22202a8bac6bb3"
+  },
+  "storageSpaceName": "RA-01-04",
+  "name": "Headphones",
+  "amount": 80,
+  "description": "Wireless headphones for immersive audio experience.",
+  "productNumber": "P4",
+  "minimumStockLevel": 25,
+  "_class": "com.github.hh.backend.model.Product"
+},
+{
+  "_id": {
+    "$oid": "65f61694af22202a8bac6bb5"
+  },
+  "storageSpaceName": "RA-02-01",
+  "name": "Camera",
+  "amount": 40,
+  "description": "Professional-grade camera for photography enthusiasts.",
+  "productNumber": "P5",
+  "minimumStockLevel": 12,
+  "_class": "com.github.hh.backend.model.Product"
+},
+{
+  "_id": {
+    "$oid": "65f61694af22202a8bac6bb7"
+  },
+  "storageSpaceName": "RA-02-02",
+  "name": "Printer",
+  "amount": 60,
+  "description": "All-in-one printer for home and office use.",
+  "productNumber": "P6",
+  "minimumStockLevel": 120,
+  "_class": "com.github.hh.backend.model.Product"
+},
+{
+  "_id": {
+    "$oid": "65f61694af22202a8bac6bb9"
+  },
+  "storageSpaceName": "RA-02-03",
+  "name": "Keyboard",
+  "amount": 90,
+  "description": "Mechanical gaming keyboard with RGB lighting.",
+  "productNumber": "P7",
+  "minimumStockLevel": 30,
+  "_class": "com.github.hh.backend.model.Product"
+},
+{
+  "_id": {
+    "$oid": "65f61694af22202a8bac6bbb"
+  },
+  "storageSpaceName": "RA-02-04",
+  "name": "Mouse",
+  "amount": 70,
+  "description": "Ergonomic mouse for comfortable computing.",
+  "productNumber": "P8",
+  "minimumStockLevel": 22,
+  "_class": "com.github.hh.backend.model.Product"
+},
+{
+  "_id": {
+    "$oid": "65f61694af22202a8bac6bbd"
+  },
+  "storageSpaceName": "RB-01-01",
+  "name": "Monitor",
+  "amount": 55,
+  "description": "High-resolution monitor for immersive viewing experience.",
+  "productNumber": "P9",
+  "minimumStockLevel": 17,
+  "_class": "com.github.hh.backend.model.Product"
+},
+{
+  "_id": {
+    "$oid": "65f61695af22202a8bac6bbf"
+  },
+  "storageSpaceName": "RB-01-02",
+  "name": "External Hard Drive",
+  "amount": 120,
+  "description": "Portable storage solution with large capacity.",
+  "productNumber": "P10",
+  "minimumStockLevel": 35,
+  "_class": "com.github.hh.backend.model.Product"
+},
+{
+  "_id": {
+    "$oid": "65f61695af22202a8bac6bc1"
+  },
+  "storageSpaceName": "RB-01-03",
+  "name": "Wireless Router",
+  "amount": 25,
+  "description": "High-speed wireless router for seamless internet connectivity.",
+  "productNumber": "P11",
+  "minimumStockLevel": 8,
+  "_class": "com.github.hh.backend.model.Product"
+},
+{
+  "_id": {
+    "$oid": "65f61695af22202a8bac6bc3"
+  },
+  "storageSpaceName": "RB-01-04",
+  "name": "Wireless Earbuds 2",
+  "amount": 35,
+  "description": "True wireless earbuds with noise-cancelling technology.",
+  "productNumber": "P12",
+  "minimumStockLevel": 10,
+  "_class": "com.github.hh.backend.model.Product"
+},
+{
+  "_id": {
+    "$oid": "65f61695af22202a8bac6bc5"
+  },
+  "storageSpaceName": "RB-02-01",
+  "name": "Fitness Tracker",
+  "amount": 50,
+  "description": "Smart fitness tracker with heart rate monitoring and GPS. (Not a medical equipment.)",
+  "productNumber": "P13",
+  "minimumStockLevel": 15,
+  "_class": "com.github.hh.backend.model.Product"
+},
+{
+  "_id": {
+    "$oid": "65f61696af22202a8bac6bc7"
+  },
+  "storageSpaceName": "RB-02-02",
+  "name": "Smart Watch",
+  "amount": 40,
+  "description": "Multifunctional smartwatch with touchscreen display.",
+  "productNumber": "P14",
+  "minimumStockLevel": 12,
+  "_class": "com.github.hh.backend.model.Product"
+},
+{
+  "_id": {
+    "$oid": "65f61696af22202a8bac6bc9"
+  },
+  "storageSpaceName": "RC-02-02",
+  "name": "Wireless Speaker",
+  "amount": 30,
+  "description": "Portable wireless speaker with high-fidelity sound.",
+  "productNumber": "P15",
+  "minimumStockLevel": 10,
+  "_class": "com.github.hh.backend.model.Product"
+},
+{
+  "_id": {
+    "$oid": "65f61696af22202a8bac6bcb"
+  },
+  "storageSpaceName": "RB-02-04",
+  "name": "Gaming Console",
+  "amount": 20,
+  "description": "Next-generation gaming console with powerful hardware.",
+  "productNumber": "P16",
+  "minimumStockLevel": 6,
+  "_class": "com.github.hh.backend.model.Product"
+},
+{
+  "_id": {
+    "$oid": "65f61696af22202a8bac6bcd"
+  },
+  "storageSpaceName": "RB-03-01",
+  "name": "Virtual Reality Headset",
+  "amount": 15,
+  "description": "Immersive virtual reality headset for gaming and entertainment.",
+  "productNumber": "P17",
+  "minimumStockLevel": 5,
+  "_class": "com.github.hh.backend.model.Product"
+},
+{
+  "_id": {
+    "$oid": "65f61696af22202a8bac6bcf"
+  },
+  "storageSpaceName": "RB-03-02",
+  "name": "Wireless Keyboard",
+  "amount": 45,
+  "description": "Slim and ergonomic wireless keyboard for comfortable typing.",
+  "productNumber": "P18",
+  "minimumStockLevel": 15,
+  "_class": "com.github.hh.backend.model.Product"
+},
+{
+  "_id": {
+    "$oid": "65f61697af22202a8bac6bd1"
+  },
+  "storageSpaceName": "RB-03-03",
+  "name": "Wireless Mouse",
+  "amount": 55,
+  "description": "Wireless mouse with precision tracking and long battery life.",
+  "productNumber": "P19",
+  "minimumStockLevel": 18,
+  "_class": "com.github.hh.backend.model.Product"
+},
+{
+  "_id": {
+    "$oid": "65f61697af22202a8bac6bd3"
+  },
+  "storageSpaceName": "RB-03-04",
+  "name": "Smart Thermostat",
+  "amount": 2,
+  "description": "Wi-Fi enabled smart thermostat for energy-efficient heating and cooling.",
+  "productNumber": "P20",
+  "minimumStockLevel": 4,
+  "_class": "com.github.hh.backend.model.Product"
+}]
