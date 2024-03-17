@@ -57,11 +57,11 @@ public class GlobalExceptionHandler {
         );
     }
 
-    @ExceptionHandler(MultipleStorageSpacesWithTheSameNameException.class)
+    @ExceptionHandler(DuplicateStorageSpaceNameException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorMessage handleMultipleStorageSpacesWithTheSameNameException(MultipleStorageSpacesWithTheSameNameException exception){
+    public ErrorMessage handleDuplicateStorageSpaceNameException(DuplicateStorageSpaceNameException exception){
         return new ErrorMessage(
-                "Multiple storage spaces with the same name: " + exception.getMessage(),
+                "Storage spaces with name '" + exception.getMessage() + "' already exists",
                 LocalDateTime.now()
         );
     }

@@ -113,7 +113,22 @@ class StorageSpaceControllerTest {
     }
 
     @Test
-    void addNewStorageSpace() throws Exception {
+    void addNewStorageSpace_whenNotUnique_thenThrow() throws Exception {
+        // Given
+        String storageSpaceName = "storageSpace";
+
+        // When
+        mvc.perform(MockMvcRequestBuilders.post("/api/storage").contentType(MediaType.APPLICATION_JSON).content(storageSpaceName)).andReturn();
+        MvcResult resultJson = mvc.perform(MockMvcRequestBuilders.post("/api/storage").contentType(MediaType.APPLICATION_JSON).content(storageSpaceName)).andReturn();
+
+        // Then
+        ErrorMessage errorMessage = objectMapper.readValue(resultJson.getResponse().getContentAsString(), ErrorMessage.class);
+
+        assertEquals("Storage spaces with name 'storageSpace' already exists", errorMessage.errorMsg());
+    }
+
+    @Test
+    void addNewStorageSpace_whenUnique_thenAdd() throws Exception {
         // Given
         String storageSpaceName = "storageSpace";
 

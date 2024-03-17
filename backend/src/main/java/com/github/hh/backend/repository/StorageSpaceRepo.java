@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface StorageSpaceRepo extends MongoRepository<StorageSpace, String>{
+    boolean existsByStorageSpaceName(String storageSpaceName);
 }
