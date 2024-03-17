@@ -16,6 +16,7 @@
 
 .productChangeCard .productChangeCardProductColumn .productChangeCardProductTableBody{
     display: flex;
+    flex-direction: column-reverse;
     align-items: stretch;
 }
 
