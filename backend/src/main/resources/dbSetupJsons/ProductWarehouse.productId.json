@@ -1,0 +1,5 @@
+[{
+  "_id": "GenericProductIdCounter",
+  "productId": 20,
+  "_class": "com.github.hh.backend.model.ProductId"
+}]
