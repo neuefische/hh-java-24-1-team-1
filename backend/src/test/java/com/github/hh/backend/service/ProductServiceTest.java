@@ -134,10 +134,10 @@ class ProductServiceTest {
         ProductChange expectedChange = new ProductChange("new Change Id", products, "Product updated", ProductChangeType.UPDATE, ProductChangeStatus.DONE, Instant.ofEpochMilli(1));
 
         // When
-        when(mockProductRepo.existsById(expectedOld.id()))
-                .thenReturn(true);
         when(mockProductRepo.findById(expectedOld.id()))
                 .thenReturn(java.util.Optional.of(expectedOld));
+        when(mockProductRepo.existsByProductNumber(expectedNew.productNumber()))
+                .thenReturn(false);
         when(mockProductRepo.save(expectedNew))
                 .thenReturn(expectedNew);
         when(mockProductChangeService.createChange(products, "Product updated", ProductChangeType.UPDATE, ProductChangeStatus.ERROR))
@@ -147,11 +147,14 @@ class ProductServiceTest {
         // Then
         assertEquals(expectedNew, actual);
         verify(mockProductRepo).save(expectedNew);
-        verify(mockProductRepo).existsById(expectedNew.id());
         verify(mockProductRepo).findById(expectedNew.id());
+        verify(mockProductRepo).existsByProductNumber(expectedNew.productNumber());
+        verifyNoMoreInteractions(mockProductRepo);
+
         verify(mockProductChangeService).createChange(products, "Product updated", ProductChangeType.UPDATE, ProductChangeStatus.ERROR);
         verify(mockProductChangeService).updateProductChange(expectedChange);
         verifyNoMoreInteractions(mockProductChangeService);
+
         verify(mockStorageSpaceService).toggleStorageSpaceOccupationByName(expectedOld.storageSpaceName());
         verify(mockStorageSpaceService).toggleStorageSpaceOccupationByName(expectedNew.storageSpaceName());
         verifyNoMoreInteractions(mockStorageSpaceService);
@@ -160,46 +163,52 @@ class ProductServiceTest {
     @Test
     void updateProduct_WithUniqueProductNumber_ShouldUpdateProduct() {
         // Given
-        Product existingProduct = new Product("1", "storageSpaceNameOld", "Old Product", 20, "Old Description", "12345", 10);
-        Product updatedProduct = new Product("1", "storageSpaceNameNew", "New Product", 20, "New Description", "12345", 10);
-        ProductChange change = new ProductChange("changeId", List.of(existingProduct), "Product updated", ProductChangeType.UPDATE, ProductChangeStatus.ERROR, Instant.now());
+        Product productOld = new Product("1", "storageSpaceNameOld", "Old Product", 20, "Old Description", "12345", 10);
+        Product productNew = new Product("1", "storageSpaceNameNew", "New Product", 20, "New Description", "12345", 10);
+        ProductChange change = new ProductChange("changeId", List.of(productOld), "Product updated", ProductChangeType.UPDATE, ProductChangeStatus.ERROR, Instant.now());
 
-        when(mockProductRepo.existsById("1")).thenReturn(true);
-        when(mockProductRepo.findById("1")).thenReturn(Optional.of(existingProduct));
-        when(mockProductRepo.existsByProductNumber("12345")).thenReturn(false);
+        when(mockProductRepo.findById("1")).thenReturn(Optional.of(productOld));
+        when(mockProductRepo.existsByProductNumber(productNew.productNumber()))
+                .thenReturn(false);
         when(mockProductChangeService.createChange(any(), anyString(), any(ProductChangeType.class), any(ProductChangeStatus.class))).thenReturn(change);
-        when(mockProductRepo.save(updatedProduct)).thenReturn(updatedProduct);
+        when(mockProductRepo.save(productNew)).thenReturn(productNew);
 
         // When
-        Product result = productService.updateProduct(updatedProduct);
+        Product result = productService.updateProduct(productNew);
 
         // Then
-        assertEquals(updatedProduct, result);
-        verify(mockProductRepo).existsById("1");
-        verify(mockProductRepo).findById("1");
-        verify(mockProductRepo).existsByProductNumber("12345");
-        verify(mockProductRepo).save(updatedProduct);
+        assertEquals(productNew, result);
+
+        verify(mockProductRepo).findById(productOld.id());
+        verify(mockProductRepo).save(productNew);
+        verifyNoMoreInteractions(mockProductRepo);
+
         verify(mockProductChangeService).createChange(any(), anyString(), any(ProductChangeType.class), any(ProductChangeStatus.class));
         verify(mockProductChangeService).updateProductChange(change.withStatus(ProductChangeStatus.DONE));
+        verifyNoMoreInteractions(mockProductChangeService);
+
+        verify(mockStorageSpaceService).toggleStorageSpaceOccupationByName(productOld.storageSpaceName());
+        verify(mockStorageSpaceService).toggleStorageSpaceOccupationByName(productNew.storageSpaceName());
+        verifyNoMoreInteractions(mockStorageSpaceService);
     }
 
     @Test
     void updateProduct_WithExistingProductNumber_ShouldThrowException() {
         // Given
-        Product existingProduct = new Product("1", "storageSpaceNameOld","Old Product", 20, "Old Description", "12345", 10);
-        Product updatedProduct = new Product("1", "storageSpaceNameNew","New Product", 20, "New Description", "54321", 10);
+        Product productOld = new Product("1", "storageSpaceNameOld","Old Product", 20, "Old Description", "12345", 10);
+        Product productNew = new Product("1", "storageSpaceNameNew","New Product", 20, "New Description", "54321", 10);
 
-        when(mockProductRepo.existsById("1")).thenReturn(true);
-        when(mockProductRepo.findById("1")).thenReturn(Optional.of(existingProduct));
+        when(mockProductRepo.findById("1")).thenReturn(Optional.of(productOld));
         when(mockProductRepo.existsByProductNumber("54321")).thenReturn(true);
 
         // Then
-        assertThrows(DuplicateProductNumberException.class, () -> productService.updateProduct(updatedProduct));
+        assertThrows(DuplicateProductNumberException.class, () -> productService.updateProduct(productNew));
 
-        verify(mockProductRepo).existsById("1");
+        verify(mockProductRepo).findById("1");
         verify(mockProductRepo).existsByProductNumber("54321");
         verifyNoMoreInteractions(mockProductRepo);
         verifyNoInteractions(mockProductChangeService);
+        verifyNoInteractions(mockStorageSpaceService);
     }
 
 
