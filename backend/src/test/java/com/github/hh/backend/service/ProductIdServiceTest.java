@@ -17,17 +17,17 @@ class ProductIdServiceTest {
     @Test
     void generateProductId_whenAsked_thenReturnsAndIncreases() {
         // Given
-        ProductId expectedSave = new ProductId("65f3236ac6ef8b96fa359b47", 1);
+        ProductId expectedSave = new ProductId("GenericProductIdCounter", 1);
         String expectedId = "P1";
-        ProductId given = new ProductId("65f3236ac6ef8b96fa359b47", 0);
+        ProductId given = new ProductId("GenericProductIdCounter", 0);
 
         // When
-        when(mockProductIdRepo.findById("65f3236ac6ef8b96fa359b47")).thenReturn(Optional.of(given));
+        when(mockProductIdRepo.findById("GenericProductIdCounter")).thenReturn(Optional.of(given));
         String actual = productIdService.generateProductId();
 
         // Then
         assertEquals(expectedId, actual);
-        verify(mockProductIdRepo).findById("65f3236ac6ef8b96fa359b47");
+        verify(mockProductIdRepo).findById("GenericProductIdCounter");
         verify(mockProductIdRepo).save(expectedSave);
         verifyNoMoreInteractions(mockProductIdRepo);
     }
