@@ -136,15 +136,14 @@ class StorageSpaceServiceTest {
     @Test
     void addNewStorageSpace_whenTaken_thenThrow() {
         // Given
-        StorageSpace expected = new StorageSpace("1L", "storageSpaceName", false);
+        String storageSpaceName = "storageSpaceName";
 
         // When
-        when(mockStorageSpaceRepo.save(expected.withId(null))).thenReturn(expected);
-        when(mockStorageSpaceRepo.existsByStorageSpaceName(expected.storageSpaceName())).thenReturn(true);
+        when(mockStorageSpaceRepo.existsByStorageSpaceName(storageSpaceName)).thenReturn(true);
 
         // Then
-        assertThrows(DuplicateStorageSpaceNameException.class, () -> storageSpaceService.addNewStorageSpace("storageSpaceName"));
-        verify(mockStorageSpaceRepo).existsByStorageSpaceName(expected.storageSpaceName());
+        assertThrows(DuplicateStorageSpaceNameException.class, () -> storageSpaceService.addNewStorageSpace(storageSpaceName));
+        verify(mockStorageSpaceRepo).existsByStorageSpaceName(storageSpaceName);
         verifyNoMoreInteractions(mockStorageSpaceRepo);
     }
 
