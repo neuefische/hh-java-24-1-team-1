@@ -117,17 +117,34 @@ class StorageSpaceServiceTest {
     }
 
     @Test
-    void addNewStorageSpace_whenAddSomething_thenAddSomething() {
+    void addNewStorageSpace_whenUnique_thenAdd() {
         // Given
         StorageSpace expected = new StorageSpace("1L", "storageSpaceName", false);
 
         // When
         when(mockStorageSpaceRepo.save(expected.withId(null))).thenReturn(expected);
+        when(mockStorageSpaceRepo.existsByStorageSpaceName(expected.storageSpaceName())).thenReturn(false);
         StorageSpace actual = storageSpaceService.addNewStorageSpace(expected.storageSpaceName());
 
         // Then
         assertEquals(expected, actual);
         verify(mockStorageSpaceRepo).save(expected.withId(null));
+        verify(mockStorageSpaceRepo).existsByStorageSpaceName(expected.storageSpaceName());
+        verifyNoMoreInteractions(mockStorageSpaceRepo);
+    }
+
+    @Test
+    void addNewStorageSpace_whenTaken_thenThrow() {
+        // Given
+        StorageSpace expected = new StorageSpace("1L", "storageSpaceName", false);
+
+        // When
+        when(mockStorageSpaceRepo.save(expected.withId(null))).thenReturn(expected);
+        when(mockStorageSpaceRepo.existsByStorageSpaceName(expected.storageSpaceName())).thenReturn(true);
+
+        // Then
+        assertThrows(DuplicateStorageSpaceNameException.class, () -> storageSpaceService.addNewStorageSpace("storageSpaceName"));
+        verify(mockStorageSpaceRepo).existsByStorageSpaceName(expected.storageSpaceName());
         verifyNoMoreInteractions(mockStorageSpaceRepo);
     }
 
