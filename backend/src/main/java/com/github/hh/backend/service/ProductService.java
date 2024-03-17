@@ -45,15 +45,13 @@ public class ProductService {
     }
 
     public Product updateProduct(Product product) {
-        if (!productRepo.existsById(product.id())) {
-            throw new NoSuchProductException(product.id());
-        }
+        Product oldProduct = productRepo.findById(product.id()).orElseThrow(() -> new NoSuchProductException(product.id()));
+
         // Prüfen, ob die Artikelnummer einzigartig ist
-        if (productRepo.existsByProductNumber(product.productNumber())) {
+        if(!oldProduct.productNumber().equals(product.productNumber()) && productRepo.existsByProductNumber(product.productNumber())) {
             throw new DuplicateProductNumberException(product.productNumber());
         }
 
-        Product oldProduct = productRepo.findById(product.id()).orElseThrow();
         ProductChange newChange = productChangeService.createChange(List.of(oldProduct, product), "Product updated", ProductChangeType.UPDATE, ProductChangeStatus.ERROR);
         Product newProduct = productRepo.save(product);
         productChangeService.updateProductChange(newChange.withStatus(ProductChangeStatus.DONE));
