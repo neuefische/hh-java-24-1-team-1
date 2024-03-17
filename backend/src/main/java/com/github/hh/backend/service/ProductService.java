@@ -44,16 +44,16 @@ public class ProductService {
         return newProduct;
     }
 
-    public Product updateProduct(Product product) {
-        Product oldProduct = productRepo.findById(product.id()).orElseThrow(() -> new NoSuchProductException(product.id()));
+    public Product updateProduct(Product productNew) {
+        Product oldProduct = productRepo.findById(productNew.id()).orElseThrow(() -> new NoSuchProductException(productNew.id()));
 
         // Prüfen, ob die Artikelnummer einzigartig ist
-        if(!oldProduct.productNumber().equals(product.productNumber()) && productRepo.existsByProductNumber(product.productNumber())) {
-            throw new DuplicateProductNumberException(product.productNumber());
+        if(!oldProduct.productNumber().equals(productNew.productNumber()) && productRepo.existsByProductNumber(productNew.productNumber())) {
+                throw new DuplicateProductNumberException(productNew.productNumber());
         }
 
-        ProductChange newChange = productChangeService.createChange(List.of(oldProduct, product), "Product updated", ProductChangeType.UPDATE, ProductChangeStatus.ERROR);
-        Product newProduct = productRepo.save(product);
+        ProductChange newChange = productChangeService.createChange(List.of(oldProduct, productNew), "Product updated", ProductChangeType.UPDATE, ProductChangeStatus.ERROR);
+        Product newProduct = productRepo.save(productNew);
         productChangeService.updateProductChange(newChange.withStatus(ProductChangeStatus.DONE));
         storageSpaceService.toggleStorageSpaceOccupationByName(oldProduct.storageSpaceName());
         storageSpaceService.toggleStorageSpaceOccupationByName(newProduct.storageSpaceName());
