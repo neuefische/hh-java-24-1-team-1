@@ -1,4 +1,4 @@
-import * as yup from 'Yup';
+import * as yup from 'yup';
 import {ProductDtoDataSchema, FormError} from "../../../types/ProductDataSchema.ts";
 import './AddProductForm.css'
 import {ChangeEvent, FormEvent, useState} from "react";
