@@ -1,4 +1,4 @@
-import * as yup from 'Yup';
+import * as yup from 'yup';
 import {ProductDataSchema, FormError} from "../../../types/ProductDataSchema.ts";
 
 import './ProductUpdate.css'
