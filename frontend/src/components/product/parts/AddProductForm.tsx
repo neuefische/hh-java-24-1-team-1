@@ -28,6 +28,8 @@ export default function AddProductForm(props: Readonly<AddProductFormProps>):JSX
             }).catch((validationErrors: yup.ValidationError) => {
             // Validation failed
             const errors = validationErrors.inner.reduce<{ [key: string]: string }>((acc, currentError) => {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-expect-error
                 acc[currentError.path] = currentError.message;
                 return acc;
             }, {});
